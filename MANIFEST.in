@@ -1,0 +1,5 @@
+include Makefile
+include pytidyhtml5.cpp
+include pytidyhtml5.pyx
+recursive-include lib **
+recursive-include pytidyhtml5 **
