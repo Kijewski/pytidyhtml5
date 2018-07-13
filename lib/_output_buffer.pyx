@@ -108,7 +108,7 @@ cdef class StringBuffer(Buffer):
         cdef boolean is_ascii
         cdef signed char *s
 
-        if self.tidy_buffer.bp is not NULL:
+        if self.tidy_buffer.bp is NULL:
             raise RuntimeError('StringBuffer is already released')
 
         if self.type == BufferTypeInSpe.Void:
