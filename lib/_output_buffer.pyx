@@ -64,7 +64,7 @@ cdef class StringBuffer(Buffer):
     cdef readonly int type
 
     def __nonzero__(self):
-        return self.tidy_buffer.bp is not NULL
+        return self.tidy_buffer.allocator is not NULL
 
     def __cinit__(self, type):
         cdef uint start
@@ -108,25 +108,27 @@ cdef class StringBuffer(Buffer):
         cdef boolean is_ascii
         cdef signed char *s
 
-        if self.tidy_buffer.bp is NULL:
-            raise RuntimeError('StringBuffer is already released')
-
-        if self.type == BufferTypeInSpe.Void:
-            tidyBufFree(&self.tidy_buffer)
-            return
-
         start = buffer_type_start(self.type)
         length = self.tidy_buffer.size - start
-
-        if length <= 0:
-            tidyBufFree(&self.tidy_buffer)
+        if (length <= 0) or not self:
+            if self.tidy_buffer.allocator is not NULL:
+                tidyBufFree(&self.tidy_buffer)
+                self.tidy_buffer.bp = NULL
+                self.tidy_buffer.allocated = 0
+                self.tidy_buffer.size = 0
 
             if self.type == BufferTypeInSpe.Bytes:
-                return PyBytes_FromStringAndSize(NULL, 0)
+                result = PyBytes_FromStringAndSize(NULL, 0)
+            elif self.type != BufferTypeInSpe.Void:
+                result = PyUnicode_New(0, 0)
             else:
-                return PyUnicode_New(0, 0)
+                result = None
 
-        if self.type == BufferTypeInSpe.Utf8:
+        elif self.type == BufferTypeInSpe.Void:
+            tidyBufFree(&self.tidy_buffer)
+            result = None
+
+        elif self.type == BufferTypeInSpe.Utf8:
             result = PyUnicode_DecodeUTF8(<char*> self.tidy_buffer.bp, length, b'replace')
 
         elif self.type == BufferTypeInSpe.Bytes:
@@ -209,6 +211,7 @@ cdef class StringBuffer(Buffer):
                 (<PyCompactUnicodeObject*> result).utf8 = NULL
                 (<PyCompactUnicodeObject*> result).wstr_length = 0
 
+        self.tidy_buffer.allocator = NULL
         self.tidy_buffer.bp = NULL
         self.tidy_buffer.allocated = 0
         self.tidy_buffer.size = 0
