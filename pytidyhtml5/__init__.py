@@ -17,7 +17,7 @@ def tidy_document(text, options=None):
     document.set_option_value('OutputBOM', False)
     document.set_option_value('Wrap', 2**20)
     if options:
-        for key, value in options:
+        for key, value in options.items():
             if not document.set_option_value(key, value):
                 raise Exception(f'Could not set {key!r}={value!r}')
 
