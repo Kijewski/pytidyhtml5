@@ -130,12 +130,27 @@ cdef class NodeAttrProxy:
 @no_gc
 @auto_pickle(False)
 cdef class Node:
+    '''
+    A node in the deserialized document.
+
+    This includes text nodes, processing instructions and more,
+    cf. :class:`~pytidyhtml5.NodeType`.
+    '''
+
     cdef TidyNode tidy_node
     cdef readonly Document document
 
-    def __cinit__(self, Document document=None):
+    def __cinit__(Node self):
         self.tidy_node = NULL
+
+    def __init__(Node self, Document document=None):
         self.document = document
+
+    _non_zero_doc = (
+        'A Node is truthy if it has an assigned TidyNode (i.e. if it was '
+        'created by some :class:`~pytidyhtml5.Document` method), '
+        'and the document has was not been released in the meantime.'
+    )
 
     def __nonzero__(Node self):
         return (self.tidy_node is not NULL) and bool(self.document)
@@ -148,12 +163,22 @@ cdef class Node:
             return f'<Node>'
 
     def __eq__(Node self, other):
+        '''
+        Compares the underlying node.
+
+        If you get the same node twice from a document, you will will have
+        two distinct :class:`pytidyhtml5.Node` instances that compare
+        equal.
+        '''
         if type(self) is not type(self):
             return NotImplemented
         else:
             return (self.tidy_node is not NULL) and (self.tidy_node is (<Node> other).tidy_node)
 
     def __ne__(Node self, other):
+        '''
+        Simply ``not (self == other)``
+        '''
         if type(self) is not type(other):
             return NotImplemented
         else:
@@ -171,18 +196,72 @@ cdef class Node:
                 return result
 
     cpdef get_parent(Node self):
+        '''
+        Returns the parent node.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Node`
+            The parent node.
+        None:
+            If ``self.type == NodeType.Root`` or ``not bool(self)``.
+        '''
         return self.__get_node(tidyGetParent)
 
     cpdef get_child(Node self):
+        '''
+        Returns the first child node.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Node`
+            The first child node.
+        None:
+            If ``not bool(self)`` or the if ``self`` has no children.
+        '''
         return self.__get_node(tidyGetChild)
 
     cpdef get_next(Node self):
+        '''
+        Returns the next sibling node.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Node`
+            The next child sibling node.
+        None:
+            If ``not bool(self)`` or there are no further siblings.
+        '''
         return self.__get_node(tidyGetNext)
 
     cpdef get_prev(Node self):
+        '''
+        Returns the previous sibling node.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Node`
+            The previous child sibling node.
+        None:
+            If ``not bool(self)`` or there are no prior siblings.
+        '''
         return self.__get_node(tidyGetPrev)
 
     def discard(Node self):
+        '''
+        Removes the current not from the document.
+
+        If the have a second reference to the current node, then don't use it anymore.
+        In the best case the program will only crash.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Node`
+            The next sibling. The result may be falsy, if the discarded node
+            was the last node.
+        None:
+            If ``not bool(self)``.
+        '''
         cdef Node result
         cdef TidyDoc tidy_doc
         cdef TidyNode tidy_node
@@ -202,24 +281,48 @@ cdef class Node:
         with nogil:
             tidy_node = tidyDiscardElement(tidy_doc, self.tidy_node)
 
-        if tidy_node is not NULL:
-            result = Node(self.document)
-            result.tidy_node = tidy_node
-            return result
+        result = Node(self.document)
+        result.tidy_node = tidy_node
+        return result
 
     cpdef get_attr_first(Node self):
+        '''
+        Returns the first attribute.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Attr`
+            The first attribute.
+        None:
+            If ``not bool(self)`` or the if ``self`` has no attributes.
+        '''
         cdef Attr result
         cdef TidyNode tidy_node = self.tidy_node
         cdef TidyAttr tidy_attr
 
         if tidy_node is not NULL:
             tidy_attr = tidyAttrFirst(tidy_node)
-            if tidy_node is not NULL:
+            if tidy_attr is not NULL:
                 result = Attr(self)
                 result.tidy_attr = tidy_attr
                 return result
 
     cpdef get_attr_by_id(Node self, name):
+        '''
+        Returns an attribute by its Id.
+
+        Arguments
+        ---------
+        :class:`pytidyhtml5.AttrId`|int|str
+            The argument to retrieve.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.Attr`
+            The matcjing attribute.
+        None:
+            If ``not bool(self)`` or there was not such attribute.
+        '''
         cdef Attr result
         cdef TidyAttr tidy_attr
         cdef object attr_id = attr_id_for_name(name)
@@ -233,15 +336,73 @@ cdef class Node:
                 return result
 
     def iter_children(Node self):
+        '''
+        Yield the children of the current node.
+
+        Essentially the same as
+
+        .. code-block:: python
+
+            node = self.get_child()
+            while node:
+                yield node
+                node = node.get_next()
+
+        Expect undefined behavior if you alter the tree during an iteration.
+
+        Yields
+        ------
+        :class:`pytidyhtml5.Node`
+            Children of the current node.
+        '''
         return NodeIterChildren(self)
 
     def iter_attrs(Node self):
+        '''
+        Yield the attributes of the current node.
+
+        Essentially the same as
+
+        .. code-block:: python
+
+            attr = self.get_attr_first()
+            while attr:
+                yield attr
+                attr = attr.get_next()
+
+        Expect undefined behavior if you alter the tree during an iteration.
+
+        Yields
+        ------
+        :class:`pytidyhtml5.Attr`
+            Attributes of the current node.
+        '''
         return NodeIterAttributes(self)
 
     cpdef get_name(Node self):
+        '''
+        Returns the tag name of the current node.
+
+        Returns
+        -------
+        str
+            Tag name of the current node.
+        None
+            If the node was falsy or the node does not have a name.
+        '''
         return _unicode_fn(self.tidy_node, tidyNodeGetName)
 
     cpdef get_position(Node self):
+        '''
+        Returns a tuple of the position in the input stream.
+
+        Returns
+        -------
+        tuple
+            line and column
+        None
+            If the node was falsy.
+        '''
         cdef uint line, column
         cdef TidyNode tidy_node = self.tidy_node
         if tidy_node is not NULL:
@@ -250,16 +411,65 @@ cdef class Node:
             return line, column
 
     cpdef get_is_text(Node self):
+        '''
+        Returns whether the current node is a text node.
+
+        Same as ``self.type is NoteType.Text``.
+
+        Returns
+        -------
+        bool
+            Yes or no.
+        None
+            If the node was falsy.
+        '''
         return _bool_fn(self.tidy_node, tidyNodeIsText)
 
     cpdef get_tag_id(Node self):
+        '''
+        Returns the tag of the current node numerically.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.TagId`
+            Id of the current tag.
+        int
+            The result was not understood. Is the loaded tidy.so newer than this wrapper?
+        None
+            ``not bool(self)``
+        '''
         return _GetEnum[TidyNode, TidyTagId]._do(self.tidy_node, tidyNodeGetId, _TagId)
 
     cpdef get_node_type(Node self):
+        '''
+        Returns the type of the current node.
+
+        Returns
+        -------
+        :class:`pytidyhtml5.NodeType`
+            Id of the current node type.
+        int
+            The result was not understood. Is the loaded tidy.so newer than this wrapper?
+        None
+            ``not bool(self)``
+        '''
         return _GetEnum[TidyNode, TidyNodeType]._do(self.tidy_node, tidyNodeGetType, _NodeType)
 
     @property
     def attr(Node self):
+        '''
+        A proxy for easier access of the node's attributes.
+
+        E.g.
+
+        .. code:: python
+
+            self.attr['id']                 # retrieve attribute value
+            self.attr['id'] = 'some_value'  # set attribute value
+            del self.attr['id']             # discard attribute
+
+            set(self.attr) == { AttrId.ALT, ... }  # Iterate over set ids
+        '''
         return NodeAttrProxy(self)
 
     parent = property(get_parent)

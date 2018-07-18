@@ -104,6 +104,10 @@ cdef class OptionIterLinkedOptions:
 @no_gc
 @auto_pickle(False)
 cdef class Option:
+    '''
+    An option that effects how a document will be serialized or deserialized.
+    '''
+
     cdef TidyOption tidy_option
     cdef readonly document
 
@@ -113,12 +117,13 @@ cdef class Option:
     def __init__(Option self, Document document=None):
         self.document = document
 
+    _non_zero_doc = (
+        'An Option is truthy if it has an assigned TidyOption (i.e. if it was '
+        'created by some :class:`~pytidyhtml5.Document` method), '
+        'and the document has was not been released in the meantime.'
+    )
+
     def __nonzero__(Option self):
-        '''
-        An Option is truthy if it has a assigned TidyOption (i.e. if it was
-        created by some `Document <pytidyhtml5.Document_>`_ method),
-        and the document has was not been released in the meantime.
-        '''
         return (self.tidy_option is not NULL) and bool(self.document)
 
     def __repr__(Option self):
@@ -133,7 +138,7 @@ cdef class Option:
         Compares the underlying pointer.
 
         If you get the same option twice from a document, you will will have
-        two distinct :class:`~pytidyhtml5.Document` instances that compare
+        two distinct :class:`~pytidyhtml5.Option` instances that compare
         equal.
         '''
         if type(self) is not type(self):
