@@ -23,7 +23,7 @@ cdef class DocumentIterOptions:
     cdef TidyIterator tidy_iterator
     cdef readonly Document document
 
-    def __cinit__(self, Document document):
+    def __cinit__(DocumentIterOptions self, Document document):
         cdef TidyDoc tidy_doc
         cdef TidyIterator tidy_iterator
 
@@ -37,13 +37,21 @@ cdef class DocumentIterOptions:
                     self.tidy_iterator = tidy_iterator
                     self.document = document
 
-    def __nonzero__(self):
-        return (self.tidy_iterator is not NULL) and bool(self.document)
+    cdef boolean _nonzero__(DocumentIterOptions self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(DocumentIterOptions self):
+        return self._nonzero()
+
+    def __iter__(DocumentIterOptions self):
         return self
 
-    def __next__(self):
+    def __next__(DocumentIterOptions self):
         cdef TidyDoc tidy_doc
         cdef TidyOption tidy_option
         cdef Option option
@@ -72,7 +80,7 @@ cdef class DocumentIterOptionIds:
     cdef TidyIterator tidy_iterator
     cdef readonly Document document
 
-    def __cinit__(self, Document document):
+    def __cinit__(DocumentIterOptionIds self, Document document):
         cdef TidyDoc tidy_doc
         cdef TidyIterator tidy_iterator
 
@@ -86,13 +94,21 @@ cdef class DocumentIterOptionIds:
                     self.tidy_iterator = tidy_iterator
                     self.document = document
 
-    def __nonzero__(self):
-        return self.tidy_iterator is not NULL
+    cdef inline boolean _nonzero(DocumentIterOptionIds self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(DocumentIterOptionIds self):
+        return self._nonzero()
+
+    def __iter__(DocumentIterOptionIds self):
         return self
 
-    def __next__(self):
+    def __next__(DocumentIterOptionIds self):
         cdef TidyDoc tidy_doc
         cdef TidyOption tidy_option
         cdef Option option
@@ -120,7 +136,7 @@ cdef class DocumentIterDeclTags:
     cdef readonly Document document
     cdef readonly long option_id
 
-    def __cinit__(self, Document document, object option):
+    def __cinit__(DocumentIterDeclTags self, Document document, object option):
         cdef TidyDoc tidy_doc
         cdef TidyIterator tidy_iterator
         cdef long option_id
@@ -138,13 +154,21 @@ cdef class DocumentIterDeclTags:
                     self.document = document
                     self.option_id = option_id
 
-    def __nonzero__(self):
-        return self.tidy_iterator is not NULL
+    cdef inline boolean _nonzero(DocumentIterDeclTags self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(DocumentIterDeclTags self):
+        return self._nonzero()
+
+    def __iter__(DocumentIterDeclTags self):
         return self
 
-    def __next__(self):
+    def __next__(DocumentIterDeclTags self):
         cdef TidyDoc tidy_doc
         cdef TidyOption tidy_option
         cdef ctmbstr text
@@ -173,16 +197,22 @@ cdef class DocumentIterDeclTags:
 cdef class DocumentOptionsProxy:
     cdef readonly Document document
 
-    def __cinit__(self, Document document):
+    def __cinit__(DocumentOptionsProxy self, Document document):
         self.document = document
 
-    def __nonzero__(self):
-        return self.document is not None
+    cdef inline boolean _nonzero(DocumentOptionsProxy self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(DocumentOptionsProxy self):
+        return self._nogil()
+
+    def __iter__(DocumentOptionsProxy self):
         return DocumentIterOptionIds(self.document)
 
-    def __getitem__(self, id):
+    def __getitem__(DocumentOptionsProxy self, id):
         cdef Document document = self.document
         cdef Option option
 
@@ -199,7 +229,7 @@ cdef class DocumentOptionsProxy:
 
         return option.get_value()
 
-    def __setitem__(self, id, value):
+    def __setitem__(DocumentOptionsProxy self, id, value):
         cdef Document document = self.document
         cdef Option option
 
@@ -216,7 +246,7 @@ cdef class DocumentOptionsProxy:
 
         option.set_value(value)
 
-    def __delitem__(self, id):
+    def __delitem__(DocumentOptionsProxy self, id):
         cdef Document document = self.document
         cdef Option option
 
@@ -287,16 +317,24 @@ cdef class DocumentIterPriorityAttrs:
     cdef TidyIterator tidy_iterator
     cdef readonly Document document
 
-    def __cinit__(self, Document document):
+    def __cinit__(DocumentIterPriorityAttrs self, Document document):
         self.document = document_iter_ctmbstr_init(document, &self.tidy_iterator, tidyOptGetPriorityAttrList)
 
-    def __nonzero__(self):
-        return self.tidy_iterator is not NULL
+    cdef inline boolean _nonzero(DocumentIterPriorityAttrs self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is not NULL:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(DocumentIterPriorityAttrs self):
+        return self._nonzero()
+
+    def __iter__(DocumentIterPriorityAttrs self):
         return self
 
-    def __next__(self):
+    def __next__(DocumentIterPriorityAttrs self):
         return document_iter_ctmbstr_next(
             ref_document[DocumentIterPriorityAttrs](<PyObject*> self),
             &self.tidy_iterator,
@@ -311,16 +349,24 @@ cdef class DocumentIterMutedMessages:
     cdef TidyIterator tidy_iterator
     cdef readonly Document document
 
-    def __cinit__(self, Document document):
+    def __cinit__(DocumentIterMutedMessages self, Document document):
         self.document = document_iter_ctmbstr_init(document, &self.tidy_iterator, tidyOptGetMutedMessageList)
 
-    def __nonzero__(self):
-        return self.tidy_iterator is not NULL
+    cdef inline boolean _nonzero(DocumentIterMutedMessages self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(DocumentIterMutedMessages self):
+        return self._nonzero()
+
+    def __iter__(DocumentIterMutedMessages self):
         return self
 
-    def __next__(self):
+    def __next__(DocumentIterMutedMessages self):
         return document_iter_ctmbstr_next(
             ref_document[DocumentIterPriorityAttrs](<PyObject*> self),
             &self.tidy_iterator,
@@ -352,7 +398,7 @@ cdef class Document:
     cdef readonly object error_sink
     cdef readonly object _message_callback
 
-    def __cinit__(self):
+    def __cinit__(Document self):
         cdef TidyDoc tidy_doc = tidyCreateWithAllocator(&allocator_raw)
 
         if tidy_doc is NULL:
@@ -361,14 +407,20 @@ cdef class Document:
         tidySetAppData(tidy_doc, <void*> self)
         self.tidy_doc = tidy_doc
 
-    def __dealloc__(self):
+    def __dealloc__(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
         self.tidy_doc = NULL
         if tidy_doc is not NULL:
             tidyRelease(tidy_doc)
 
+    cdef inline boolean _nonzero(Document self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.tidy_doc is not NULL
+
     def __nonzero__(Document self):
-        return self.tidy_doc != NULL
+        return self._nonzero()
 
     def __repr__(Document self):
         cdef uintptr_t addr = <uintptr_t> <void*> self.tidy_doc
@@ -487,7 +539,7 @@ cdef class Document:
                 result = tidySaveStdout(tidy_doc)
             return result
 
-    cpdef save_sink(self, arg):
+    cpdef save_sink(Document self, arg):
         cdef int result
         cdef TidyDoc tidy_doc
         cdef TidyBuffer tidy_buffer

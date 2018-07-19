@@ -4,17 +4,23 @@
 cdef class NodeIterChildren:
     cdef readonly Node node
 
-    def __cinit__(self, Node parent):
+    def __cinit__(NodeIterChildren self, Node parent):
         if parent is not None:
             self.node = parent.get_child()
 
-    def __nonzero__(self):
-        return bool(self.node)
+    cdef inline boolean _nonzero(NodeIterChildren self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.node._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(NodeIterChildren self):
+        return self._nonzero()
+
+    def __iter__(NodeIterChildren self):
         return self
 
-    def __next__(self):
+    def __next__(NodeIterChildren self):
         cdef Node result = self.node
         if result is not None:
             self.node = result.get_next()
@@ -28,17 +34,23 @@ cdef class NodeIterChildren:
 cdef class NodeIterAttributes:
     cdef readonly Attr attr
 
-    def __cinit__(self, Node parent):
+    def __cinit__(NodeIterAttributes self, Node parent):
         if parent is not None:
             self.attr = parent.get_attr_first()
 
-    def __nonzero__(self):
-        return bool(self.attr)
+    cdef inline boolean _nonzero(NodeIterAttributes self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.attr._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(NodeIterAttributeIds self):
+        return self._nonzero()
+
+    def __iter__(NodeIterAttributes self):
         return self
 
-    def __next__(self):
+    def __next__(NodeIterAttributes self):
         cdef Attr result = self.attr
         if result is not None:
             self.attr = result.get_next()
@@ -52,17 +64,23 @@ cdef class NodeIterAttributes:
 cdef class NodeIterAttributeIds:
     cdef readonly Attr attr
 
-    def __cinit__(self, Node parent):
+    def __cinit__(NodeIterAttributeIds self, Node parent):
         if parent is not None:
             self.attr = parent.get_attr_first()
 
-    def __nonzero__(self):
-        return bool(self.attr)
+    cdef inline boolean _nonzero(NodeIterAttributeIds self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.attr._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(NodeIterAttributeIds self):
+        return self._nonzero()
+
+    def __iter__(NodeIterAttributeIds self):
         return self
 
-    def __next__(self):
+    def __next__(NodeIterAttributeIds self):
         cdef object name
         cdef Attr result
 
@@ -84,16 +102,22 @@ cdef class NodeIterAttributeIds:
 cdef class NodeAttrProxy:
     cdef readonly Node node
 
-    def __cinit__(self, Node node):
+    def __cinit__(NodeAttrProxy self, Node node):
         self.node = node
 
-    def __nonzero__(self):
-        return bool(self.node)
+    cdef inline boolean _nonzero(NodeAttrProxy self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.node._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(NodeAttrProxy self):
+        return self._nonzero()
+
+    def __iter__(NodeAttrProxy self):
         return NodeIterAttributeIds(self.node)
 
-    def __getitem__(self, id):
+    def __getitem__(NodeAttrProxy self, id):
         cdef Node node = self.node
         cdef Attr attr
 
@@ -110,7 +134,7 @@ cdef class NodeAttrProxy:
 
         return attr.get_value()
 
-    def __delitem__(self, id):
+    def __delitem__(NodeAttrProxy self, id):
         cdef Node node = self.node
         cdef Attr attr
 
@@ -152,8 +176,16 @@ cdef class Node:
         'and the document has was not been released in the meantime.'
     )
 
+    cdef inline boolean _nonzero(Node self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_node is NULL:
+            return False
+        else:
+            return self.document._nonzero()
+
     def __nonzero__(Node self):
-        return (self.tidy_node is not NULL) and bool(self.document)
+        return self._nonzero()
 
     def __repr__(Node self):
         cdef uintptr_t addr = <uintptr_t> <void*> self.tidy_node

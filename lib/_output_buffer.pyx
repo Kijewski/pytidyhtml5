@@ -16,11 +16,11 @@ cdef type _BufferType
 class _BufferType(IntEnum):
     for_name = staticmethod(buffer_type_for_name)
 
-    Void = BufferTypeInSpe.Void
-    Utf8 = BufferTypeInSpe.Utf8
-    Ascii = BufferTypeInSpe.Ascii
-    Latin1 = BufferTypeInSpe.Latin1
-    Bytes = BufferTypeInSpe.Bytes
+    void = BufferTypeInSpe.Void
+    utf8 = BufferTypeInSpe.Utf8
+    ascii = BufferTypeInSpe.Ascii
+    latin1 = BufferTypeInSpe.Latin1
+    bytes = BufferTypeInSpe.Bytes
 
 BufferType = _BufferType
 
@@ -46,13 +46,19 @@ cdef inline Py_ssize_t buffer_type_start(int type):
 cdef class Buffer:
     cdef TidyBuffer tidy_buffer
 
-    def __cinit__(self, type):
+    def __cinit__(Buffer self, *args):
         memset(&self.tidy_buffer, 0, sizeof(self.tidy_buffer))
 
-    def __nonzero__(self):
-        return self.tidy_buffer.bp is not NULL
+    cdef inline boolean _nonzero(Buffer self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.tidy_buffer.allocator is not NULL
 
-    def __dealloc__(self):
+    def __nonzero__(Buffer self):
+        return self._nonzero()
+
+    def __dealloc__(Buffer self):
         if self.tidy_buffer.bp is not NULL:
             tidyBufFree(&self.tidy_buffer)
 
@@ -63,10 +69,7 @@ cdef class Buffer:
 cdef class StringBuffer(Buffer):
     cdef readonly int type
 
-    def __nonzero__(self):
-        return self.tidy_buffer.allocator is not NULL
-
-    def __cinit__(self, type):
+    def __cinit__(StringBuffer self, type):
         cdef uint start
         cdef long int_type
 
@@ -90,17 +93,17 @@ cdef class StringBuffer(Buffer):
 
         self.type = int_type
 
-    def __len__(self):
+    def __len__(StringBuffer self):
         if self:
             return self.tidy_buffer.size - buffer_type_start(self.type)
         else:
             return 0
 
-    cpdef decode(self, const char *encoding, const char *errors = b'strict'):
+    cpdef decode(StringBuffer self, const char *encoding, const char *errors = b'strict'):
         cdef object mem = PyMemoryView_FromObject(self)
         return PyUnicode_FromEncodedObject(mem, encoding, errors)
 
-    cpdef release(self):
+    cpdef release(StringBuffer self):
         cdef void *temp = NULL
         cdef Py_ssize_t start, length
         cdef object result
@@ -219,7 +222,7 @@ cdef class StringBuffer(Buffer):
 
         return result
 
-    def __getbuffer__(self, Py_buffer *view, int flags):
+    def __getbuffer__(StringBuffer self, Py_buffer *view, int flags):
         if not self:
             raise RuntimeError('StringBuffer is already released')
 
@@ -235,7 +238,7 @@ cdef class StringBuffer(Buffer):
         view.strides = &STRIDES_1
         view.suboffsets = NULL
 
-    def append(self, data):
+    def append(StringBuffer self, data):
         cdef Py_buffer view
 
         if not self:

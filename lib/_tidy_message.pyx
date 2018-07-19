@@ -11,8 +11,16 @@ cdef class Message:
     def get_document(Message self):
         return self.document
 
+    cdef inline boolean _nonzero(Message self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_message is NULL:
+            return False
+        else:
+            return self.document._nonzero()
+
     def __nonzero__(Message self):
-        return (self.tidy_message is not NULL) and bool(self.document)
+        return self._nonzero()
 
     cpdef get_format_default(Message self):
         return _unicode_fn(self.tidy_message, tidyGetMessageFormatDefault)
@@ -95,8 +103,16 @@ cdef class MessageArg:
     def __cinit__(MessageArg self, Message message):
         self.message = message
 
+    cdef inline boolean _nonzero(MessageArg self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_arg is NULL:
+            return False
+        else:
+            return self.message._nonzero()
+
     def __nonzero__(MessageArg self):
-        return bool(self.message) and (self.tidy_arg is not NULL)
+        return self._nonzero()
 
     cpdef get_type(MessageArg self):
         cdef TidyFormatParameterType typ
@@ -174,8 +190,16 @@ cdef class MessageIterArgs:
                     self.tidy_iterator = tidy_iterator
                     self.message = message
 
+    cdef inline boolean _nonzero(self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.message._nonzero()
+
     def __nonzero__(self):
-        return (self.tidy_iterator is not NULL) and bool(self.message)
+        return self._nonzero()
 
     def __iter__(self):
         return self
@@ -223,8 +247,16 @@ cdef class MessageIterValues:
                     self.tidy_iterator = tidy_iterator
                     self.message = message
 
+    cdef inline boolean _nonzero(self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.message._nonzero()
+
     def __nonzero__(self):
-        return (self.tidy_iterator is not NULL) and bool(self.message)
+        return self._nonzero()
 
     def __iter__(self):
         return self

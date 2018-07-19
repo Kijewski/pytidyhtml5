@@ -72,5 +72,5 @@ All getters exist as methods, too:
     pytidyhtml5.Node.get_name
     pytidyhtml5.Node.get_position
     pytidyhtml5.Node.get_is_text
-    pytidyhtml5.Node.get_id
-    pytidyhtml5.Node.get_type
+    pytidyhtml5.Node.get_tag_id
+    pytidyhtml5.Node.get_node_type

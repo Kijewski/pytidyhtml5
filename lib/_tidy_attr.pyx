@@ -9,8 +9,16 @@ cdef class Attr:
         self.tidy_attr = NULL
         self.node = node
 
+    cdef inline boolean _nonzero(Attr self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_attr is NULL:
+            return False
+        else:
+            return self.node._nonzero()
+
     def __nonzero__(Attr self):
-        return (self.tidy_attr is not NULL) and bool(self.node)
+        return self._nonzero()
 
     def __repr__(Attr self):
         cdef uintptr_t addr = <uintptr_t> <void*> self.tidy_attr

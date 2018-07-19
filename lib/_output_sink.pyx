@@ -27,11 +27,15 @@ cdef class OutputSink:
         self.tidy_sink.sinkData = <void*> self
         self.tidy_sink.putByte = NULL
 
-    def __nonzero__(OutputSink self):
+    cdef inline boolean _nonzero(OutputSink self) nogil:
         return (
+            (self is not None) and
             (self.tidy_sink.sinkData is <void*> self) and
             (self.tidy_sink.putByte is not NULL)
         )
+
+    def __nonzero__(OutputSink self):
+        return self._nonzero()
 
 
 @final
@@ -57,8 +61,14 @@ cdef class CallbackSink(OutputSink):
         else:
             raise RuntimeError
 
-    def __nonzero__(OutputSink self):
-        return super().__nonzero__() and (self.exception is None)
+    cdef inline boolean _nonzero_CallbackSink(CallbackSink self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.exception is None
+
+    def __nonzero__(CallbackSink self):
+        return self._nonzero_CallbackSink()
 
     cdef void _put_byte_integer(CallbackSink self, byte bt):
         if self.exception is None:
@@ -125,8 +135,14 @@ cdef class FiledescriptorSink(OutputSink):
 
         self.buffer = PyByteArray_FromStringAndSize(NULL, buffering)
 
+    cdef inline boolean _nonzero_FiledescriptorSink(FiledescriptorSink self) nogil:
+        if self is None:
+            return False
+        else:
+            return self.fd >= 0
+
     def __nonzero__(FiledescriptorSink self):
-        return self.fd >= 0
+        return self._nonzero_FiledescriptorSink()
 
     def __enter__(FiledescriptorSink self):
         return self
@@ -211,11 +227,14 @@ cdef class FiledescriptorSink(OutputSink):
 @no_gc
 @auto_pickle(False)
 cdef class VoidSink(OutputSink):
-    def __cinit__(FiledescriptorSink self):
+    def __cinit__(VoidSink self):
         self.tidy_sink.putByte = FiledescriptorSink.put_byte
 
-    def __nonzero__(OutputSink self):
+    cdef inline boolean _nonzero_VoidSink(VoidSink self) nogil:
         return True
+
+    def __nonzero__(VoidSink self):
+        return self._nonzero_VoidSink()
 
     @staticmethod
     cdef void put_byte(void *sinkData, byte bt) nogil:

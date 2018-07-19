@@ -5,7 +5,7 @@ cdef class OptionPicklist:
     cdef readonly Option option
     cdef TidyIterator tidy_iterator
 
-    def __cinit__(self, Option option):
+    def __cinit__(OptionPicklist self, Option option):
         cdef TidyOption tidy_option
         cdef TidyIterator tidy_iterator
 
@@ -19,13 +19,21 @@ cdef class OptionPicklist:
                     self.tidy_iterator = tidy_iterator
                     self.option = option
 
-    def __nonzero__(self):
-        return (self.tidy_iterator is not NULL) and bool(self.tidy_option)
+    cdef inline boolean _nonzero(OptionPicklist self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.option._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(OptionPicklist self):
+        return self._nonzero()
+
+    def __iter__(OptionPicklist self):
         return self
 
-    def __next__(self):
+    def __next__(OptionPicklist self):
         cdef TidyOption tidy_option
         cdef ctmbstr text
         cdef size_t length
@@ -53,7 +61,7 @@ cdef class OptionIterLinkedOptions:
     cdef readonly Document document
     cdef TidyIterator tidy_iterator
 
-    def __cinit__(self, Option option):
+    def __cinit__(OptionIterLinkedOptions self, Option option):
         cdef Document document
         cdef TidyOption tidy_option
         cdef TidyDoc tidy_doc
@@ -72,13 +80,21 @@ cdef class OptionIterLinkedOptions:
                         self.tidy_iterator = tidy_iterator
                         self.document = document
 
-    def __nonzero__(self):
-        return (self.tidy_iterator is not NULL) and bool(self.document)
+    cdef inline boolean _nonzero(OptionIterLinkedOptions self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_iterator is NULL:
+            return False
+        else:
+            return self.document._nonzero()
 
-    def __iter__(self):
+    def __nonzero__(OptionIterLinkedOptions self):
+        return self._nonzero()
+
+    def __iter__(OptionIterLinkedOptions self):
         return self
 
-    def __next__(self):
+    def __next__(OptionIterLinkedOptions self):
         cdef TidyDoc tidy_doc
         cdef TidyOption tidy_option
         cdef Option result
@@ -109,7 +125,7 @@ cdef class Option:
     '''
 
     cdef TidyOption tidy_option
-    cdef readonly document
+    cdef readonly Document document
 
     def __cinit__(Option self):
         self.tidy_option = NULL
@@ -123,8 +139,16 @@ cdef class Option:
         'and the document has was not been released in the meantime.'
     )
 
+    cdef inline boolean _nonzero(Option self) nogil:
+        if self is None:
+            return False
+        elif self.tidy_option is NULL:
+            return False
+        else:
+            return self.document._nonzero()
+
     def __nonzero__(Option self):
-        return (self.tidy_option is not NULL) and bool(self.document)
+        return self._nonzero()
 
     def __repr__(Option self):
         cdef uintptr_t addr = <uintptr_t> <void*> self.tidy_option
