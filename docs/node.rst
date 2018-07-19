@@ -64,13 +64,13 @@ All getters exist as methods, too:
 
 .. autosummary::
 
-    pytidyhtml5.Node.parent
-    pytidyhtml5.Node.child
-    pytidyhtml5.Node.next
-    pytidyhtml5.Node.prev
-    pytidyhtml5.Node.attr_first
-    pytidyhtml5.Node.name
-    pytidyhtml5.Node.position
-    pytidyhtml5.Node.is_text
-    pytidyhtml5.Node.id
-    pytidyhtml5.Node.type
+    pytidyhtml5.Node.get_parent
+    pytidyhtml5.Node.get_child
+    pytidyhtml5.Node.get_next
+    pytidyhtml5.Node.get_prev
+    pytidyhtml5.Node.get_attr_first
+    pytidyhtml5.Node.get_name
+    pytidyhtml5.Node.get_position
+    pytidyhtml5.Node.get_is_text
+    pytidyhtml5.Node.get_id
+    pytidyhtml5.Node.get_type
