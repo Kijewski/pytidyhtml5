@@ -8,6 +8,7 @@ FILES := Makefile MANIFEST.in _${NAME}.pyx README.rst setup.py \
          lib/native.hpp lib/VERSION
 
 _${NAME}.cpp: _${NAME}.pyx $(wildcard lib/*.pyx)
+	./generate_imports.py
 	rm -f -- dist/*.so _${NAME}.cpp
 	rm -f ./_${NAME}.cpp
 	cythonize $<
@@ -27,6 +28,8 @@ docs: bdist_wheel $(wildcard docs/* docs/*/*)
 	python -m sphinx -M html docs/ dist/
 
 clean:
+	[ ! -f build/ ] || rm -- lib/_import_tidy_enum.pyx
+	[ ! -f build/ ] || rm -- lib/_tidy_enum.pyx
 	[ ! -d build/ ] || rm -r -- build/
 	[ ! -d dist/ ] || rm -r -- dist/
 	[ ! -d ${NAME}.egg-info/ ] || rm -r -- ${NAME}.egg-info/

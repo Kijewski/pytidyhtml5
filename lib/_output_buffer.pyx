@@ -9,7 +9,7 @@ cdef enum BufferTypeInSpe:
     Latin1
 
 cdef buffer_type_for_name(name):
-    return _titlecase_id_for_name(_BufferType, name)
+    return _generic_id_for_name(_BufferType, name)
 
 cdef type _BufferType
 

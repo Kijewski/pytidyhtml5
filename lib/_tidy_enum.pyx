@@ -1,1107 +1,1243 @@
-cdef type _OptionId
+# GENERATED FILE: all modifications will be overwritten.
+
+cdef type _AttrId
+cdef type _AttrSortStrategy
 cdef type _ConfigCategory
-cdef type _OptionType
-cdef type _TriState
-cdef type _UseCustomTagsState
-cdef type _LineEnding
-cdef type _EncodingOptions
 cdef type _DoctypeModes
 cdef type _DupAttrModes
-cdef type _AttrSortStrategy
-cdef type _Uppercase
-cdef type _NodeType
-cdef type _TagId
-cdef type _AttrId
-cdef type _ReportLevel
+cdef type _EncodingOptions
 cdef type _FormatParameterType
+cdef type _LineEnding
+cdef type _NodeType
+cdef type _OptionId
+cdef type _OptionType
+cdef type _ReportLevel
 cdef type _Strings
-cdef type _ParseOutcome
+cdef type _TagId
+cdef type _TriState
+cdef type _Uppercase
+cdef type _UseCustomTagsState
+
+
+cdef object attr_id_for_name(name):
+    return _generic_id_for_name(_AttrId, name)
+
+
+cdef object attr_sort_strategy_for_name(name):
+    return _generic_id_for_name(_AttrSortStrategy, name)
+
+
+cdef object config_category_for_name(name):
+    return _generic_id_for_name(_ConfigCategory, name)
+
+
+cdef object doctype_modes_for_name(name):
+    return _generic_id_for_name(_DoctypeModes, name)
+
+
+cdef object dup_attr_modes_for_name(name):
+    return _generic_id_for_name(_DupAttrModes, name)
+
+
+cdef object encoding_options_for_name(name):
+    return _generic_id_for_name(_EncodingOptions, name)
+
+
+cdef object format_parameter_type_for_name(name):
+    return _generic_id_for_name(_FormatParameterType, name)
+
+
+cdef object line_ending_for_name(name):
+    return _generic_id_for_name(_LineEnding, name)
+
+
+cdef object node_type_for_name(name):
+    return _generic_id_for_name(_NodeType, name)
+
+
+cdef object option_id_for_name(name):
+    return _generic_id_for_name(_OptionId, name)
+
+
+cdef object option_type_for_name(name):
+    return _generic_id_for_name(_OptionType, name)
+
+
+cdef object report_level_for_name(name):
+    return _generic_id_for_name(_ReportLevel, name)
+
+
+cdef object strings_for_name(name):
+    return _generic_id_for_name(_Strings, name)
+
+
+cdef object tag_id_for_name(name):
+    return _generic_id_for_name(_TagId, name)
+
+
+cdef object tri_state_for_name(name):
+    return _generic_id_for_name(_TriState, name)
+
+
+cdef object uppercase_for_name(name):
+    return _generic_id_for_name(_Uppercase, name)
+
+
+cdef object use_custom_tags_state_for_name(name):
+    return _generic_id_for_name(_UseCustomTagsState, name)
+
+
+class _AttrId(IntEnum):
+    __name__ =  __qualname__ = 'AttrId'
+    for_name = staticmethod(attr_id_for_name)
+
+    n_tidy_attribs = <unsigned int> N_TIDY_ATTRIBS
+    abbr = <unsigned int> TidyAttr_ABBR
+    about = <unsigned int> TidyAttr_ABOUT
+    accept = <unsigned int> TidyAttr_ACCEPT
+    accept_charset = <unsigned int> TidyAttr_ACCEPT_CHARSET
+    accesskey = <unsigned int> TidyAttr_ACCESSKEY
+    action = <unsigned int> TidyAttr_ACTION
+    add_date = <unsigned int> TidyAttr_ADD_DATE
+    align = <unsigned int> TidyAttr_ALIGN
+    alink = <unsigned int> TidyAttr_ALINK
+    allowfullscreen = <unsigned int> TidyAttr_ALLOWFULLSCREEN
+    alt = <unsigned int> TidyAttr_ALT
+    archive = <unsigned int> TidyAttr_ARCHIVE
+    aria_activedescendant = <unsigned int> TidyAttr_ARIA_ACTIVEDESCENDANT
+    aria_atomic = <unsigned int> TidyAttr_ARIA_ATOMIC
+    aria_autocomplete = <unsigned int> TidyAttr_ARIA_AUTOCOMPLETE
+    aria_busy = <unsigned int> TidyAttr_ARIA_BUSY
+    aria_checked = <unsigned int> TidyAttr_ARIA_CHECKED
+    aria_controls = <unsigned int> TidyAttr_ARIA_CONTROLS
+    aria_describedby = <unsigned int> TidyAttr_ARIA_DESCRIBEDBY
+    aria_disabled = <unsigned int> TidyAttr_ARIA_DISABLED
+    aria_dropeffect = <unsigned int> TidyAttr_ARIA_DROPEFFECT
+    aria_expanded = <unsigned int> TidyAttr_ARIA_EXPANDED
+    aria_flowto = <unsigned int> TidyAttr_ARIA_FLOWTO
+    aria_grabbed = <unsigned int> TidyAttr_ARIA_GRABBED
+    aria_haspopup = <unsigned int> TidyAttr_ARIA_HASPOPUP
+    aria_hidden = <unsigned int> TidyAttr_ARIA_HIDDEN
+    aria_invalid = <unsigned int> TidyAttr_ARIA_INVALID
+    aria_label = <unsigned int> TidyAttr_ARIA_LABEL
+    aria_labelledby = <unsigned int> TidyAttr_ARIA_LABELLEDBY
+    aria_level = <unsigned int> TidyAttr_ARIA_LEVEL
+    aria_live = <unsigned int> TidyAttr_ARIA_LIVE
+    aria_multiline = <unsigned int> TidyAttr_ARIA_MULTILINE
+    aria_multiselectable = <unsigned int> TidyAttr_ARIA_MULTISELECTABLE
+    aria_orientation = <unsigned int> TidyAttr_ARIA_ORIENTATION
+    aria_owns = <unsigned int> TidyAttr_ARIA_OWNS
+    aria_posinset = <unsigned int> TidyAttr_ARIA_POSINSET
+    aria_pressed = <unsigned int> TidyAttr_ARIA_PRESSED
+    aria_readonly = <unsigned int> TidyAttr_ARIA_READONLY
+    aria_relevant = <unsigned int> TidyAttr_ARIA_RELEVANT
+    aria_required = <unsigned int> TidyAttr_ARIA_REQUIRED
+    aria_selected = <unsigned int> TidyAttr_ARIA_SELECTED
+    aria_setsize = <unsigned int> TidyAttr_ARIA_SETSIZE
+    aria_sort = <unsigned int> TidyAttr_ARIA_SORT
+    aria_valuemax = <unsigned int> TidyAttr_ARIA_VALUEMAX
+    aria_valuemin = <unsigned int> TidyAttr_ARIA_VALUEMIN
+    aria_valuenow = <unsigned int> TidyAttr_ARIA_VALUENOW
+    aria_valuetext = <unsigned int> TidyAttr_ARIA_VALUETEXT
+    as_ = <unsigned int> TidyAttr_AS
+    async = <unsigned int> TidyAttr_ASYNC
+    autocomplete = <unsigned int> TidyAttr_AUTOCOMPLETE
+    autofocus = <unsigned int> TidyAttr_AUTOFOCUS
+    autoplay = <unsigned int> TidyAttr_AUTOPLAY
+    axis = <unsigned int> TidyAttr_AXIS
+    background = <unsigned int> TidyAttr_BACKGROUND
+    baseprofile = <unsigned int> TidyAttr_BASEPROFILE
+    bgcolor = <unsigned int> TidyAttr_BGCOLOR
+    bgproperties = <unsigned int> TidyAttr_BGPROPERTIES
+    border = <unsigned int> TidyAttr_BORDER
+    bordercolor = <unsigned int> TidyAttr_BORDERCOLOR
+    bottommargin = <unsigned int> TidyAttr_BOTTOMMARGIN
+    cellpadding = <unsigned int> TidyAttr_CELLPADDING
+    cellspacing = <unsigned int> TidyAttr_CELLSPACING
+    challenge = <unsigned int> TidyAttr_CHALLENGE
+    char = <unsigned int> TidyAttr_CHAR
+    charoff = <unsigned int> TidyAttr_CHAROFF
+    charset = <unsigned int> TidyAttr_CHARSET
+    checked = <unsigned int> TidyAttr_CHECKED
+    cite = <unsigned int> TidyAttr_CITE
+    class_ = <unsigned int> TidyAttr_CLASS
+    classid = <unsigned int> TidyAttr_CLASSID
+    clear = <unsigned int> TidyAttr_CLEAR
+    code = <unsigned int> TidyAttr_CODE
+    codebase = <unsigned int> TidyAttr_CODEBASE
+    codetype = <unsigned int> TidyAttr_CODETYPE
+    color = <unsigned int> TidyAttr_COLOR
+    cols = <unsigned int> TidyAttr_COLS
+    colspan = <unsigned int> TidyAttr_COLSPAN
+    compact = <unsigned int> TidyAttr_COMPACT
+    content = <unsigned int> TidyAttr_CONTENT
+    contenteditable = <unsigned int> TidyAttr_CONTENTEDITABLE
+    contentscripttype = <unsigned int> TidyAttr_CONTENTSCRIPTTYPE
+    contentstyletype = <unsigned int> TidyAttr_CONTENTSTYLETYPE
+    contextmenu = <unsigned int> TidyAttr_CONTEXTMENU
+    controls = <unsigned int> TidyAttr_CONTROLS
+    coords = <unsigned int> TidyAttr_COORDS
+    crossorigin = <unsigned int> TidyAttr_CROSSORIGIN
+    data = <unsigned int> TidyAttr_DATA
+    datafld = <unsigned int> TidyAttr_DATAFLD
+    dataformatas = <unsigned int> TidyAttr_DATAFORMATAS
+    datapagesize = <unsigned int> TidyAttr_DATAPAGESIZE
+    datasrc = <unsigned int> TidyAttr_DATASRC
+    datatype = <unsigned int> TidyAttr_DATATYPE
+    datetime = <unsigned int> TidyAttr_DATETIME
+    declare = <unsigned int> TidyAttr_DECLARE
+    default = <unsigned int> TidyAttr_DEFAULT
+    defer = <unsigned int> TidyAttr_DEFER
+    dir = <unsigned int> TidyAttr_DIR
+    dirname = <unsigned int> TidyAttr_DIRNAME
+    disabled = <unsigned int> TidyAttr_DISABLED
+    display = <unsigned int> TidyAttr_DISPLAY
+    download = <unsigned int> TidyAttr_DOWNLOAD
+    draggable = <unsigned int> TidyAttr_DRAGGABLE
+    dropzone = <unsigned int> TidyAttr_DROPZONE
+    encoding = <unsigned int> TidyAttr_ENCODING
+    enctype = <unsigned int> TidyAttr_ENCTYPE
+    event = <unsigned int> TidyAttr_EVENT
+    face = <unsigned int> TidyAttr_FACE
+    for_ = <unsigned int> TidyAttr_FOR
+    form = <unsigned int> TidyAttr_FORM
+    formaction = <unsigned int> TidyAttr_FORMACTION
+    formenctype = <unsigned int> TidyAttr_FORMENCTYPE
+    formmethod = <unsigned int> TidyAttr_FORMMETHOD
+    formnovalidate = <unsigned int> TidyAttr_FORMNOVALIDATE
+    formtarget = <unsigned int> TidyAttr_FORMTARGET
+    frame = <unsigned int> TidyAttr_FRAME
+    frameborder = <unsigned int> TidyAttr_FRAMEBORDER
+    framespacing = <unsigned int> TidyAttr_FRAMESPACING
+    gridx = <unsigned int> TidyAttr_GRIDX
+    gridy = <unsigned int> TidyAttr_GRIDY
+    headers = <unsigned int> TidyAttr_HEADERS
+    height = <unsigned int> TidyAttr_HEIGHT
+    hidden = <unsigned int> TidyAttr_HIDDEN
+    high = <unsigned int> TidyAttr_HIGH
+    href = <unsigned int> TidyAttr_HREF
+    hreflang = <unsigned int> TidyAttr_HREFLANG
+    hspace = <unsigned int> TidyAttr_HSPACE
+    http_equiv = <unsigned int> TidyAttr_HTTP_EQUIV
+    icon = <unsigned int> TidyAttr_ICON
+    id = <unsigned int> TidyAttr_ID
+    inlist = <unsigned int> TidyAttr_INLIST
+    integrity = <unsigned int> TidyAttr_INTEGRITY
+    is_ = <unsigned int> TidyAttr_IS
+    ismap = <unsigned int> TidyAttr_ISMAP
+    itemid = <unsigned int> TidyAttr_ITEMID
+    itemprop = <unsigned int> TidyAttr_ITEMPROP
+    itemref = <unsigned int> TidyAttr_ITEMREF
+    itemscope = <unsigned int> TidyAttr_ITEMSCOPE
+    itemtype = <unsigned int> TidyAttr_ITEMTYPE
+    keytype = <unsigned int> TidyAttr_KEYTYPE
+    kind = <unsigned int> TidyAttr_KIND
+    label = <unsigned int> TidyAttr_LABEL
+    lang = <unsigned int> TidyAttr_LANG
+    language = <unsigned int> TidyAttr_LANGUAGE
+    last_modified = <unsigned int> TidyAttr_LAST_MODIFIED
+    last_visit = <unsigned int> TidyAttr_LAST_VISIT
+    leftmargin = <unsigned int> TidyAttr_LEFTMARGIN
+    link = <unsigned int> TidyAttr_LINK
+    list = <unsigned int> TidyAttr_LIST
+    longdesc = <unsigned int> TidyAttr_LONGDESC
+    loop = <unsigned int> TidyAttr_LOOP
+    low = <unsigned int> TidyAttr_LOW
+    lowsrc = <unsigned int> TidyAttr_LOWSRC
+    manifest = <unsigned int> TidyAttr_MANIFEST
+    marginheight = <unsigned int> TidyAttr_MARGINHEIGHT
+    marginwidth = <unsigned int> TidyAttr_MARGINWIDTH
+    max = <unsigned int> TidyAttr_MAX
+    maxlength = <unsigned int> TidyAttr_MAXLENGTH
+    media = <unsigned int> TidyAttr_MEDIA
+    mediagroup = <unsigned int> TidyAttr_MEDIAGROUP
+    method = <unsigned int> TidyAttr_METHOD
+    methods = <unsigned int> TidyAttr_METHODS
+    min = <unsigned int> TidyAttr_MIN
+    multiple = <unsigned int> TidyAttr_MULTIPLE
+    n = <unsigned int> TidyAttr_N
+    name = <unsigned int> TidyAttr_NAME
+    nohref = <unsigned int> TidyAttr_NOHREF
+    noresize = <unsigned int> TidyAttr_NORESIZE
+    noshade = <unsigned int> TidyAttr_NOSHADE
+    novalidate = <unsigned int> TidyAttr_NOVALIDATE
+    nowrap = <unsigned int> TidyAttr_NOWRAP
+    object = <unsigned int> TidyAttr_OBJECT
+    open = <unsigned int> TidyAttr_OPEN
+    optimum = <unsigned int> TidyAttr_OPTIMUM
+    on_abort = <unsigned int> TidyAttr_OnABORT
+    on_afterprint = <unsigned int> TidyAttr_OnAFTERPRINT
+    on_afterupdate = <unsigned int> TidyAttr_OnAFTERUPDATE
+    on_beforeprint = <unsigned int> TidyAttr_OnBEFOREPRINT
+    on_beforeunload = <unsigned int> TidyAttr_OnBEFOREUNLOAD
+    on_beforeupdate = <unsigned int> TidyAttr_OnBEFOREUPDATE
+    on_blur = <unsigned int> TidyAttr_OnBLUR
+    on_canplay = <unsigned int> TidyAttr_OnCANPLAY
+    on_canplaythrough = <unsigned int> TidyAttr_OnCANPLAYTHROUGH
+    on_change = <unsigned int> TidyAttr_OnCHANGE
+    on_click = <unsigned int> TidyAttr_OnCLICK
+    on_contextmenu = <unsigned int> TidyAttr_OnCONTEXTMENU
+    on_cuechange = <unsigned int> TidyAttr_OnCUECHANGE
+    on_dataavailable = <unsigned int> TidyAttr_OnDATAAVAILABLE
+    on_datasetchanged = <unsigned int> TidyAttr_OnDATASETCHANGED
+    on_datasetcomplete = <unsigned int> TidyAttr_OnDATASETCOMPLETE
+    on_dblclick = <unsigned int> TidyAttr_OnDBLCLICK
+    on_drag = <unsigned int> TidyAttr_OnDRAG
+    on_dragend = <unsigned int> TidyAttr_OnDRAGEND
+    on_dragenter = <unsigned int> TidyAttr_OnDRAGENTER
+    on_dragleave = <unsigned int> TidyAttr_OnDRAGLEAVE
+    on_dragover = <unsigned int> TidyAttr_OnDRAGOVER
+    on_dragstart = <unsigned int> TidyAttr_OnDRAGSTART
+    on_drop = <unsigned int> TidyAttr_OnDROP
+    on_durationchange = <unsigned int> TidyAttr_OnDURATIONCHANGE
+    on_emptied = <unsigned int> TidyAttr_OnEMPTIED
+    on_ended = <unsigned int> TidyAttr_OnENDED
+    on_error = <unsigned int> TidyAttr_OnERROR
+    on_errorupdate = <unsigned int> TidyAttr_OnERRORUPDATE
+    on_focus = <unsigned int> TidyAttr_OnFOCUS
+    on_hashchange = <unsigned int> TidyAttr_OnHASHCHANGE
+    on_input = <unsigned int> TidyAttr_OnINPUT
+    on_invalid = <unsigned int> TidyAttr_OnINVALID
+    on_keydown = <unsigned int> TidyAttr_OnKEYDOWN
+    on_keypress = <unsigned int> TidyAttr_OnKEYPRESS
+    on_keyup = <unsigned int> TidyAttr_OnKEYUP
+    on_load = <unsigned int> TidyAttr_OnLOAD
+    on_loadeddata = <unsigned int> TidyAttr_OnLOADEDDATA
+    on_loadedmetadata = <unsigned int> TidyAttr_OnLOADEDMETADATA
+    on_loadstart = <unsigned int> TidyAttr_OnLOADSTART
+    on_message = <unsigned int> TidyAttr_OnMESSAGE
+    on_mousedown = <unsigned int> TidyAttr_OnMOUSEDOWN
+    on_mousemove = <unsigned int> TidyAttr_OnMOUSEMOVE
+    on_mouseout = <unsigned int> TidyAttr_OnMOUSEOUT
+    on_mouseover = <unsigned int> TidyAttr_OnMOUSEOVER
+    on_mouseup = <unsigned int> TidyAttr_OnMOUSEUP
+    on_mousewheel = <unsigned int> TidyAttr_OnMOUSEWHEEL
+    on_offline = <unsigned int> TidyAttr_OnOFFLINE
+    on_online = <unsigned int> TidyAttr_OnONLINE
+    on_pagehide = <unsigned int> TidyAttr_OnPAGEHIDE
+    on_pageshow = <unsigned int> TidyAttr_OnPAGESHOW
+    on_pause = <unsigned int> TidyAttr_OnPAUSE
+    on_play = <unsigned int> TidyAttr_OnPLAY
+    on_playing = <unsigned int> TidyAttr_OnPLAYING
+    on_popstate = <unsigned int> TidyAttr_OnPOPSTATE
+    on_progress = <unsigned int> TidyAttr_OnPROGRESS
+    on_ratechange = <unsigned int> TidyAttr_OnRATECHANGE
+    on_readystatechange = <unsigned int> TidyAttr_OnREADYSTATECHANGE
+    on_redo = <unsigned int> TidyAttr_OnREDO
+    on_reset = <unsigned int> TidyAttr_OnRESET
+    on_resize = <unsigned int> TidyAttr_OnRESIZE
+    on_rowenter = <unsigned int> TidyAttr_OnROWENTER
+    on_rowexit = <unsigned int> TidyAttr_OnROWEXIT
+    on_scroll = <unsigned int> TidyAttr_OnSCROLL
+    on_seeked = <unsigned int> TidyAttr_OnSEEKED
+    on_seeking = <unsigned int> TidyAttr_OnSEEKING
+    on_select = <unsigned int> TidyAttr_OnSELECT
+    on_show = <unsigned int> TidyAttr_OnSHOW
+    on_stalled = <unsigned int> TidyAttr_OnSTALLED
+    on_storage = <unsigned int> TidyAttr_OnSTORAGE
+    on_submit = <unsigned int> TidyAttr_OnSUBMIT
+    on_suspend = <unsigned int> TidyAttr_OnSUSPEND
+    on_timeupdate = <unsigned int> TidyAttr_OnTIMEUPDATE
+    on_undo = <unsigned int> TidyAttr_OnUNDO
+    on_unload = <unsigned int> TidyAttr_OnUNLOAD
+    on_volumechange = <unsigned int> TidyAttr_OnVOLUMECHANGE
+    on_waiting = <unsigned int> TidyAttr_OnWAITING
+    pattern = <unsigned int> TidyAttr_PATTERN
+    placeholder = <unsigned int> TidyAttr_PLACEHOLDER
+    poster = <unsigned int> TidyAttr_POSTER
+    prefix = <unsigned int> TidyAttr_PREFIX
+    preload = <unsigned int> TidyAttr_PRELOAD
+    preserveaspectratio = <unsigned int> TidyAttr_PRESERVEASPECTRATIO
+    profile = <unsigned int> TidyAttr_PROFILE
+    prompt = <unsigned int> TidyAttr_PROMPT
+    property = <unsigned int> TidyAttr_PROPERTY
+    pubdate = <unsigned int> TidyAttr_PUBDATE
+    radiogroup = <unsigned int> TidyAttr_RADIOGROUP
+    rbspan = <unsigned int> TidyAttr_RBSPAN
+    readonly = <unsigned int> TidyAttr_READONLY
+    rel = <unsigned int> TidyAttr_REL
+    required = <unsigned int> TidyAttr_REQUIRED
+    resource = <unsigned int> TidyAttr_RESOURCE
+    rev = <unsigned int> TidyAttr_REV
+    reversed = <unsigned int> TidyAttr_REVERSED
+    rightmargin = <unsigned int> TidyAttr_RIGHTMARGIN
+    role = <unsigned int> TidyAttr_ROLE
+    rows = <unsigned int> TidyAttr_ROWS
+    rowspan = <unsigned int> TidyAttr_ROWSPAN
+    rules = <unsigned int> TidyAttr_RULES
+    sandbox = <unsigned int> TidyAttr_SANDBOX
+    scheme = <unsigned int> TidyAttr_SCHEME
+    scope = <unsigned int> TidyAttr_SCOPE
+    scoped = <unsigned int> TidyAttr_SCOPED
+    scrolling = <unsigned int> TidyAttr_SCROLLING
+    sdaform = <unsigned int> TidyAttr_SDAFORM
+    sdapref = <unsigned int> TidyAttr_SDAPREF
+    sdasuff = <unsigned int> TidyAttr_SDASUFF
+    seamless = <unsigned int> TidyAttr_SEAMLESS
+    selected = <unsigned int> TidyAttr_SELECTED
+    shape = <unsigned int> TidyAttr_SHAPE
+    showgrid = <unsigned int> TidyAttr_SHOWGRID
+    showgridx = <unsigned int> TidyAttr_SHOWGRIDX
+    showgridy = <unsigned int> TidyAttr_SHOWGRIDY
+    size = <unsigned int> TidyAttr_SIZE
+    sizes = <unsigned int> TidyAttr_SIZES
+    span = <unsigned int> TidyAttr_SPAN
+    spellcheck = <unsigned int> TidyAttr_SPELLCHECK
+    src = <unsigned int> TidyAttr_SRC
+    srcdoc = <unsigned int> TidyAttr_SRCDOC
+    srclang = <unsigned int> TidyAttr_SRCLANG
+    srcset = <unsigned int> TidyAttr_SRCSET
+    standby = <unsigned int> TidyAttr_STANDBY
+    start = <unsigned int> TidyAttr_START
+    step = <unsigned int> TidyAttr_STEP
+    style = <unsigned int> TidyAttr_STYLE
+    summary = <unsigned int> TidyAttr_SUMMARY
+    tabindex = <unsigned int> TidyAttr_TABINDEX
+    target = <unsigned int> TidyAttr_TARGET
+    text = <unsigned int> TidyAttr_TEXT
+    title = <unsigned int> TidyAttr_TITLE
+    topmargin = <unsigned int> TidyAttr_TOPMARGIN
+    translate = <unsigned int> TidyAttr_TRANSLATE
+    type = <unsigned int> TidyAttr_TYPE
+    typeof = <unsigned int> TidyAttr_TYPEOF
+    unknown = <unsigned int> TidyAttr_UNKNOWN
+    urn = <unsigned int> TidyAttr_URN
+    usemap = <unsigned int> TidyAttr_USEMAP
+    valign = <unsigned int> TidyAttr_VALIGN
+    value = <unsigned int> TidyAttr_VALUE
+    valuetype = <unsigned int> TidyAttr_VALUETYPE
+    version = <unsigned int> TidyAttr_VERSION
+    viewbox = <unsigned int> TidyAttr_VIEWBOX
+    vlink = <unsigned int> TidyAttr_VLINK
+    vocab = <unsigned int> TidyAttr_VOCAB
+    vspace = <unsigned int> TidyAttr_VSPACE
+    width = <unsigned int> TidyAttr_WIDTH
+    wrap = <unsigned int> TidyAttr_WRAP
+    x = <unsigned int> TidyAttr_X
+    xmlns = <unsigned int> TidyAttr_XMLNS
+    xmlnsxlink = <unsigned int> TidyAttr_XMLNSXLINK
+    xml_lang = <unsigned int> TidyAttr_XML_LANG
+    xml_space = <unsigned int> TidyAttr_XML_SPACE
+    y = <unsigned int> TidyAttr_Y
+    zoomandpan = <unsigned int> TidyAttr_ZOOMANDPAN
+
+
+class _AttrSortStrategy(IntEnum):
+    __name__ =  __qualname__ = 'AttrSortStrategy'
+    for_name = staticmethod(attr_sort_strategy_for_name)
+
+    alpha = <unsigned int> TidySortAttrAlpha
+    none = <unsigned int> TidySortAttrNone
+
+
+class _ConfigCategory(IntEnum):
+    __name__ =  __qualname__ = 'ConfigCategory'
+    for_name = staticmethod(config_category_for_name)
+
+    diagnostics = <unsigned int> TidyDiagnostics
+    display = <unsigned int> TidyDisplay
+    document_io = <unsigned int> TidyDocumentIO
+    encoding = <unsigned int> TidyEncoding
+    file_io = <unsigned int> TidyFileIO
+    internal_category = <unsigned int> TidyInternalCategory
+    markup_cleanup = <unsigned int> TidyMarkupCleanup
+    markup_entities = <unsigned int> TidyMarkupEntities
+    markup_repair = <unsigned int> TidyMarkupRepair
+    markup_teach = <unsigned int> TidyMarkupTeach
+    markup_x_form = <unsigned int> TidyMarkupXForm
+    pretty_print = <unsigned int> TidyPrettyPrint
+    unknown_category = <unsigned int> TidyUnknownCategory
+
+
+class _DoctypeModes(IntEnum):
+    __name__ =  __qualname__ = 'DoctypeModes'
+    for_name = staticmethod(doctype_modes_for_name)
+
+    auto = <unsigned int> TidyDoctypeAuto
+    html5 = <unsigned int> TidyDoctypeHtml5
+    loose = <unsigned int> TidyDoctypeLoose
+    omit = <unsigned int> TidyDoctypeOmit
+    strict = <unsigned int> TidyDoctypeStrict
+    user = <unsigned int> TidyDoctypeUser
+
+
+class _DupAttrModes(IntEnum):
+    __name__ =  __qualname__ = 'DupAttrModes'
+    for_name = staticmethod(dup_attr_modes_for_name)
+
+    keep_first = <unsigned int> TidyKeepFirst
+    keep_last = <unsigned int> TidyKeepLast
+
+
+class _EncodingOptions(IntEnum):
+    __name__ =  __qualname__ = 'EncodingOptions'
+    for_name = staticmethod(encoding_options_for_name)
+
+    ascii = <unsigned int> TidyEncAscii
+    big5 = <unsigned int> TidyEncBig5
+    ibm858 = <unsigned int> TidyEncIbm858
+    iso2022 = <unsigned int> TidyEncIso2022
+    latin0 = <unsigned int> TidyEncLatin0
+    latin1 = <unsigned int> TidyEncLatin1
+    mac = <unsigned int> TidyEncMac
+    raw = <unsigned int> TidyEncRaw
+    shiftjis = <unsigned int> TidyEncShiftjis
+    utf16 = <unsigned int> TidyEncUtf16
+    utf16be = <unsigned int> TidyEncUtf16be
+    utf16le = <unsigned int> TidyEncUtf16le
+    utf8 = <unsigned int> TidyEncUtf8
+    win1252 = <unsigned int> TidyEncWin1252
+
+
+class _FormatParameterType(IntEnum):
+    __name__ =  __qualname__ = 'FormatParameterType'
+    for_name = staticmethod(format_parameter_type_for_name)
+
+    double = <unsigned int> tidyFormatType_DOUBLE
+    int = <unsigned int> tidyFormatType_INT
+    string = <unsigned int> tidyFormatType_STRING
+    uint = <unsigned int> tidyFormatType_UINT
+    unknown = <unsigned int> tidyFormatType_UNKNOWN
+
+
+class _LineEnding(IntEnum):
+    __name__ =  __qualname__ = 'LineEnding'
+    for_name = staticmethod(line_ending_for_name)
+
+    cr = <unsigned int> TidyCR
+    crlf = <unsigned int> TidyCRLF
+    lf = <unsigned int> TidyLF
+
+
+class _NodeType(IntEnum):
+    __name__ =  __qualname__ = 'NodeType'
+    for_name = staticmethod(node_type_for_name)
+
+    asp = <unsigned int> TidyNode_Asp
+    cdata = <unsigned int> TidyNode_CDATA
+    comment = <unsigned int> TidyNode_Comment
+    doc_type = <unsigned int> TidyNode_DocType
+    end = <unsigned int> TidyNode_End
+    jste = <unsigned int> TidyNode_Jste
+    php = <unsigned int> TidyNode_Php
+    proc_ins = <unsigned int> TidyNode_ProcIns
+    root = <unsigned int> TidyNode_Root
+    section = <unsigned int> TidyNode_Section
+    start = <unsigned int> TidyNode_Start
+    start_end = <unsigned int> TidyNode_StartEnd
+    text = <unsigned int> TidyNode_Text
+    xml_decl = <unsigned int> TidyNode_XmlDecl
 
 
 class _OptionId(IntEnum):
     __name__ =  __qualname__ = 'OptionId'
-
     for_name = staticmethod(option_id_for_name)
 
-    UnknownOption = <int> TidyUnknownOption
-    AccessibilityCheckLevel = <int> TidyAccessibilityCheckLevel
-    AltText = <int> TidyAltText
-    AnchorAsName = <int> TidyAnchorAsName
-    AsciiChars = <int> TidyAsciiChars
-    BlockTags = <int> TidyBlockTags
-    BodyOnly = <int> TidyBodyOnly
-    BreakBeforeBR = <int> TidyBreakBeforeBR
-    CharEncoding = <int> TidyCharEncoding
-    CoerceEndTags = <int> TidyCoerceEndTags
-    CSSPrefix = <int> TidyCSSPrefix
-    DecorateInferredUL = <int> TidyDecorateInferredUL
-    Doctype = <int> TidyDoctype
-    DropEmptyElems = <int> TidyDropEmptyElems
-    DropEmptyParas = <int> TidyDropEmptyParas
-    DropPropAttrs = <int> TidyDropPropAttrs
-    DuplicateAttrs = <int> TidyDuplicateAttrs
-    Emacs = <int> TidyEmacs
-    EmptyTags = <int> TidyEmptyTags
-    EncloseBlockText = <int> TidyEncloseBlockText
-    EncloseBodyText = <int> TidyEncloseBodyText
-    ErrFile = <int> TidyErrFile
-    EscapeCdata = <int> TidyEscapeCdata
-    EscapeScripts = <int> TidyEscapeScripts
-    FixBackslash = <int> TidyFixBackslash
-    FixComments = <int> TidyFixComments
-    FixUri = <int> TidyFixUri
-    ForceOutput = <int> TidyForceOutput
-    GDocClean = <int> TidyGDocClean
-    HideComments = <int> TidyHideComments
-    HtmlOut = <int> TidyHtmlOut
-    InCharEncoding = <int> TidyInCharEncoding
-    IndentAttributes = <int> TidyIndentAttributes
-    IndentCdata = <int> TidyIndentCdata
-    IndentContent = <int> TidyIndentContent
-    IndentSpaces = <int> TidyIndentSpaces
-    InlineTags = <int> TidyInlineTags
-    JoinClasses = <int> TidyJoinClasses
-    JoinStyles = <int> TidyJoinStyles
-    KeepFileTimes = <int> TidyKeepFileTimes
-    KeepTabs = <int> TidyKeepTabs
-    LiteralAttribs = <int> TidyLiteralAttribs
-    LogicalEmphasis = <int> TidyLogicalEmphasis
-    LowerLiterals = <int> TidyLowerLiterals
-    MakeBare = <int> TidyMakeBare
-    MakeClean = <int> TidyMakeClean
-    Mark = <int> TidyMark
-    MergeDivs = <int> TidyMergeDivs
-    MergeEmphasis = <int> TidyMergeEmphasis
-    MergeSpans = <int> TidyMergeSpans
-    MetaCharset = <int> TidyMetaCharset
-    MuteReports = <int> TidyMuteReports
-    MuteShow = <int> TidyMuteShow
-    NCR = <int> TidyNCR
-    Newline = <int> TidyNewline
-    NumEntities = <int> TidyNumEntities
-    OmitOptionalTags = <int> TidyOmitOptionalTags
-    OutCharEncoding = <int> TidyOutCharEncoding
-    OutFile = <int> TidyOutFile
-    OutputBOM = <int> TidyOutputBOM
-    PPrintTabs = <int> TidyPPrintTabs
-    PreserveEntities = <int> TidyPreserveEntities
-    PreTags = <int> TidyPreTags
-    PriorityAttributes = <int> TidyPriorityAttributes
-    PunctWrap = <int> TidyPunctWrap
-    Quiet = <int> TidyQuiet
-    QuoteAmpersand = <int> TidyQuoteAmpersand
-    QuoteMarks = <int> TidyQuoteMarks
-    QuoteNbsp = <int> TidyQuoteNbsp
-    ReplaceColor = <int> TidyReplaceColor
-    ShowErrors = <int> TidyShowErrors
-    ShowInfo = <int> TidyShowInfo
-    ShowMarkup = <int> TidyShowMarkup
-    ShowMetaChange = <int> TidyShowMetaChange
-    ShowWarnings = <int> TidyShowWarnings
-    SkipNested = <int> TidySkipNested
-    SortAttributes = <int> TidySortAttributes
-    StrictTagsAttr = <int> TidyStrictTagsAttr
-    StyleTags = <int> TidyStyleTags
-    TabSize = <int> TidyTabSize
-    UpperCaseAttrs = <int> TidyUpperCaseAttrs
-    UpperCaseTags = <int> TidyUpperCaseTags
-    UseCustomTags = <int> TidyUseCustomTags
-    VertSpace = <int> TidyVertSpace
-    WarnPropAttrs = <int> TidyWarnPropAttrs
-    Word2000 = <int> TidyWord2000
-    WrapAsp = <int> TidyWrapAsp
-    WrapAttVals = <int> TidyWrapAttVals
-    WrapJste = <int> TidyWrapJste
-    WrapLen = <int> TidyWrapLen
-    WrapPhp = <int> TidyWrapPhp
-    WrapScriptlets = <int> TidyWrapScriptlets
-    WrapSection = <int> TidyWrapSection
-    WriteBack = <int> TidyWriteBack
-    XhtmlOut = <int> TidyXhtmlOut
-    XmlDecl = <int> TidyXmlDecl
-    XmlOut = <int> TidyXmlOut
-    XmlPIs = <int> TidyXmlPIs
-    XmlSpace = <int> TidyXmlSpace
-    XmlTags = <int> TidyXmlTags
-    _N = <int> N_TIDY_OPTIONS
-
-
-class _ConfigCategory(IntEnum):
-    __name__ = __qualname__ = 'ConfigCategory'
-
-    for_name = staticmethod(config_category_for_name)
-
-    Diagnostics = <int> TidyDiagnostics
-    Display = <int> TidyDisplay
-    DocumentIO = <int> TidyDocumentIO
-    Encoding = <int> TidyEncoding
-    FileIO = <int> TidyFileIO
-    MarkupCleanup = <int> TidyMarkupCleanup
-    MarkupEntities = <int> TidyMarkupEntities
-    MarkupRepair = <int> TidyMarkupRepair
-    MarkupTeach = <int> TidyMarkupTeach
-    MarkupXForm = <int> TidyMarkupXForm
-    PrettyPrint = <int> TidyPrettyPrint
-    InternalCategory = <int> TidyInternalCategory
+    n_tidy_options = <unsigned int> N_TIDY_OPTIONS
+    accessibility_check_level = <unsigned int> TidyAccessibilityCheckLevel
+    alt_text = <unsigned int> TidyAltText
+    anchor_as_name = <unsigned int> TidyAnchorAsName
+    ascii_chars = <unsigned int> TidyAsciiChars
+    block_tags = <unsigned int> TidyBlockTags
+    body_only = <unsigned int> TidyBodyOnly
+    break_before_br = <unsigned int> TidyBreakBeforeBR
+    css_prefix = <unsigned int> TidyCSSPrefix
+    char_encoding = <unsigned int> TidyCharEncoding
+    coerce_end_tags = <unsigned int> TidyCoerceEndTags
+    custom_tags = <unsigned int> TidyCustomTags
+    decorate_inferred_ul = <unsigned int> TidyDecorateInferredUL
+    doctype = <unsigned int> TidyDoctype
+    doctype_mode = <unsigned int> TidyDoctypeMode
+    drop_empty_elems = <unsigned int> TidyDropEmptyElems
+    drop_empty_paras = <unsigned int> TidyDropEmptyParas
+    drop_prop_attrs = <unsigned int> TidyDropPropAttrs
+    duplicate_attrs = <unsigned int> TidyDuplicateAttrs
+    emacs = <unsigned int> TidyEmacs
+    emacs_file = <unsigned int> TidyEmacsFile
+    empty_tags = <unsigned int> TidyEmptyTags
+    enclose_block_text = <unsigned int> TidyEncloseBlockText
+    enclose_body_text = <unsigned int> TidyEncloseBodyText
+    err_file = <unsigned int> TidyErrFile
+    escape_cdata = <unsigned int> TidyEscapeCdata
+    escape_scripts = <unsigned int> TidyEscapeScripts
+    fix_backslash = <unsigned int> TidyFixBackslash
+    fix_comments = <unsigned int> TidyFixComments
+    fix_uri = <unsigned int> TidyFixUri
+    force_output = <unsigned int> TidyForceOutput
+    g_doc_clean = <unsigned int> TidyGDocClean
+    hide_comments = <unsigned int> TidyHideComments
+    html_out = <unsigned int> TidyHtmlOut
+    in_char_encoding = <unsigned int> TidyInCharEncoding
+    indent_attributes = <unsigned int> TidyIndentAttributes
+    indent_cdata = <unsigned int> TidyIndentCdata
+    indent_content = <unsigned int> TidyIndentContent
+    indent_spaces = <unsigned int> TidyIndentSpaces
+    inline_tags = <unsigned int> TidyInlineTags
+    join_classes = <unsigned int> TidyJoinClasses
+    join_styles = <unsigned int> TidyJoinStyles
+    keep_file_times = <unsigned int> TidyKeepFileTimes
+    keep_tabs = <unsigned int> TidyKeepTabs
+    literal_attribs = <unsigned int> TidyLiteralAttribs
+    logical_emphasis = <unsigned int> TidyLogicalEmphasis
+    lower_literals = <unsigned int> TidyLowerLiterals
+    make_bare = <unsigned int> TidyMakeBare
+    make_clean = <unsigned int> TidyMakeClean
+    mark = <unsigned int> TidyMark
+    merge_divs = <unsigned int> TidyMergeDivs
+    merge_emphasis = <unsigned int> TidyMergeEmphasis
+    merge_spans = <unsigned int> TidyMergeSpans
+    meta_charset = <unsigned int> TidyMetaCharset
+    mute_reports = <unsigned int> TidyMuteReports
+    mute_show = <unsigned int> TidyMuteShow
+    ncr = <unsigned int> TidyNCR
+    newline = <unsigned int> TidyNewline
+    num_entities = <unsigned int> TidyNumEntities
+    omit_optional_tags = <unsigned int> TidyOmitOptionalTags
+    out_char_encoding = <unsigned int> TidyOutCharEncoding
+    out_file = <unsigned int> TidyOutFile
+    output_bom = <unsigned int> TidyOutputBOM
+    p_print_tabs = <unsigned int> TidyPPrintTabs
+    pre_tags = <unsigned int> TidyPreTags
+    preserve_entities = <unsigned int> TidyPreserveEntities
+    priority_attributes = <unsigned int> TidyPriorityAttributes
+    punct_wrap = <unsigned int> TidyPunctWrap
+    quiet = <unsigned int> TidyQuiet
+    quote_ampersand = <unsigned int> TidyQuoteAmpersand
+    quote_marks = <unsigned int> TidyQuoteMarks
+    quote_nbsp = <unsigned int> TidyQuoteNbsp
+    replace_color = <unsigned int> TidyReplaceColor
+    show_errors = <unsigned int> TidyShowErrors
+    show_info = <unsigned int> TidyShowInfo
+    show_markup = <unsigned int> TidyShowMarkup
+    show_meta_change = <unsigned int> TidyShowMetaChange
+    show_warnings = <unsigned int> TidyShowWarnings
+    skip_nested = <unsigned int> TidySkipNested
+    sort_attributes = <unsigned int> TidySortAttributes
+    strict_tags_attr = <unsigned int> TidyStrictTagsAttr
+    style_tags = <unsigned int> TidyStyleTags
+    tab_size = <unsigned int> TidyTabSize
+    unknown_option = <unsigned int> TidyUnknownOption
+    upper_case_attrs = <unsigned int> TidyUpperCaseAttrs
+    upper_case_tags = <unsigned int> TidyUpperCaseTags
+    use_custom_tags = <unsigned int> TidyUseCustomTags
+    vert_space = <unsigned int> TidyVertSpace
+    warn_prop_attrs = <unsigned int> TidyWarnPropAttrs
+    word2000 = <unsigned int> TidyWord2000
+    wrap_asp = <unsigned int> TidyWrapAsp
+    wrap_att_vals = <unsigned int> TidyWrapAttVals
+    wrap_jste = <unsigned int> TidyWrapJste
+    wrap_len = <unsigned int> TidyWrapLen
+    wrap_php = <unsigned int> TidyWrapPhp
+    wrap_scriptlets = <unsigned int> TidyWrapScriptlets
+    wrap_section = <unsigned int> TidyWrapSection
+    write_back = <unsigned int> TidyWriteBack
+    xhtml_out = <unsigned int> TidyXhtmlOut
+    xml_decl = <unsigned int> TidyXmlDecl
+    xml_out = <unsigned int> TidyXmlOut
+    xml_p_is = <unsigned int> TidyXmlPIs
+    xml_space = <unsigned int> TidyXmlSpace
+    xml_tags = <unsigned int> TidyXmlTags
 
 
 class _OptionType(IntEnum):
-    __name__ = __qualname__ = 'OptionType'
-
+    __name__ =  __qualname__ = 'OptionType'
     for_name = staticmethod(option_type_for_name)
 
-    String = <int> TidyString
-    Integer = <int> TidyInteger
-    Boolean = <int> TidyBoolean
-
-
-class _TriState(IntEnum):
-    __name__ = __qualname__ = 'TriState'
-
-    for_name = staticmethod(tristate_for_name)
-
-    No = <int> TidyNoState
-    Yes = <int> TidyYesState
-    Auto = <int> TidyAutoState
-
-
-class _UseCustomTagsState(IntEnum):
-    __name__ = __qualname__ = 'UseCustomTagsState'
-
-    for_name = staticmethod(use_custom_tags_state_for_name)
-
-    No = <int> TidyCustomNo
-    Blocklevel = <int> TidyCustomBlocklevel
-    Empty = <int> TidyCustomEmpty
-    Inline = <int> TidyCustomInline
-    Pre = <int> TidyCustomPre
-
-
-class _LineEnding(IntEnum):
-    __name__ = __qualname__ = 'LineEnding'
-
-    for_name = staticmethod(line_endings_for_name)
-
-    LF = <int> TidyLF
-    CRLF = <int> TidyCRLF
-    CR = <int> TidyCR
-
-
-class _EncodingOptions(IntEnum):
-    __name__ = __qualname__ = 'EncodingOptions'
-
-    for_name = staticmethod(encoding_options_for_name)
-
-    Raw = <int> TidyEncRaw
-    Ascii = <int> TidyEncAscii
-    Latin0 = <int> TidyEncLatin0
-    Latin1 = <int> TidyEncLatin1
-    Utf8 = <int> TidyEncUtf8
-    Mac = <int> TidyEncMac
-    Win1252 = <int> TidyEncWin1252
-    Ibm858 = <int> TidyEncIbm858
-    Utf16le = <int> TidyEncUtf16le
-    Utf16be = <int> TidyEncUtf16be
-    Utf16 = <int> TidyEncUtf16
-    Big5 = <int> TidyEncBig5
-
-
-class _DoctypeModes(IntEnum):
-    __name__ = __qualname__ = 'DoctypeModes'
-
-    for_name = staticmethod(doctype_modes_for_name)
-
-    Html5 = <int> TidyDoctypeHtml5
-    Omit = <int> TidyDoctypeOmit
-    Auto = <int> TidyDoctypeAuto
-    Strict = <int> TidyDoctypeStrict
-    Loose = <int> TidyDoctypeLoose
-    User = <int> TidyDoctypeUser
-
-
-class _DupAttrModes(IntEnum):
-    __name__ = __qualname__ = 'DupAttrModes'
-
-    for_name = staticmethod(dup_attr_modes_for_name)
-
-    KeepFirst = <int> TidyKeepFirst
-    KeepLast = <int> TidyKeepLast
-
-
-class _AttrSortStrategy(IntEnum):
-    __name__ = __qualname__ = 'AttrSortStrategy'
-
-    for_name = staticmethod(attr_sort_strategy_for_name)
-
-    None_ = <int> TidySortAttrNone
-    Alpha = <int> TidySortAttrAlpha
-
-
-class _Uppercase(IntEnum):
-    __name__ = __qualname__ = 'Uppercase'
-
-    for_name = staticmethod(uppercase_for_name)
-
-    No = <int> TidyUppercaseNo
-    Yes = <int> TidyUppercaseYes
-    Preserve = <int> TidyUppercasePreserve
-
-
-class _NodeType(IntEnum):
-    __name__ = __qualname__ = 'NodeType'
-
-    for_name = staticmethod(node_type_for_name)
-
-    Root = <int> TidyNode_Root
-    DocType = <int> TidyNode_DocType
-    Comment = <int> TidyNode_Comment
-    ProcIns = <int> TidyNode_ProcIns
-    Text = <int> TidyNode_Text
-    Start = <int> TidyNode_Start
-    End = <int> TidyNode_End
-    StartEnd = <int> TidyNode_StartEnd
-    CDATA = <int> TidyNode_CDATA
-    Section = <int> TidyNode_Section
-    Asp = <int> TidyNode_Asp
-    Jste = <int> TidyNode_Jste
-    Php = <int> TidyNode_Php
-    XmlDecl = <int> TidyNode_XmlDecl
-
-
-class _TagId(IntEnum):
-    __name__ = __qualname__ = 'TagId'
-
-    for_name = staticmethod(tag_id_for_name)
-
-    UNKNOWN = <int> TidyTag_UNKNOWN
-    A = <int> TidyTag_A
-    ABBR = <int> TidyTag_ABBR
-    ACRONYM = <int> TidyTag_ACRONYM
-    ADDRESS = <int> TidyTag_ADDRESS
-    ALIGN = <int> TidyTag_ALIGN
-    APPLET = <int> TidyTag_APPLET
-    AREA = <int> TidyTag_AREA
-    B = <int> TidyTag_B
-    BASE = <int> TidyTag_BASE
-    BASEFONT = <int> TidyTag_BASEFONT
-    BDO = <int> TidyTag_BDO
-    BGSOUND = <int> TidyTag_BGSOUND
-    BIG = <int> TidyTag_BIG
-    BLINK = <int> TidyTag_BLINK
-    BLOCKQUOTE = <int> TidyTag_BLOCKQUOTE
-    BODY = <int> TidyTag_BODY
-    BR = <int> TidyTag_BR
-    BUTTON = <int> TidyTag_BUTTON
-    CAPTION = <int> TidyTag_CAPTION
-    CENTER = <int> TidyTag_CENTER
-    CITE = <int> TidyTag_CITE
-    CODE = <int> TidyTag_CODE
-    COL = <int> TidyTag_COL
-    COLGROUP = <int> TidyTag_COLGROUP
-    COMMENT = <int> TidyTag_COMMENT
-    DD = <int> TidyTag_DD
-    DEL = <int> TidyTag_DEL
-    DFN = <int> TidyTag_DFN
-    DIR = <int> TidyTag_DIR
-    DIV = <int> TidyTag_DIV
-    DL = <int> TidyTag_DL
-    DT = <int> TidyTag_DT
-    EM = <int> TidyTag_EM
-    EMBED = <int> TidyTag_EMBED
-    FIELDSET = <int> TidyTag_FIELDSET
-    FONT = <int> TidyTag_FONT
-    FORM = <int> TidyTag_FORM
-    FRAME = <int> TidyTag_FRAME
-    FRAMESET = <int> TidyTag_FRAMESET
-    H1 = <int> TidyTag_H1
-    H2 = <int> TidyTag_H2
-    H3 = <int> TidyTag_H3
-    H4 = <int> TidyTag_H4
-    H5 = <int> TidyTag_H5
-    H6 = <int> TidyTag_H6
-    HEAD = <int> TidyTag_HEAD
-    HR = <int> TidyTag_HR
-    HTML = <int> TidyTag_HTML
-    I = <int> TidyTag_I
-    IFRAME = <int> TidyTag_IFRAME
-    ILAYER = <int> TidyTag_ILAYER
-    IMG = <int> TidyTag_IMG
-    INPUT = <int> TidyTag_INPUT
-    INS = <int> TidyTag_INS
-    ISINDEX = <int> TidyTag_ISINDEX
-    KBD = <int> TidyTag_KBD
-    KEYGEN = <int> TidyTag_KEYGEN
-    LABEL = <int> TidyTag_LABEL
-    LAYER = <int> TidyTag_LAYER
-    LEGEND = <int> TidyTag_LEGEND
-    LI = <int> TidyTag_LI
-    LINK = <int> TidyTag_LINK
-    LISTING = <int> TidyTag_LISTING
-    MAP = <int> TidyTag_MAP
-    MATHML = <int> TidyTag_MATHML
-    MARQUEE = <int> TidyTag_MARQUEE
-    MENU = <int> TidyTag_MENU
-    META = <int> TidyTag_META
-    MULTICOL = <int> TidyTag_MULTICOL
-    NOBR = <int> TidyTag_NOBR
-    NOEMBED = <int> TidyTag_NOEMBED
-    NOFRAMES = <int> TidyTag_NOFRAMES
-    NOLAYER = <int> TidyTag_NOLAYER
-    NOSAVE = <int> TidyTag_NOSAVE
-    NOSCRIPT = <int> TidyTag_NOSCRIPT
-    OBJECT = <int> TidyTag_OBJECT
-    OL = <int> TidyTag_OL
-    OPTGROUP = <int> TidyTag_OPTGROUP
-    OPTION = <int> TidyTag_OPTION
-    P = <int> TidyTag_P
-    PARAM = <int> TidyTag_PARAM
-    PICTURE = <int> TidyTag_PICTURE
-    PLAINTEXT = <int> TidyTag_PLAINTEXT
-    PRE = <int> TidyTag_PRE
-    Q = <int> TidyTag_Q
-    RB = <int> TidyTag_RB
-    RBC = <int> TidyTag_RBC
-    RP = <int> TidyTag_RP
-    RT = <int> TidyTag_RT
-    RTC = <int> TidyTag_RTC
-    RUBY = <int> TidyTag_RUBY
-    S = <int> TidyTag_S
-    SAMP = <int> TidyTag_SAMP
-    SCRIPT = <int> TidyTag_SCRIPT
-    SELECT = <int> TidyTag_SELECT
-    SERVER = <int> TidyTag_SERVER
-    SERVLET = <int> TidyTag_SERVLET
-    SMALL = <int> TidyTag_SMALL
-    SPACER = <int> TidyTag_SPACER
-    SPAN = <int> TidyTag_SPAN
-    STRIKE = <int> TidyTag_STRIKE
-    STRONG = <int> TidyTag_STRONG
-    STYLE = <int> TidyTag_STYLE
-    SUB = <int> TidyTag_SUB
-    SUP = <int> TidyTag_SUP
-    SVG = <int> TidyTag_SVG
-    TABLE = <int> TidyTag_TABLE
-    TBODY = <int> TidyTag_TBODY
-    TD = <int> TidyTag_TD
-    TEXTAREA = <int> TidyTag_TEXTAREA
-    TFOOT = <int> TidyTag_TFOOT
-    TH = <int> TidyTag_TH
-    THEAD = <int> TidyTag_THEAD
-    TITLE = <int> TidyTag_TITLE
-    TR = <int> TidyTag_TR
-    TT = <int> TidyTag_TT
-    U = <int> TidyTag_U
-    UL = <int> TidyTag_UL
-    VAR = <int> TidyTag_VAR
-    WBR = <int> TidyTag_WBR
-    XMP = <int> TidyTag_XMP
-    NEXTID = <int> TidyTag_NEXTID
-    ARTICLE = <int> TidyTag_ARTICLE
-    ASIDE = <int> TidyTag_ASIDE
-    AUDIO = <int> TidyTag_AUDIO
-    BDI = <int> TidyTag_BDI
-    CANVAS = <int> TidyTag_CANVAS
-    COMMAND = <int> TidyTag_COMMAND
-    DATALIST = <int> TidyTag_DATALIST
-    DETAILS = <int> TidyTag_DETAILS
-    DIALOG = <int> TidyTag_DIALOG
-    FIGCAPTION = <int> TidyTag_FIGCAPTION
-    FIGURE = <int> TidyTag_FIGURE
-    FOOTER = <int> TidyTag_FOOTER
-    HEADER = <int> TidyTag_HEADER
-    HGROUP = <int> TidyTag_HGROUP
-    MAIN = <int> TidyTag_MAIN
-    MARK = <int> TidyTag_MARK
-    MENUITEM = <int> TidyTag_MENUITEM
-    METER = <int> TidyTag_METER
-    NAV = <int> TidyTag_NAV
-    OUTPUT = <int> TidyTag_OUTPUT
-    PROGRESS = <int> TidyTag_PROGRESS
-    SECTION = <int> TidyTag_SECTION
-    SOURCE = <int> TidyTag_SOURCE
-    SUMMARY = <int> TidyTag_SUMMARY
-    TEMPLATE = <int> TidyTag_TEMPLATE
-    TIME = <int> TidyTag_TIME
-    TRACK = <int> TidyTag_TRACK
-    VIDEO = <int> TidyTag_VIDEO
-    _N = <int> N_TIDY_TAGS
-
-
-class _AttrId(IntEnum):
-    __name__ = __qualname__ = 'AttrId'
-
-    for_name = staticmethod(attr_id_for_name)
-
-    UNKNOWN = <int> TidyAttr_UNKNOWN
-    ABBR = <int> TidyAttr_ABBR
-    ACCEPT = <int> TidyAttr_ACCEPT
-    ACCEPT_CHARSET = <int> TidyAttr_ACCEPT_CHARSET
-    ACCESSKEY = <int> TidyAttr_ACCESSKEY
-    ACTION = <int> TidyAttr_ACTION
-    ADD_DATE = <int> TidyAttr_ADD_DATE
-    ALIGN = <int> TidyAttr_ALIGN
-    ALINK = <int> TidyAttr_ALINK
-    ALLOWFULLSCREEN = <int> TidyAttr_ALLOWFULLSCREEN
-    ALT = <int> TidyAttr_ALT
-    ARCHIVE = <int> TidyAttr_ARCHIVE
-    AXIS = <int> TidyAttr_AXIS
-    BACKGROUND = <int> TidyAttr_BACKGROUND
-    BGCOLOR = <int> TidyAttr_BGCOLOR
-    BGPROPERTIES = <int> TidyAttr_BGPROPERTIES
-    BORDER = <int> TidyAttr_BORDER
-    BORDERCOLOR = <int> TidyAttr_BORDERCOLOR
-    BOTTOMMARGIN = <int> TidyAttr_BOTTOMMARGIN
-    CELLPADDING = <int> TidyAttr_CELLPADDING
-    CELLSPACING = <int> TidyAttr_CELLSPACING
-    CHAR = <int> TidyAttr_CHAR
-    CHAROFF = <int> TidyAttr_CHAROFF
-    CHARSET = <int> TidyAttr_CHARSET
-    CHECKED = <int> TidyAttr_CHECKED
-    CITE = <int> TidyAttr_CITE
-    CLASS = <int> TidyAttr_CLASS
-    CLASSID = <int> TidyAttr_CLASSID
-    CLEAR = <int> TidyAttr_CLEAR
-    CODE = <int> TidyAttr_CODE
-    CODEBASE = <int> TidyAttr_CODEBASE
-    CODETYPE = <int> TidyAttr_CODETYPE
-    COLOR = <int> TidyAttr_COLOR
-    COLS = <int> TidyAttr_COLS
-    COLSPAN = <int> TidyAttr_COLSPAN
-    COMPACT = <int> TidyAttr_COMPACT
-    CONTENT = <int> TidyAttr_CONTENT
-    COORDS = <int> TidyAttr_COORDS
-    DATA = <int> TidyAttr_DATA
-    DATAFLD = <int> TidyAttr_DATAFLD
-    DATAFORMATAS = <int> TidyAttr_DATAFORMATAS
-    DATAPAGESIZE = <int> TidyAttr_DATAPAGESIZE
-    DATASRC = <int> TidyAttr_DATASRC
-    DATETIME = <int> TidyAttr_DATETIME
-    DECLARE = <int> TidyAttr_DECLARE
-    DEFER = <int> TidyAttr_DEFER
-    DIR = <int> TidyAttr_DIR
-    DISABLED = <int> TidyAttr_DISABLED
-    DOWNLOAD = <int> TidyAttr_DOWNLOAD
-    ENCODING = <int> TidyAttr_ENCODING
-    ENCTYPE = <int> TidyAttr_ENCTYPE
-    FACE = <int> TidyAttr_FACE
-    FOR = <int> TidyAttr_FOR
-    FRAME = <int> TidyAttr_FRAME
-    FRAMEBORDER = <int> TidyAttr_FRAMEBORDER
-    FRAMESPACING = <int> TidyAttr_FRAMESPACING
-    GRIDX = <int> TidyAttr_GRIDX
-    GRIDY = <int> TidyAttr_GRIDY
-    HEADERS = <int> TidyAttr_HEADERS
-    HEIGHT = <int> TidyAttr_HEIGHT
-    HREF = <int> TidyAttr_HREF
-    HREFLANG = <int> TidyAttr_HREFLANG
-    HSPACE = <int> TidyAttr_HSPACE
-    HTTP_EQUIV = <int> TidyAttr_HTTP_EQUIV
-    ID = <int> TidyAttr_ID
-    IS = <int> TidyAttr_IS
-    ISMAP = <int> TidyAttr_ISMAP
-    ITEMID = <int> TidyAttr_ITEMID
-    ITEMPROP = <int> TidyAttr_ITEMPROP
-    ITEMREF = <int> TidyAttr_ITEMREF
-    ITEMSCOPE = <int> TidyAttr_ITEMSCOPE
-    ITEMTYPE = <int> TidyAttr_ITEMTYPE
-    LABEL = <int> TidyAttr_LABEL
-    LANG = <int> TidyAttr_LANG
-    LANGUAGE = <int> TidyAttr_LANGUAGE
-    LAST_MODIFIED = <int> TidyAttr_LAST_MODIFIED
-    LAST_VISIT = <int> TidyAttr_LAST_VISIT
-    LEFTMARGIN = <int> TidyAttr_LEFTMARGIN
-    LINK = <int> TidyAttr_LINK
-    LONGDESC = <int> TidyAttr_LONGDESC
-    LOWSRC = <int> TidyAttr_LOWSRC
-    MARGINHEIGHT = <int> TidyAttr_MARGINHEIGHT
-    MARGINWIDTH = <int> TidyAttr_MARGINWIDTH
-    MAXLENGTH = <int> TidyAttr_MAXLENGTH
-    MEDIA = <int> TidyAttr_MEDIA
-    METHOD = <int> TidyAttr_METHOD
-    MULTIPLE = <int> TidyAttr_MULTIPLE
-    NAME = <int> TidyAttr_NAME
-    NOHREF = <int> TidyAttr_NOHREF
-    NORESIZE = <int> TidyAttr_NORESIZE
-    NOSHADE = <int> TidyAttr_NOSHADE
-    NOWRAP = <int> TidyAttr_NOWRAP
-    OBJECT = <int> TidyAttr_OBJECT
-    OnAFTERUPDATE = <int> TidyAttr_OnAFTERUPDATE
-    OnBEFOREUNLOAD = <int> TidyAttr_OnBEFOREUNLOAD
-    OnBEFOREUPDATE = <int> TidyAttr_OnBEFOREUPDATE
-    OnBLUR = <int> TidyAttr_OnBLUR
-    OnCHANGE = <int> TidyAttr_OnCHANGE
-    OnCLICK = <int> TidyAttr_OnCLICK
-    OnDATAAVAILABLE = <int> TidyAttr_OnDATAAVAILABLE
-    OnDATASETCHANGED = <int> TidyAttr_OnDATASETCHANGED
-    OnDATASETCOMPLETE = <int> TidyAttr_OnDATASETCOMPLETE
-    OnDBLCLICK = <int> TidyAttr_OnDBLCLICK
-    OnERRORUPDATE = <int> TidyAttr_OnERRORUPDATE
-    OnFOCUS = <int> TidyAttr_OnFOCUS
-    OnKEYDOWN = <int> TidyAttr_OnKEYDOWN
-    OnKEYPRESS = <int> TidyAttr_OnKEYPRESS
-    OnKEYUP = <int> TidyAttr_OnKEYUP
-    OnLOAD = <int> TidyAttr_OnLOAD
-    OnMOUSEDOWN = <int> TidyAttr_OnMOUSEDOWN
-    OnMOUSEMOVE = <int> TidyAttr_OnMOUSEMOVE
-    OnMOUSEOUT = <int> TidyAttr_OnMOUSEOUT
-    OnMOUSEOVER = <int> TidyAttr_OnMOUSEOVER
-    OnMOUSEUP = <int> TidyAttr_OnMOUSEUP
-    OnRESET = <int> TidyAttr_OnRESET
-    OnROWENTER = <int> TidyAttr_OnROWENTER
-    OnROWEXIT = <int> TidyAttr_OnROWEXIT
-    OnSELECT = <int> TidyAttr_OnSELECT
-    OnSUBMIT = <int> TidyAttr_OnSUBMIT
-    OnUNLOAD = <int> TidyAttr_OnUNLOAD
-    PROFILE = <int> TidyAttr_PROFILE
-    PROMPT = <int> TidyAttr_PROMPT
-    RBSPAN = <int> TidyAttr_RBSPAN
-    READONLY = <int> TidyAttr_READONLY
-    REL = <int> TidyAttr_REL
-    REV = <int> TidyAttr_REV
-    RIGHTMARGIN = <int> TidyAttr_RIGHTMARGIN
-    ROLE = <int> TidyAttr_ROLE
-    ROWS = <int> TidyAttr_ROWS
-    ROWSPAN = <int> TidyAttr_ROWSPAN
-    RULES = <int> TidyAttr_RULES
-    SCHEME = <int> TidyAttr_SCHEME
-    SCOPE = <int> TidyAttr_SCOPE
-    SCROLLING = <int> TidyAttr_SCROLLING
-    SELECTED = <int> TidyAttr_SELECTED
-    SHAPE = <int> TidyAttr_SHAPE
-    SHOWGRID = <int> TidyAttr_SHOWGRID
-    SHOWGRIDX = <int> TidyAttr_SHOWGRIDX
-    SHOWGRIDY = <int> TidyAttr_SHOWGRIDY
-    SIZE = <int> TidyAttr_SIZE
-    SPAN = <int> TidyAttr_SPAN
-    SRC = <int> TidyAttr_SRC
-    SRCSET = <int> TidyAttr_SRCSET
-    STANDBY = <int> TidyAttr_STANDBY
-    START = <int> TidyAttr_START
-    STYLE = <int> TidyAttr_STYLE
-    SUMMARY = <int> TidyAttr_SUMMARY
-    TABINDEX = <int> TidyAttr_TABINDEX
-    TARGET = <int> TidyAttr_TARGET
-    TEXT = <int> TidyAttr_TEXT
-    TITLE = <int> TidyAttr_TITLE
-    TOPMARGIN = <int> TidyAttr_TOPMARGIN
-    TRANSLATE = <int> TidyAttr_TRANSLATE
-    TYPE = <int> TidyAttr_TYPE
-    USEMAP = <int> TidyAttr_USEMAP
-    VALIGN = <int> TidyAttr_VALIGN
-    VALUE = <int> TidyAttr_VALUE
-    VALUETYPE = <int> TidyAttr_VALUETYPE
-    VERSION = <int> TidyAttr_VERSION
-    VLINK = <int> TidyAttr_VLINK
-    VSPACE = <int> TidyAttr_VSPACE
-    WIDTH = <int> TidyAttr_WIDTH
-    WRAP = <int> TidyAttr_WRAP
-    XML_LANG = <int> TidyAttr_XML_LANG
-    XML_SPACE = <int> TidyAttr_XML_SPACE
-    XMLNS = <int> TidyAttr_XMLNS
-    EVENT = <int> TidyAttr_EVENT
-    METHODS = <int> TidyAttr_METHODS
-    N = <int> TidyAttr_N
-    SDAFORM = <int> TidyAttr_SDAFORM
-    SDAPREF = <int> TidyAttr_SDAPREF
-    SDASUFF = <int> TidyAttr_SDASUFF
-    URN = <int> TidyAttr_URN
-    ASYNC = <int> TidyAttr_ASYNC
-    AUTOCOMPLETE = <int> TidyAttr_AUTOCOMPLETE
-    AUTOFOCUS = <int> TidyAttr_AUTOFOCUS
-    AUTOPLAY = <int> TidyAttr_AUTOPLAY
-    CHALLENGE = <int> TidyAttr_CHALLENGE
-    CONTENTEDITABLE = <int> TidyAttr_CONTENTEDITABLE
-    CONTEXTMENU = <int> TidyAttr_CONTEXTMENU
-    CONTROLS = <int> TidyAttr_CONTROLS
-    CROSSORIGIN = <int> TidyAttr_CROSSORIGIN
-    DEFAULT = <int> TidyAttr_DEFAULT
-    DIRNAME = <int> TidyAttr_DIRNAME
-    DRAGGABLE = <int> TidyAttr_DRAGGABLE
-    DROPZONE = <int> TidyAttr_DROPZONE
-    FORM = <int> TidyAttr_FORM
-    FORMACTION = <int> TidyAttr_FORMACTION
-    FORMENCTYPE = <int> TidyAttr_FORMENCTYPE
-    FORMMETHOD = <int> TidyAttr_FORMMETHOD
-    FORMNOVALIDATE = <int> TidyAttr_FORMNOVALIDATE
-    FORMTARGET = <int> TidyAttr_FORMTARGET
-    HIDDEN = <int> TidyAttr_HIDDEN
-    HIGH = <int> TidyAttr_HIGH
-    ICON = <int> TidyAttr_ICON
-    KEYTYPE = <int> TidyAttr_KEYTYPE
-    KIND = <int> TidyAttr_KIND
-    LIST = <int> TidyAttr_LIST
-    LOOP = <int> TidyAttr_LOOP
-    LOW = <int> TidyAttr_LOW
-    MANIFEST = <int> TidyAttr_MANIFEST
-    MAX = <int> TidyAttr_MAX
-    MEDIAGROUP = <int> TidyAttr_MEDIAGROUP
-    MIN = <int> TidyAttr_MIN
-    NOVALIDATE = <int> TidyAttr_NOVALIDATE
-    OPEN = <int> TidyAttr_OPEN
-    OPTIMUM = <int> TidyAttr_OPTIMUM
-    OnABORT = <int> TidyAttr_OnABORT
-    OnAFTERPRINT = <int> TidyAttr_OnAFTERPRINT
-    OnBEFOREPRINT = <int> TidyAttr_OnBEFOREPRINT
-    OnCANPLAY = <int> TidyAttr_OnCANPLAY
-    OnCANPLAYTHROUGH = <int> TidyAttr_OnCANPLAYTHROUGH
-    OnCONTEXTMENU = <int> TidyAttr_OnCONTEXTMENU
-    OnCUECHANGE = <int> TidyAttr_OnCUECHANGE
-    OnDRAG = <int> TidyAttr_OnDRAG
-    OnDRAGEND = <int> TidyAttr_OnDRAGEND
-    OnDRAGENTER = <int> TidyAttr_OnDRAGENTER
-    OnDRAGLEAVE = <int> TidyAttr_OnDRAGLEAVE
-    OnDRAGOVER = <int> TidyAttr_OnDRAGOVER
-    OnDRAGSTART = <int> TidyAttr_OnDRAGSTART
-    OnDROP = <int> TidyAttr_OnDROP
-    OnDURATIONCHANGE = <int> TidyAttr_OnDURATIONCHANGE
-    OnEMPTIED = <int> TidyAttr_OnEMPTIED
-    OnENDED = <int> TidyAttr_OnENDED
-    OnERROR = <int> TidyAttr_OnERROR
-    OnHASHCHANGE = <int> TidyAttr_OnHASHCHANGE
-    OnINPUT = <int> TidyAttr_OnINPUT
-    OnINVALID = <int> TidyAttr_OnINVALID
-    OnLOADEDDATA = <int> TidyAttr_OnLOADEDDATA
-    OnLOADEDMETADATA = <int> TidyAttr_OnLOADEDMETADATA
-    OnLOADSTART = <int> TidyAttr_OnLOADSTART
-    OnMESSAGE = <int> TidyAttr_OnMESSAGE
-    OnMOUSEWHEEL = <int> TidyAttr_OnMOUSEWHEEL
-    OnOFFLINE = <int> TidyAttr_OnOFFLINE
-    OnONLINE = <int> TidyAttr_OnONLINE
-    OnPAGEHIDE = <int> TidyAttr_OnPAGEHIDE
-    OnPAGESHOW = <int> TidyAttr_OnPAGESHOW
-    OnPAUSE = <int> TidyAttr_OnPAUSE
-    OnPLAY = <int> TidyAttr_OnPLAY
-    OnPLAYING = <int> TidyAttr_OnPLAYING
-    OnPOPSTATE = <int> TidyAttr_OnPOPSTATE
-    OnPROGRESS = <int> TidyAttr_OnPROGRESS
-    OnRATECHANGE = <int> TidyAttr_OnRATECHANGE
-    OnREADYSTATECHANGE = <int> TidyAttr_OnREADYSTATECHANGE
-    OnREDO = <int> TidyAttr_OnREDO
-    OnRESIZE = <int> TidyAttr_OnRESIZE
-    OnSCROLL = <int> TidyAttr_OnSCROLL
-    OnSEEKED = <int> TidyAttr_OnSEEKED
-    OnSEEKING = <int> TidyAttr_OnSEEKING
-    OnSHOW = <int> TidyAttr_OnSHOW
-    OnSTALLED = <int> TidyAttr_OnSTALLED
-    OnSTORAGE = <int> TidyAttr_OnSTORAGE
-    OnSUSPEND = <int> TidyAttr_OnSUSPEND
-    OnTIMEUPDATE = <int> TidyAttr_OnTIMEUPDATE
-    OnUNDO = <int> TidyAttr_OnUNDO
-    OnVOLUMECHANGE = <int> TidyAttr_OnVOLUMECHANGE
-    OnWAITING = <int> TidyAttr_OnWAITING
-    PATTERN = <int> TidyAttr_PATTERN
-    PLACEHOLDER = <int> TidyAttr_PLACEHOLDER
-    POSTER = <int> TidyAttr_POSTER
-    PRELOAD = <int> TidyAttr_PRELOAD
-    PUBDATE = <int> TidyAttr_PUBDATE
-    RADIOGROUP = <int> TidyAttr_RADIOGROUP
-    REQUIRED = <int> TidyAttr_REQUIRED
-    REVERSED = <int> TidyAttr_REVERSED
-    SANDBOX = <int> TidyAttr_SANDBOX
-    SCOPED = <int> TidyAttr_SCOPED
-    SEAMLESS = <int> TidyAttr_SEAMLESS
-    SIZES = <int> TidyAttr_SIZES
-    SPELLCHECK = <int> TidyAttr_SPELLCHECK
-    SRCDOC = <int> TidyAttr_SRCDOC
-    SRCLANG = <int> TidyAttr_SRCLANG
-    STEP = <int> TidyAttr_STEP
-    ARIA_ACTIVEDESCENDANT = <int> TidyAttr_ARIA_ACTIVEDESCENDANT
-    ARIA_ATOMIC = <int> TidyAttr_ARIA_ATOMIC
-    ARIA_AUTOCOMPLETE = <int> TidyAttr_ARIA_AUTOCOMPLETE
-    ARIA_BUSY = <int> TidyAttr_ARIA_BUSY
-    ARIA_CHECKED = <int> TidyAttr_ARIA_CHECKED
-    ARIA_CONTROLS = <int> TidyAttr_ARIA_CONTROLS
-    ARIA_DESCRIBEDBY = <int> TidyAttr_ARIA_DESCRIBEDBY
-    ARIA_DISABLED = <int> TidyAttr_ARIA_DISABLED
-    ARIA_DROPEFFECT = <int> TidyAttr_ARIA_DROPEFFECT
-    ARIA_EXPANDED = <int> TidyAttr_ARIA_EXPANDED
-    ARIA_FLOWTO = <int> TidyAttr_ARIA_FLOWTO
-    ARIA_GRABBED = <int> TidyAttr_ARIA_GRABBED
-    ARIA_HASPOPUP = <int> TidyAttr_ARIA_HASPOPUP
-    ARIA_HIDDEN = <int> TidyAttr_ARIA_HIDDEN
-    ARIA_INVALID = <int> TidyAttr_ARIA_INVALID
-    ARIA_LABEL = <int> TidyAttr_ARIA_LABEL
-    ARIA_LABELLEDBY = <int> TidyAttr_ARIA_LABELLEDBY
-    ARIA_LEVEL = <int> TidyAttr_ARIA_LEVEL
-    ARIA_LIVE = <int> TidyAttr_ARIA_LIVE
-    ARIA_MULTILINE = <int> TidyAttr_ARIA_MULTILINE
-    ARIA_MULTISELECTABLE = <int> TidyAttr_ARIA_MULTISELECTABLE
-    ARIA_ORIENTATION = <int> TidyAttr_ARIA_ORIENTATION
-    ARIA_OWNS = <int> TidyAttr_ARIA_OWNS
-    ARIA_POSINSET = <int> TidyAttr_ARIA_POSINSET
-    ARIA_PRESSED = <int> TidyAttr_ARIA_PRESSED
-    ARIA_READONLY = <int> TidyAttr_ARIA_READONLY
-    ARIA_RELEVANT = <int> TidyAttr_ARIA_RELEVANT
-    ARIA_REQUIRED = <int> TidyAttr_ARIA_REQUIRED
-    ARIA_SELECTED = <int> TidyAttr_ARIA_SELECTED
-    ARIA_SETSIZE = <int> TidyAttr_ARIA_SETSIZE
-    ARIA_SORT = <int> TidyAttr_ARIA_SORT
-    ARIA_VALUEMAX = <int> TidyAttr_ARIA_VALUEMAX
-    ARIA_VALUEMIN = <int> TidyAttr_ARIA_VALUEMIN
-    ARIA_VALUENOW = <int> TidyAttr_ARIA_VALUENOW
-    ARIA_VALUETEXT = <int> TidyAttr_ARIA_VALUETEXT
-    X = <int> TidyAttr_X
-    Y = <int> TidyAttr_Y
-    VIEWBOX = <int> TidyAttr_VIEWBOX
-    PRESERVEASPECTRATIO = <int> TidyAttr_PRESERVEASPECTRATIO
-    ZOOMANDPAN = <int> TidyAttr_ZOOMANDPAN
-    BASEPROFILE = <int> TidyAttr_BASEPROFILE
-    CONTENTSCRIPTTYPE = <int> TidyAttr_CONTENTSCRIPTTYPE
-    CONTENTSTYLETYPE = <int> TidyAttr_CONTENTSTYLETYPE
-    DISPLAY = <int> TidyAttr_DISPLAY
-    ABOUT = <int> TidyAttr_ABOUT
-    DATATYPE = <int> TidyAttr_DATATYPE
-    INLIST = <int> TidyAttr_INLIST
-    PREFIX = <int> TidyAttr_PREFIX
-    PROPERTY = <int> TidyAttr_PROPERTY
-    RESOURCE = <int> TidyAttr_RESOURCE
-    TYPEOF = <int> TidyAttr_TYPEOF
-    VOCAB = <int> TidyAttr_VOCAB
-    INTEGRITY = <int> TidyAttr_INTEGRITY
-    AS = <int> TidyAttr_AS
-    XMLNSXLINK = <int> TidyAttr_XMLNSXLINK
-    _N = <int> N_TIDY_ATTRIBS
+    boolean = <unsigned int> TidyBoolean
+    integer = <unsigned int> TidyInteger
+    string = <unsigned int> TidyString
 
 
 class _ReportLevel(IntEnum):
-    __name__ = __qualname__ = 'ReportLevel'
-
+    __name__ =  __qualname__ = 'ReportLevel'
     for_name = staticmethod(report_level_for_name)
 
-    Info = <int> TidyInfo
-    Warning = <int> TidyWarning
-    Config = <int> TidyConfig
-    Access = <int> TidyAccess
-    Error = <int> TidyError
-    BadDocument = <int> TidyBadDocument
-    Fatal = <int> TidyFatal
-    DialogueSummary = <int> TidyDialogueSummary
-    DialogueInfo = <int> TidyDialogueInfo
-    DialogueFootnote = <int> TidyDialogueFootnote
-    DialogueDoc = DialogueFootnote
-
-
-class _FormatParameterType(IntEnum):
-    __name__ = __qualname__ = 'FormatParameterType'
-
-    for_name = staticmethod(format_parameter_type_for_name)
-
-    INT = <int> tidyFormatType_INT
-    UINT = <int> tidyFormatType_UINT
-    STRING = <int> tidyFormatType_STRING
-    DOUBLE = <int> tidyFormatType_DOUBLE
-    UNKNOWN = <int> tidyFormatType_UNKNOWN
+    access = <unsigned int> TidyAccess
+    bad_document = <unsigned int> TidyBadDocument
+    config = <unsigned int> TidyConfig
+    dialogue_doc = <unsigned int> TidyDialogueDoc
+    dialogue_footnote = <unsigned int> TidyDialogueFootnote
+    dialogue_info = <unsigned int> TidyDialogueInfo
+    dialogue_summary = <unsigned int> TidyDialogueSummary
+    error = <unsigned int> TidyError
+    fatal = <unsigned int> TidyFatal
+    info = <unsigned int> TidyInfo
+    warning = <unsigned int> TidyWarning
 
 
 class _Strings(IntEnum):
+    __name__ =  __qualname__ = 'Strings'
     for_name = staticmethod(strings_for_name)
-    
-    tidystringsFirst = <int> TIDYSTRINGS_FIRST
-    reportMessageFirst = <int> REPORT_MESSAGE_FIRST
-    reportMessageLast = <int> REPORT_MESSAGE_LAST
-    tidystringsLast = <int> TIDYSTRINGS_LAST
-    lineColumnString = <int> LINE_COLUMN_STRING
-    stringDiscarding = <int> STRING_DISCARDING
-    stringErrorCountError = <int> STRING_ERROR_COUNT_ERROR
-    stringErrorCountWarning = <int> STRING_ERROR_COUNT_WARNING
-    stringHelloAccess = <int> STRING_HELLO_ACCESS
-    stringHtmlProprietary = <int> STRING_HTML_PROPRIETARY
-    stringPlainText = <int> STRING_PLAIN_TEXT
-    stringReplacing = <int> STRING_REPLACING
-    stringSpecified = <int> STRING_SPECIFIED
-    stringXmlDeclaration = <int> STRING_XML_DECLARATION
-    tidycustomnoString = <int> TIDYCUSTOMNO_STRING
-    tidycustomblocklevelString = <int> TIDYCUSTOMBLOCKLEVEL_STRING
-    tidycustomemptyString = <int> TIDYCUSTOMEMPTY_STRING
-    tidycustominlineString = <int> TIDYCUSTOMINLINE_STRING
-    tidycustompreString = <int> TIDYCUSTOMPRE_STRING
-    footnoteTrimEmptyElement = <int> FOOTNOTE_TRIM_EMPTY_ELEMENT
-    textAccessAdvice1 = <int> TEXT_ACCESS_ADVICE1
-    textAccessAdvice2 = <int> TEXT_ACCESS_ADVICE2
-    textBadForm = <int> TEXT_BAD_FORM
-    textBadMain = <int> TEXT_BAD_MAIN
-    textHtmlTAlgorithm = <int> TEXT_HTML_T_ALGORITHM
-    textInvalidUri = <int> TEXT_INVALID_URI
-    textInvalidUtf16 = <int> TEXT_INVALID_UTF16
-    textInvalidUtf8 = <int> TEXT_INVALID_UTF8
-    textMImageAlt = <int> TEXT_M_IMAGE_ALT
-    textMImageMap = <int> TEXT_M_IMAGE_MAP
-    textMLinkAlt = <int> TEXT_M_LINK_ALT
-    textMSummary = <int> TEXT_M_SUMMARY
-    textSgmlChars = <int> TEXT_SGML_CHARS
-    textUsingBody = <int> TEXT_USING_BODY
-    textUsingFont = <int> TEXT_USING_FONT
-    textUsingFrames = <int> TEXT_USING_FRAMES
-    textUsingLayer = <int> TEXT_USING_LAYER
-    textUsingNobr = <int> TEXT_USING_NOBR
-    textUsingSpacer = <int> TEXT_USING_SPACER
-    textVendorChars = <int> TEXT_VENDOR_CHARS
-    textWindowsChars = <int> TEXT_WINDOWS_CHARS
-    stringErrorCount = <int> STRING_ERROR_COUNT
-    stringNeedsIntervention = <int> STRING_NEEDS_INTERVENTION
-    stringNoErrors = <int> STRING_NO_ERRORS
-    stringNotAllShown = <int> STRING_NOT_ALL_SHOWN
-    textGeneralInfoPlea = <int> TEXT_GENERAL_INFO_PLEA
-    textGeneralInfo = <int> TEXT_GENERAL_INFO
-    addedMissingCharset = <int> ADDED_MISSING_CHARSET
-    anchorNotUnique = <int> ANCHOR_NOT_UNIQUE
-    aposUndefined = <int> APOS_UNDEFINED
-    attrValueNotLcase = <int> ATTR_VALUE_NOT_LCASE
-    attributeIsNotAllowed = <int> ATTRIBUTE_IS_NOT_ALLOWED
-    attributeValueReplaced = <int> ATTRIBUTE_VALUE_REPLACED
-    backslashInUri = <int> BACKSLASH_IN_URI
-    badAttributeValueReplaced = <int> BAD_ATTRIBUTE_VALUE_REPLACED
-    badAttributeValue = <int> BAD_ATTRIBUTE_VALUE
-    badCdataContent = <int> BAD_CDATA_CONTENT
-    badSummaryHtml5 = <int> BAD_SUMMARY_HTML5
-    badSurrogateLead = <int> BAD_SURROGATE_LEAD
-    badSurrogatePair = <int> BAD_SURROGATE_PAIR
-    badSurrogateTail = <int> BAD_SURROGATE_TAIL
-    cantBeNested = <int> CANT_BE_NESTED
-    coerceToEndtag = <int> COERCE_TO_ENDTAG
-    contentAfterBody = <int> CONTENT_AFTER_BODY
-    customTagDetected = <int> CUSTOM_TAG_DETECTED
-    discardingUnexpected = <int> DISCARDING_UNEXPECTED
-    doctypeAfterTags = <int> DOCTYPE_AFTER_TAGS
-    duplicateFrameset = <int> DUPLICATE_FRAMESET
-    elementNotEmpty = <int> ELEMENT_NOT_EMPTY
-    elementVersMismatchError = <int> ELEMENT_VERS_MISMATCH_ERROR
-    elementVersMismatchWarn = <int> ELEMENT_VERS_MISMATCH_WARN
-    encodingMismatch = <int> ENCODING_MISMATCH
-    escapedIllegalUri = <int> ESCAPED_ILLEGAL_URI
-    fileCantOpen = <int> FILE_CANT_OPEN
-    fileCantOpenCfg = <int> FILE_CANT_OPEN_CFG
-    fileNotFile = <int> FILE_NOT_FILE
-    fixedBackslash = <int> FIXED_BACKSLASH
-    foundStyleInBody = <int> FOUND_STYLE_IN_BODY
-    idNameMismatch = <int> ID_NAME_MISMATCH
-    illegalNesting = <int> ILLEGAL_NESTING
-    illegalUriCodepoint = <int> ILLEGAL_URI_CODEPOINT
-    illegalUriReference = <int> ILLEGAL_URI_REFERENCE
-    insertingAutoAttribute = <int> INSERTING_AUTO_ATTRIBUTE
-    insertingTag = <int> INSERTING_TAG
-    invalidAttribute = <int> INVALID_ATTRIBUTE
-    invalidNcr = <int> INVALID_NCR
-    invalidSgmlChars = <int> INVALID_SGML_CHARS
-    invalidUtf8 = <int> INVALID_UTF8
-    invalidUtf16 = <int> INVALID_UTF16
-    invalidXmlId = <int> INVALID_XML_ID
-    joiningAttribute = <int> JOINING_ATTRIBUTE
-    malformedComment = <int> MALFORMED_COMMENT
-    malformedCommentDropping = <int> MALFORMED_COMMENT_DROPPING
-    malformedCommentEos = <int> MALFORMED_COMMENT_EOS
-    malformedCommentWarn = <int> MALFORMED_COMMENT_WARN
-    malformedDoctype = <int> MALFORMED_DOCTYPE
-    mismatchedAttributeError = <int> MISMATCHED_ATTRIBUTE_ERROR
-    mismatchedAttributeWarn = <int> MISMATCHED_ATTRIBUTE_WARN
-    missingAttrValue = <int> MISSING_ATTR_VALUE
-    missingAttribute = <int> MISSING_ATTRIBUTE
-    missingDoctype = <int> MISSING_DOCTYPE
-    missingEndtagBefore = <int> MISSING_ENDTAG_BEFORE
-    missingEndtagFor = <int> MISSING_ENDTAG_FOR
-    missingEndtagOptional = <int> MISSING_ENDTAG_OPTIONAL
-    missingImagemap = <int> MISSING_IMAGEMAP
-    missingQuotemark = <int> MISSING_QUOTEMARK
-    missingQuotemarkOpen = <int> MISSING_QUOTEMARK_OPEN
-    missingSemicolonNcr = <int> MISSING_SEMICOLON_NCR
-    missingSemicolon = <int> MISSING_SEMICOLON
-    missingStarttag = <int> MISSING_STARTTAG
-    missingTitleElement = <int> MISSING_TITLE_ELEMENT
-    movedStyleToHead = <int> MOVED_STYLE_TO_HEAD
-    nestedEmphasis = <int> NESTED_EMPHASIS
-    nestedQuotation = <int> NESTED_QUOTATION
-    newlineInUri = <int> NEWLINE_IN_URI
-    noframesContent = <int> NOFRAMES_CONTENT
-    nonMatchingEndtag = <int> NON_MATCHING_ENDTAG
-    obsoleteElement = <int> OBSOLETE_ELEMENT
-    optionRemoved = <int> OPTION_REMOVED
-    optionRemovedApplied = <int> OPTION_REMOVED_APPLIED
-    optionRemovedUnapplied = <int> OPTION_REMOVED_UNAPPLIED
-    previousLocation = <int> PREVIOUS_LOCATION
-    proprietaryAttrValue = <int> PROPRIETARY_ATTR_VALUE
-    proprietaryAttribute = <int> PROPRIETARY_ATTRIBUTE
-    proprietaryElement = <int> PROPRIETARY_ELEMENT
-    removedHtml5 = <int> REMOVED_HTML5
-    repeatedAttribute = <int> REPEATED_ATTRIBUTE
-    replacingElement = <int> REPLACING_ELEMENT
-    replacingUnexElement = <int> REPLACING_UNEX_ELEMENT
-    spacePrecedingXmldecl = <int> SPACE_PRECEDING_XMLDECL
-    stringContentLooks = <int> STRING_CONTENT_LOOKS
-    stringArgumentBad = <int> STRING_ARGUMENT_BAD
-    stringDoctypeGiven = <int> STRING_DOCTYPE_GIVEN
-    stringMissingMalformed = <int> STRING_MISSING_MALFORMED
-    stringMutingType = <int> STRING_MUTING_TYPE
-    stringNoSysid = <int> STRING_NO_SYSID
-    stringUnknownOption = <int> STRING_UNKNOWN_OPTION
-    suspectedMissingQuote = <int> SUSPECTED_MISSING_QUOTE
-    tagNotAllowedIn = <int> TAG_NOT_ALLOWED_IN
-    tooManyElementsIn = <int> TOO_MANY_ELEMENTS_IN
-    tooManyElements = <int> TOO_MANY_ELEMENTS
-    trimEmptyElement = <int> TRIM_EMPTY_ELEMENT
-    unescapedAmpersand = <int> UNESCAPED_AMPERSAND
-    unexpectedEndOfFileAttr = <int> UNEXPECTED_END_OF_FILE_ATTR
-    unexpectedEndOfFile = <int> UNEXPECTED_END_OF_FILE
-    unexpectedEndtagErr = <int> UNEXPECTED_ENDTAG_ERR
-    unexpectedEndtagIn = <int> UNEXPECTED_ENDTAG_IN
-    unexpectedEndtag = <int> UNEXPECTED_ENDTAG
-    unexpectedEqualsign = <int> UNEXPECTED_EQUALSIGN
-    unexpectedGt = <int> UNEXPECTED_GT
-    unexpectedQuotemark = <int> UNEXPECTED_QUOTEMARK
-    unknownElementLooksCustom = <int> UNKNOWN_ELEMENT_LOOKS_CUSTOM
-    unknownElement = <int> UNKNOWN_ELEMENT
-    unknownEntity = <int> UNKNOWN_ENTITY
-    usingBrInplaceOf = <int> USING_BR_INPLACE_OF
-    vendorSpecificChars = <int> VENDOR_SPECIFIC_CHARS
-    whiteInUri = <int> WHITE_IN_URI
-    xmlDeclarationDetected = <int> XML_DECLARATION_DETECTED
-    xmlIdSyntax = <int> XML_ID_SYNTAX
-    imgMissingAlt = <int> IMG_MISSING_ALT
-    imgAltSuspiciousFilename = <int> IMG_ALT_SUSPICIOUS_FILENAME
-    imgAltSuspiciousFileSize = <int> IMG_ALT_SUSPICIOUS_FILE_SIZE
-    imgAltSuspiciousPlaceholder = <int> IMG_ALT_SUSPICIOUS_PLACEHOLDER
-    imgAltSuspiciousTooLong = <int> IMG_ALT_SUSPICIOUS_TOO_LONG
-    imgMissingLongdescDlink = <int> IMG_MISSING_LONGDESC_DLINK
-    imgMissingDlink = <int> IMG_MISSING_DLINK
-    imgMissingLongdesc = <int> IMG_MISSING_LONGDESC
-    imgButtonMissingAlt = <int> IMG_BUTTON_MISSING_ALT
-    appletMissingAlt = <int> APPLET_MISSING_ALT
-    objectMissingAlt = <int> OBJECT_MISSING_ALT
-    audioMissingTextWav = <int> AUDIO_MISSING_TEXT_WAV
-    audioMissingTextAu = <int> AUDIO_MISSING_TEXT_AU
-    audioMissingTextAiff = <int> AUDIO_MISSING_TEXT_AIFF
-    audioMissingTextSnd = <int> AUDIO_MISSING_TEXT_SND
-    audioMissingTextRa = <int> AUDIO_MISSING_TEXT_RA
-    audioMissingTextRm = <int> AUDIO_MISSING_TEXT_RM
-    frameMissingLongdesc = <int> FRAME_MISSING_LONGDESC
-    areaMissingAlt = <int> AREA_MISSING_ALT
-    scriptMissingNoscript = <int> SCRIPT_MISSING_NOSCRIPT
-    asciiRequiresDescription = <int> ASCII_REQUIRES_DESCRIPTION
-    imgMapServerRequiresTextLinks = <int> IMG_MAP_SERVER_REQUIRES_TEXT_LINKS
-    multimediaRequiresText = <int> MULTIMEDIA_REQUIRES_TEXT
-    imgMapClientMissingTextLinks = <int> IMG_MAP_CLIENT_MISSING_TEXT_LINKS
-    informationNotConveyedImage = <int> INFORMATION_NOT_CONVEYED_IMAGE
-    informationNotConveyedApplet = <int> INFORMATION_NOT_CONVEYED_APPLET
-    informationNotConveyedObject = <int> INFORMATION_NOT_CONVEYED_OBJECT
-    informationNotConveyedScript = <int> INFORMATION_NOT_CONVEYED_SCRIPT
-    informationNotConveyedInput = <int> INFORMATION_NOT_CONVEYED_INPUT
-    colorContrastText = <int> COLOR_CONTRAST_TEXT
-    colorContrastLink = <int> COLOR_CONTRAST_LINK
-    colorContrastActiveLink = <int> COLOR_CONTRAST_ACTIVE_LINK
-    colorContrastVisitedLink = <int> COLOR_CONTRAST_VISITED_LINK
-    doctypeMissing = <int> DOCTYPE_MISSING
-    styleSheetControlPresentation = <int> STYLE_SHEET_CONTROL_PRESENTATION
-    headersImproperlyNested = <int> HEADERS_IMPROPERLY_NESTED
-    potentialHeaderBold = <int> POTENTIAL_HEADER_BOLD
-    potentialHeaderItalics = <int> POTENTIAL_HEADER_ITALICS
-    potentialHeaderUnderline = <int> POTENTIAL_HEADER_UNDERLINE
-    headerUsedFormatText = <int> HEADER_USED_FORMAT_TEXT
-    listUsageInvalidUl = <int> LIST_USAGE_INVALID_UL
-    listUsageInvalidOl = <int> LIST_USAGE_INVALID_OL
-    listUsageInvalidLi = <int> LIST_USAGE_INVALID_LI
-    languageNotIdentified = <int> LANGUAGE_NOT_IDENTIFIED
-    languageInvalid = <int> LANGUAGE_INVALID
-    dataTableMissingHeaders = <int> DATA_TABLE_MISSING_HEADERS
-    dataTableMissingHeadersColumn = <int> DATA_TABLE_MISSING_HEADERS_COLUMN
-    dataTableMissingHeadersRow = <int> DATA_TABLE_MISSING_HEADERS_ROW
-    dataTableRequireMarkupColumnHeaders = <int> DATA_TABLE_REQUIRE_MARKUP_COLUMN_HEADERS
-    dataTableRequireMarkupRowHeaders = <int> DATA_TABLE_REQUIRE_MARKUP_ROW_HEADERS
-    layoutTablesLinearizeProperly = <int> LAYOUT_TABLES_LINEARIZE_PROPERLY
-    layoutTableInvalidMarkup = <int> LAYOUT_TABLE_INVALID_MARKUP
-    tableMissingSummary = <int> TABLE_MISSING_SUMMARY
-    tableSummaryInvalidNull = <int> TABLE_SUMMARY_INVALID_NULL
-    tableSummaryInvalidSpaces = <int> TABLE_SUMMARY_INVALID_SPACES
-    tableSummaryInvalidPlaceholder = <int> TABLE_SUMMARY_INVALID_PLACEHOLDER
-    tableMissingCaption = <int> TABLE_MISSING_CAPTION
-    tableMayRequireHeaderAbbr = <int> TABLE_MAY_REQUIRE_HEADER_ABBR
-    tableMayRequireHeaderAbbrNull = <int> TABLE_MAY_REQUIRE_HEADER_ABBR_NULL
-    tableMayRequireHeaderAbbrSpaces = <int> TABLE_MAY_REQUIRE_HEADER_ABBR_SPACES
-    stylesheetsRequireTestingLink = <int> STYLESHEETS_REQUIRE_TESTING_LINK
-    stylesheetsRequireTestingStyleElement = <int> STYLESHEETS_REQUIRE_TESTING_STYLE_ELEMENT
-    stylesheetsRequireTestingStyleAttr = <int> STYLESHEETS_REQUIRE_TESTING_STYLE_ATTR
-    frameSrcInvalid = <int> FRAME_SRC_INVALID
-    textEquivalentsRequireUpdatingApplet = <int> TEXT_EQUIVALENTS_REQUIRE_UPDATING_APPLET
-    textEquivalentsRequireUpdatingScript = <int> TEXT_EQUIVALENTS_REQUIRE_UPDATING_SCRIPT
-    textEquivalentsRequireUpdatingObject = <int> TEXT_EQUIVALENTS_REQUIRE_UPDATING_OBJECT
-    programmaticObjectsRequireTestingScript = <int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_SCRIPT
-    programmaticObjectsRequireTestingObject = <int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_OBJECT
-    programmaticObjectsRequireTestingEmbed = <int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_EMBED
-    programmaticObjectsRequireTestingApplet = <int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_APPLET
-    frameMissingNoframes = <int> FRAME_MISSING_NOFRAMES
-    noframesInvalidNoValue = <int> NOFRAMES_INVALID_NO_VALUE
-    noframesInvalidContent = <int> NOFRAMES_INVALID_CONTENT
-    noframesInvalidLink = <int> NOFRAMES_INVALID_LINK
-    removeFlickerScript = <int> REMOVE_FLICKER_SCRIPT
-    removeFlickerObject = <int> REMOVE_FLICKER_OBJECT
-    removeFlickerEmbed = <int> REMOVE_FLICKER_EMBED
-    removeFlickerApplet = <int> REMOVE_FLICKER_APPLET
-    removeFlickerAnimatedGif = <int> REMOVE_FLICKER_ANIMATED_GIF
-    removeBlinkMarquee = <int> REMOVE_BLINK_MARQUEE
-    removeAutoRefresh = <int> REMOVE_AUTO_REFRESH
-    removeAutoRedirect = <int> REMOVE_AUTO_REDIRECT
-    ensureProgrammaticObjectsAccessibleScript = <int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_SCRIPT
-    ensureProgrammaticObjectsAccessibleObject = <int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_OBJECT
-    ensureProgrammaticObjectsAccessibleApplet = <int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_APPLET
-    ensureProgrammaticObjectsAccessibleEmbed = <int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_EMBED
-    imageMapServerSideRequiresConversion = <int> IMAGE_MAP_SERVER_SIDE_REQUIRES_CONVERSION
-    scriptNotKeyboardAccessibleOnMouseDown = <int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_DOWN
-    scriptNotKeyboardAccessibleOnMouseUp = <int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_UP
-    scriptNotKeyboardAccessibleOnClick = <int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_CLICK
-    scriptNotKeyboardAccessibleOnMouseOver = <int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_OVER
-    scriptNotKeyboardAccessibleOnMouseOut = <int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_OUT
-    scriptNotKeyboardAccessibleOnMouseMove = <int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_MOVE
-    newWindowsRequireWarningNew = <int> NEW_WINDOWS_REQUIRE_WARNING_NEW
-    newWindowsRequireWarningBlank = <int> NEW_WINDOWS_REQUIRE_WARNING_BLANK
-    replaceDeprecatedHtmlApplet = <int> REPLACE_DEPRECATED_HTML_APPLET
-    replaceDeprecatedHtmlBasefont = <int> REPLACE_DEPRECATED_HTML_BASEFONT
-    replaceDeprecatedHtmlCenter = <int> REPLACE_DEPRECATED_HTML_CENTER
-    replaceDeprecatedHtmlDir = <int> REPLACE_DEPRECATED_HTML_DIR
-    replaceDeprecatedHtmlFont = <int> REPLACE_DEPRECATED_HTML_FONT
-    replaceDeprecatedHtmlIsindex = <int> REPLACE_DEPRECATED_HTML_ISINDEX
-    replaceDeprecatedHtmlMenu = <int> REPLACE_DEPRECATED_HTML_MENU
-    replaceDeprecatedHtmlS = <int> REPLACE_DEPRECATED_HTML_S
-    replaceDeprecatedHtmlStrike = <int> REPLACE_DEPRECATED_HTML_STRIKE
-    replaceDeprecatedHtmlU = <int> REPLACE_DEPRECATED_HTML_U
-    frameMissingTitle = <int> FRAME_MISSING_TITLE
-    frameTitleInvalidNull = <int> FRAME_TITLE_INVALID_NULL
-    frameTitleInvalidSpaces = <int> FRAME_TITLE_INVALID_SPACES
-    associateLabelsExplicitly = <int> ASSOCIATE_LABELS_EXPLICITLY
-    associateLabelsExplicitlyFor = <int> ASSOCIATE_LABELS_EXPLICITLY_FOR
-    associateLabelsExplicitlyId = <int> ASSOCIATE_LABELS_EXPLICITLY_ID
-    linkTextNotMeaningful = <int> LINK_TEXT_NOT_MEANINGFUL
-    linkTextMissing = <int> LINK_TEXT_MISSING
-    linkTextTooLong = <int> LINK_TEXT_TOO_LONG
-    linkTextNotMeaningfulClickHere = <int> LINK_TEXT_NOT_MEANINGFUL_CLICK_HERE
-    metadataMissing = <int> METADATA_MISSING
-    metadataMissingRedirectAutorefresh = <int> METADATA_MISSING_REDIRECT_AUTOREFRESH
-    skipoverAsciiArt = <int> SKIPOVER_ASCII_ART
+
+    added_missing_charset = <unsigned int> ADDED_MISSING_CHARSET
+    anchor_not_unique = <unsigned int> ANCHOR_NOT_UNIQUE
+    apos_undefined = <unsigned int> APOS_UNDEFINED
+    applet_missing_alt = <unsigned int> APPLET_MISSING_ALT
+    area_missing_alt = <unsigned int> AREA_MISSING_ALT
+    ascii_requires_description = <unsigned int> ASCII_REQUIRES_DESCRIPTION
+    associate_labels_explicitly = <unsigned int> ASSOCIATE_LABELS_EXPLICITLY
+    associate_labels_explicitly_for = <unsigned int> ASSOCIATE_LABELS_EXPLICITLY_FOR
+    associate_labels_explicitly_id = <unsigned int> ASSOCIATE_LABELS_EXPLICITLY_ID
+    attribute_is_not_allowed = <unsigned int> ATTRIBUTE_IS_NOT_ALLOWED
+    attribute_value_replaced = <unsigned int> ATTRIBUTE_VALUE_REPLACED
+    attr_value_not_lcase = <unsigned int> ATTR_VALUE_NOT_LCASE
+    audio_missing_text_aiff = <unsigned int> AUDIO_MISSING_TEXT_AIFF
+    audio_missing_text_au = <unsigned int> AUDIO_MISSING_TEXT_AU
+    audio_missing_text_ra = <unsigned int> AUDIO_MISSING_TEXT_RA
+    audio_missing_text_rm = <unsigned int> AUDIO_MISSING_TEXT_RM
+    audio_missing_text_snd = <unsigned int> AUDIO_MISSING_TEXT_SND
+    audio_missing_text_wav = <unsigned int> AUDIO_MISSING_TEXT_WAV
+    backslash_in_uri = <unsigned int> BACKSLASH_IN_URI
+    bad_attribute_value = <unsigned int> BAD_ATTRIBUTE_VALUE
+    bad_attribute_value_replaced = <unsigned int> BAD_ATTRIBUTE_VALUE_REPLACED
+    bad_cdata_content = <unsigned int> BAD_CDATA_CONTENT
+    bad_summary_html5 = <unsigned int> BAD_SUMMARY_HTML5
+    bad_surrogate_lead = <unsigned int> BAD_SURROGATE_LEAD
+    bad_surrogate_pair = <unsigned int> BAD_SURROGATE_PAIR
+    bad_surrogate_tail = <unsigned int> BAD_SURROGATE_TAIL
+    cant_be_nested = <unsigned int> CANT_BE_NESTED
+    coerce_to_endtag = <unsigned int> COERCE_TO_ENDTAG
+    color_contrast_active_link = <unsigned int> COLOR_CONTRAST_ACTIVE_LINK
+    color_contrast_link = <unsigned int> COLOR_CONTRAST_LINK
+    color_contrast_text = <unsigned int> COLOR_CONTRAST_TEXT
+    color_contrast_visited_link = <unsigned int> COLOR_CONTRAST_VISITED_LINK
+    content_after_body = <unsigned int> CONTENT_AFTER_BODY
+    custom_tag_detected = <unsigned int> CUSTOM_TAG_DETECTED
+    data_table_missing_headers = <unsigned int> DATA_TABLE_MISSING_HEADERS
+    data_table_missing_headers_column = <unsigned int> DATA_TABLE_MISSING_HEADERS_COLUMN
+    data_table_missing_headers_row = <unsigned int> DATA_TABLE_MISSING_HEADERS_ROW
+    data_table_require_markup_column_headers = <unsigned int> DATA_TABLE_REQUIRE_MARKUP_COLUMN_HEADERS
+    data_table_require_markup_row_headers = <unsigned int> DATA_TABLE_REQUIRE_MARKUP_ROW_HEADERS
+    discarding_unexpected = <unsigned int> DISCARDING_UNEXPECTED
+    doctype_after_tags = <unsigned int> DOCTYPE_AFTER_TAGS
+    doctype_missing = <unsigned int> DOCTYPE_MISSING
+    duplicate_frameset = <unsigned int> DUPLICATE_FRAMESET
+    element_not_empty = <unsigned int> ELEMENT_NOT_EMPTY
+    element_vers_mismatch_error = <unsigned int> ELEMENT_VERS_MISMATCH_ERROR
+    element_vers_mismatch_warn = <unsigned int> ELEMENT_VERS_MISMATCH_WARN
+    encoding_mismatch = <unsigned int> ENCODING_MISMATCH
+    ensure_programmatic_objects_accessible_applet = <unsigned int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_APPLET
+    ensure_programmatic_objects_accessible_embed = <unsigned int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_EMBED
+    ensure_programmatic_objects_accessible_object = <unsigned int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_OBJECT
+    ensure_programmatic_objects_accessible_script = <unsigned int> ENSURE_PROGRAMMATIC_OBJECTS_ACCESSIBLE_SCRIPT
+    escaped_illegal_uri = <unsigned int> ESCAPED_ILLEGAL_URI
+    file_cant_open = <unsigned int> FILE_CANT_OPEN
+    file_cant_open_cfg = <unsigned int> FILE_CANT_OPEN_CFG
+    file_not_file = <unsigned int> FILE_NOT_FILE
+    fixed_backslash = <unsigned int> FIXED_BACKSLASH
+    footnote_trim_empty_element = <unsigned int> FOOTNOTE_TRIM_EMPTY_ELEMENT
+    found_style_in_body = <unsigned int> FOUND_STYLE_IN_BODY
+    frame_missing_longdesc = <unsigned int> FRAME_MISSING_LONGDESC
+    frame_missing_noframes = <unsigned int> FRAME_MISSING_NOFRAMES
+    frame_missing_title = <unsigned int> FRAME_MISSING_TITLE
+    frame_src_invalid = <unsigned int> FRAME_SRC_INVALID
+    frame_title_invalid_null = <unsigned int> FRAME_TITLE_INVALID_NULL
+    frame_title_invalid_spaces = <unsigned int> FRAME_TITLE_INVALID_SPACES
+    headers_improperly_nested = <unsigned int> HEADERS_IMPROPERLY_NESTED
+    header_used_format_text = <unsigned int> HEADER_USED_FORMAT_TEXT
+    id_name_mismatch = <unsigned int> ID_NAME_MISMATCH
+    illegal_nesting = <unsigned int> ILLEGAL_NESTING
+    illegal_uri_codepoint = <unsigned int> ILLEGAL_URI_CODEPOINT
+    illegal_uri_reference = <unsigned int> ILLEGAL_URI_REFERENCE
+    image_map_server_side_requires_conversion = <unsigned int> IMAGE_MAP_SERVER_SIDE_REQUIRES_CONVERSION
+    img_alt_suspicious_filename = <unsigned int> IMG_ALT_SUSPICIOUS_FILENAME
+    img_alt_suspicious_file_size = <unsigned int> IMG_ALT_SUSPICIOUS_FILE_SIZE
+    img_alt_suspicious_placeholder = <unsigned int> IMG_ALT_SUSPICIOUS_PLACEHOLDER
+    img_alt_suspicious_too_long = <unsigned int> IMG_ALT_SUSPICIOUS_TOO_LONG
+    img_button_missing_alt = <unsigned int> IMG_BUTTON_MISSING_ALT
+    img_map_client_missing_text_links = <unsigned int> IMG_MAP_CLIENT_MISSING_TEXT_LINKS
+    img_map_server_requires_text_links = <unsigned int> IMG_MAP_SERVER_REQUIRES_TEXT_LINKS
+    img_missing_alt = <unsigned int> IMG_MISSING_ALT
+    img_missing_dlink = <unsigned int> IMG_MISSING_DLINK
+    img_missing_longdesc = <unsigned int> IMG_MISSING_LONGDESC
+    img_missing_longdesc_dlink = <unsigned int> IMG_MISSING_LONGDESC_DLINK
+    information_not_conveyed_applet = <unsigned int> INFORMATION_NOT_CONVEYED_APPLET
+    information_not_conveyed_image = <unsigned int> INFORMATION_NOT_CONVEYED_IMAGE
+    information_not_conveyed_input = <unsigned int> INFORMATION_NOT_CONVEYED_INPUT
+    information_not_conveyed_object = <unsigned int> INFORMATION_NOT_CONVEYED_OBJECT
+    information_not_conveyed_script = <unsigned int> INFORMATION_NOT_CONVEYED_SCRIPT
+    inserting_auto_attribute = <unsigned int> INSERTING_AUTO_ATTRIBUTE
+    inserting_tag = <unsigned int> INSERTING_TAG
+    invalid_attribute = <unsigned int> INVALID_ATTRIBUTE
+    invalid_ncr = <unsigned int> INVALID_NCR
+    invalid_sgml_chars = <unsigned int> INVALID_SGML_CHARS
+    invalid_utf16 = <unsigned int> INVALID_UTF16
+    invalid_utf8 = <unsigned int> INVALID_UTF8
+    invalid_xml_id = <unsigned int> INVALID_XML_ID
+    joining_attribute = <unsigned int> JOINING_ATTRIBUTE
+    language_invalid = <unsigned int> LANGUAGE_INVALID
+    language_not_identified = <unsigned int> LANGUAGE_NOT_IDENTIFIED
+    layout_tables_linearize_properly = <unsigned int> LAYOUT_TABLES_LINEARIZE_PROPERLY
+    layout_table_invalid_markup = <unsigned int> LAYOUT_TABLE_INVALID_MARKUP
+    line_column_string = <unsigned int> LINE_COLUMN_STRING
+    link_text_missing = <unsigned int> LINK_TEXT_MISSING
+    link_text_not_meaningful = <unsigned int> LINK_TEXT_NOT_MEANINGFUL
+    link_text_not_meaningful_click_here = <unsigned int> LINK_TEXT_NOT_MEANINGFUL_CLICK_HERE
+    link_text_too_long = <unsigned int> LINK_TEXT_TOO_LONG
+    list_usage_invalid_li = <unsigned int> LIST_USAGE_INVALID_LI
+    list_usage_invalid_ol = <unsigned int> LIST_USAGE_INVALID_OL
+    list_usage_invalid_ul = <unsigned int> LIST_USAGE_INVALID_UL
+    malformed_comment = <unsigned int> MALFORMED_COMMENT
+    malformed_comment_dropping = <unsigned int> MALFORMED_COMMENT_DROPPING
+    malformed_comment_eos = <unsigned int> MALFORMED_COMMENT_EOS
+    malformed_comment_warn = <unsigned int> MALFORMED_COMMENT_WARN
+    malformed_doctype = <unsigned int> MALFORMED_DOCTYPE
+    metadata_missing = <unsigned int> METADATA_MISSING
+    metadata_missing_redirect_autorefresh = <unsigned int> METADATA_MISSING_REDIRECT_AUTOREFRESH
+    mismatched_attribute_error = <unsigned int> MISMATCHED_ATTRIBUTE_ERROR
+    mismatched_attribute_warn = <unsigned int> MISMATCHED_ATTRIBUTE_WARN
+    missing_attribute = <unsigned int> MISSING_ATTRIBUTE
+    missing_attr_value = <unsigned int> MISSING_ATTR_VALUE
+    missing_doctype = <unsigned int> MISSING_DOCTYPE
+    missing_endtag_before = <unsigned int> MISSING_ENDTAG_BEFORE
+    missing_endtag_for = <unsigned int> MISSING_ENDTAG_FOR
+    missing_endtag_optional = <unsigned int> MISSING_ENDTAG_OPTIONAL
+    missing_imagemap = <unsigned int> MISSING_IMAGEMAP
+    missing_quotemark = <unsigned int> MISSING_QUOTEMARK
+    missing_quotemark_open = <unsigned int> MISSING_QUOTEMARK_OPEN
+    missing_semicolon = <unsigned int> MISSING_SEMICOLON
+    missing_semicolon_ncr = <unsigned int> MISSING_SEMICOLON_NCR
+    missing_starttag = <unsigned int> MISSING_STARTTAG
+    missing_title_element = <unsigned int> MISSING_TITLE_ELEMENT
+    moved_style_to_head = <unsigned int> MOVED_STYLE_TO_HEAD
+    multimedia_requires_text = <unsigned int> MULTIMEDIA_REQUIRES_TEXT
+    nested_emphasis = <unsigned int> NESTED_EMPHASIS
+    nested_quotation = <unsigned int> NESTED_QUOTATION
+    newline_in_uri = <unsigned int> NEWLINE_IN_URI
+    new_windows_require_warning_blank = <unsigned int> NEW_WINDOWS_REQUIRE_WARNING_BLANK
+    new_windows_require_warning_new = <unsigned int> NEW_WINDOWS_REQUIRE_WARNING_NEW
+    noframes_content = <unsigned int> NOFRAMES_CONTENT
+    noframes_invalid_content = <unsigned int> NOFRAMES_INVALID_CONTENT
+    noframes_invalid_link = <unsigned int> NOFRAMES_INVALID_LINK
+    noframes_invalid_no_value = <unsigned int> NOFRAMES_INVALID_NO_VALUE
+    non_matching_endtag = <unsigned int> NON_MATCHING_ENDTAG
+    object_missing_alt = <unsigned int> OBJECT_MISSING_ALT
+    obsolete_element = <unsigned int> OBSOLETE_ELEMENT
+    option_removed = <unsigned int> OPTION_REMOVED
+    option_removed_applied = <unsigned int> OPTION_REMOVED_APPLIED
+    option_removed_unapplied = <unsigned int> OPTION_REMOVED_UNAPPLIED
+    potential_header_bold = <unsigned int> POTENTIAL_HEADER_BOLD
+    potential_header_italics = <unsigned int> POTENTIAL_HEADER_ITALICS
+    potential_header_underline = <unsigned int> POTENTIAL_HEADER_UNDERLINE
+    previous_location = <unsigned int> PREVIOUS_LOCATION
+    programmatic_objects_require_testing_applet = <unsigned int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_APPLET
+    programmatic_objects_require_testing_embed = <unsigned int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_EMBED
+    programmatic_objects_require_testing_object = <unsigned int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_OBJECT
+    programmatic_objects_require_testing_script = <unsigned int> PROGRAMMATIC_OBJECTS_REQUIRE_TESTING_SCRIPT
+    proprietary_attribute = <unsigned int> PROPRIETARY_ATTRIBUTE
+    proprietary_attr_value = <unsigned int> PROPRIETARY_ATTR_VALUE
+    proprietary_element = <unsigned int> PROPRIETARY_ELEMENT
+    removed_html5 = <unsigned int> REMOVED_HTML5
+    remove_auto_redirect = <unsigned int> REMOVE_AUTO_REDIRECT
+    remove_auto_refresh = <unsigned int> REMOVE_AUTO_REFRESH
+    remove_blink_marquee = <unsigned int> REMOVE_BLINK_MARQUEE
+    remove_flicker_animated_gif = <unsigned int> REMOVE_FLICKER_ANIMATED_GIF
+    remove_flicker_applet = <unsigned int> REMOVE_FLICKER_APPLET
+    remove_flicker_embed = <unsigned int> REMOVE_FLICKER_EMBED
+    remove_flicker_object = <unsigned int> REMOVE_FLICKER_OBJECT
+    remove_flicker_script = <unsigned int> REMOVE_FLICKER_SCRIPT
+    repeated_attribute = <unsigned int> REPEATED_ATTRIBUTE
+    replace_deprecated_html_applet = <unsigned int> REPLACE_DEPRECATED_HTML_APPLET
+    replace_deprecated_html_basefont = <unsigned int> REPLACE_DEPRECATED_HTML_BASEFONT
+    replace_deprecated_html_center = <unsigned int> REPLACE_DEPRECATED_HTML_CENTER
+    replace_deprecated_html_dir = <unsigned int> REPLACE_DEPRECATED_HTML_DIR
+    replace_deprecated_html_font = <unsigned int> REPLACE_DEPRECATED_HTML_FONT
+    replace_deprecated_html_isindex = <unsigned int> REPLACE_DEPRECATED_HTML_ISINDEX
+    replace_deprecated_html_menu = <unsigned int> REPLACE_DEPRECATED_HTML_MENU
+    replace_deprecated_html_s = <unsigned int> REPLACE_DEPRECATED_HTML_S
+    replace_deprecated_html_strike = <unsigned int> REPLACE_DEPRECATED_HTML_STRIKE
+    replace_deprecated_html_u = <unsigned int> REPLACE_DEPRECATED_HTML_U
+    replacing_element = <unsigned int> REPLACING_ELEMENT
+    replacing_unex_element = <unsigned int> REPLACING_UNEX_ELEMENT
+    report_message_first = <unsigned int> REPORT_MESSAGE_FIRST
+    report_message_last = <unsigned int> REPORT_MESSAGE_LAST
+    script_missing_noscript = <unsigned int> SCRIPT_MISSING_NOSCRIPT
+    script_not_keyboard_accessible_on_click = <unsigned int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_CLICK
+    script_not_keyboard_accessible_on_mouse_down = <unsigned int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_DOWN
+    script_not_keyboard_accessible_on_mouse_move = <unsigned int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_MOVE
+    script_not_keyboard_accessible_on_mouse_out = <unsigned int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_OUT
+    script_not_keyboard_accessible_on_mouse_over = <unsigned int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_OVER
+    script_not_keyboard_accessible_on_mouse_up = <unsigned int> SCRIPT_NOT_KEYBOARD_ACCESSIBLE_ON_MOUSE_UP
+    skipover_ascii_art = <unsigned int> SKIPOVER_ASCII_ART
+    space_preceding_xmldecl = <unsigned int> SPACE_PRECEDING_XMLDECL
+    string_argument_bad = <unsigned int> STRING_ARGUMENT_BAD
+    string_content_looks = <unsigned int> STRING_CONTENT_LOOKS
+    string_discarding = <unsigned int> STRING_DISCARDING
+    string_doctype_given = <unsigned int> STRING_DOCTYPE_GIVEN
+    string_error_count = <unsigned int> STRING_ERROR_COUNT
+    string_error_count_error = <unsigned int> STRING_ERROR_COUNT_ERROR
+    string_error_count_warning = <unsigned int> STRING_ERROR_COUNT_WARNING
+    string_hello_access = <unsigned int> STRING_HELLO_ACCESS
+    string_html_proprietary = <unsigned int> STRING_HTML_PROPRIETARY
+    string_missing_malformed = <unsigned int> STRING_MISSING_MALFORMED
+    string_muting_type = <unsigned int> STRING_MUTING_TYPE
+    string_needs_intervention = <unsigned int> STRING_NEEDS_INTERVENTION
+    string_not_all_shown = <unsigned int> STRING_NOT_ALL_SHOWN
+    string_no_errors = <unsigned int> STRING_NO_ERRORS
+    string_no_sysid = <unsigned int> STRING_NO_SYSID
+    string_plain_text = <unsigned int> STRING_PLAIN_TEXT
+    string_replacing = <unsigned int> STRING_REPLACING
+    string_specified = <unsigned int> STRING_SPECIFIED
+    string_unknown_option = <unsigned int> STRING_UNKNOWN_OPTION
+    string_xml_declaration = <unsigned int> STRING_XML_DECLARATION
+    stylesheets_require_testing_link = <unsigned int> STYLESHEETS_REQUIRE_TESTING_LINK
+    stylesheets_require_testing_style_attr = <unsigned int> STYLESHEETS_REQUIRE_TESTING_STYLE_ATTR
+    stylesheets_require_testing_style_element = <unsigned int> STYLESHEETS_REQUIRE_TESTING_STYLE_ELEMENT
+    style_sheet_control_presentation = <unsigned int> STYLE_SHEET_CONTROL_PRESENTATION
+    suspected_missing_quote = <unsigned int> SUSPECTED_MISSING_QUOTE
+    table_may_require_header_abbr = <unsigned int> TABLE_MAY_REQUIRE_HEADER_ABBR
+    table_may_require_header_abbr_null = <unsigned int> TABLE_MAY_REQUIRE_HEADER_ABBR_NULL
+    table_may_require_header_abbr_spaces = <unsigned int> TABLE_MAY_REQUIRE_HEADER_ABBR_SPACES
+    table_missing_caption = <unsigned int> TABLE_MISSING_CAPTION
+    table_missing_summary = <unsigned int> TABLE_MISSING_SUMMARY
+    table_summary_invalid_null = <unsigned int> TABLE_SUMMARY_INVALID_NULL
+    table_summary_invalid_placeholder = <unsigned int> TABLE_SUMMARY_INVALID_PLACEHOLDER
+    table_summary_invalid_spaces = <unsigned int> TABLE_SUMMARY_INVALID_SPACES
+    tag_not_allowed_in = <unsigned int> TAG_NOT_ALLOWED_IN
+    tc_label_col = <unsigned int> TC_LABEL_COL
+    tc_label_file = <unsigned int> TC_LABEL_FILE
+    tc_label_lang = <unsigned int> TC_LABEL_LANG
+    tc_label_levl = <unsigned int> TC_LABEL_LEVL
+    tc_label_opt = <unsigned int> TC_LABEL_OPT
+    tc_main_error_load_config = <unsigned int> TC_MAIN_ERROR_LOAD_CONFIG
+    tc_opt_access = <unsigned int> TC_OPT_ACCESS
+    tc_opt_ascii = <unsigned int> TC_OPT_ASCII
+    tc_opt_ashtml = <unsigned int> TC_OPT_ASHTML
+    tc_opt_asxml = <unsigned int> TC_OPT_ASXML
+    tc_opt_bare = <unsigned int> TC_OPT_BARE
+    tc_opt_big5 = <unsigned int> TC_OPT_BIG5
+    tc_opt_clean = <unsigned int> TC_OPT_CLEAN
+    tc_opt_config = <unsigned int> TC_OPT_CONFIG
+    tc_opt_errors = <unsigned int> TC_OPT_ERRORS
+    tc_opt_exp_cfg = <unsigned int> TC_OPT_EXP_CFG
+    tc_opt_exp_def = <unsigned int> TC_OPT_EXP_DEF
+    tc_opt_file = <unsigned int> TC_OPT_FILE
+    tc_opt_gdoc = <unsigned int> TC_OPT_GDOC
+    tc_opt_help = <unsigned int> TC_OPT_HELP
+    tc_opt_helpcfg = <unsigned int> TC_OPT_HELPCFG
+    tc_opt_helpenv = <unsigned int> TC_OPT_HELPENV
+    tc_opt_helpopt = <unsigned int> TC_OPT_HELPOPT
+    tc_opt_ibm858 = <unsigned int> TC_OPT_IBM858
+    tc_opt_indent = <unsigned int> TC_OPT_INDENT
+    tc_opt_iso2022 = <unsigned int> TC_OPT_ISO2022
+    tc_opt_language = <unsigned int> TC_OPT_LANGUAGE
+    tc_opt_latin0 = <unsigned int> TC_OPT_LATIN0
+    tc_opt_latin1 = <unsigned int> TC_OPT_LATIN1
+    tc_opt_mac = <unsigned int> TC_OPT_MAC
+    tc_opt_modify = <unsigned int> TC_OPT_MODIFY
+    tc_opt_numeric = <unsigned int> TC_OPT_NUMERIC
+    tc_opt_omit = <unsigned int> TC_OPT_OMIT
+    tc_opt_output = <unsigned int> TC_OPT_OUTPUT
+    tc_opt_quiet = <unsigned int> TC_OPT_QUIET
+    tc_opt_raw = <unsigned int> TC_OPT_RAW
+    tc_opt_shiftjis = <unsigned int> TC_OPT_SHIFTJIS
+    tc_opt_showcfg = <unsigned int> TC_OPT_SHOWCFG
+    tc_opt_upper = <unsigned int> TC_OPT_UPPER
+    tc_opt_utf16 = <unsigned int> TC_OPT_UTF16
+    tc_opt_utf16_be = <unsigned int> TC_OPT_UTF16BE
+    tc_opt_utf16_le = <unsigned int> TC_OPT_UTF16LE
+    tc_opt_utf8 = <unsigned int> TC_OPT_UTF8
+    tc_opt_version = <unsigned int> TC_OPT_VERSION
+    tc_opt_win1252 = <unsigned int> TC_OPT_WIN1252
+    tc_opt_wrap = <unsigned int> TC_OPT_WRAP
+    tc_opt_xml = <unsigned int> TC_OPT_XML
+    tc_opt_xmlcfg = <unsigned int> TC_OPT_XMLCFG
+    tc_opt_xmlerrs = <unsigned int> TC_OPT_XMLERRS
+    tc_opt_xmlhelp = <unsigned int> TC_OPT_XMLHELP
+    tc_opt_xmlopts = <unsigned int> TC_OPT_XMLOPTS
+    tc_opt_xmlstrg = <unsigned int> TC_OPT_XMLSTRG
+    tc_string_char_encoding = <unsigned int> TC_STRING_CHAR_ENCODING
+    tc_string_conf_header = <unsigned int> TC_STRING_CONF_HEADER
+    tc_string_conf_name = <unsigned int> TC_STRING_CONF_NAME
+    tc_string_conf_note = <unsigned int> TC_STRING_CONF_NOTE
+    tc_string_conf_type = <unsigned int> TC_STRING_CONF_TYPE
+    tc_string_conf_value = <unsigned int> TC_STRING_CONF_VALUE
+    tc_string_fatal_error = <unsigned int> TC_STRING_FATAL_ERROR
+    tc_string_file_manip = <unsigned int> TC_STRING_FILE_MANIP
+    tc_string_lang_must_specify = <unsigned int> TC_STRING_LANG_MUST_SPECIFY
+    tc_string_lang_not_found = <unsigned int> TC_STRING_LANG_NOT_FOUND
+    tc_string_misc = <unsigned int> TC_STRING_MISC
+    tc_string_must_specify = <unsigned int> TC_STRING_MUST_SPECIFY
+    tc_string_opt_not_documented = <unsigned int> TC_STRING_OPT_NOT_DOCUMENTED
+    tc_string_out_of_memory = <unsigned int> TC_STRING_OUT_OF_MEMORY
+    tc_string_process_directives = <unsigned int> TC_STRING_PROCESS_DIRECTIVES
+    tc_string_unknown_option = <unsigned int> TC_STRING_UNKNOWN_OPTION
+    tc_string_unknown_option_b = <unsigned int> TC_STRING_UNKNOWN_OPTION_B
+    tc_string_vers_a = <unsigned int> TC_STRING_VERS_A
+    tc_string_vers_b = <unsigned int> TC_STRING_VERS_B
+    tc_string_xml = <unsigned int> TC_STRING_XML
+    tc_txt_help_1 = <unsigned int> TC_TXT_HELP_1
+    tc_txt_help_2_a = <unsigned int> TC_TXT_HELP_2A
+    tc_txt_help_2_b = <unsigned int> TC_TXT_HELP_2B
+    tc_txt_help_3 = <unsigned int> TC_TXT_HELP_3
+    tc_txt_help_3_a = <unsigned int> TC_TXT_HELP_3A
+    tc_txt_help_config = <unsigned int> TC_TXT_HELP_CONFIG
+    tc_txt_help_config_allw = <unsigned int> TC_TXT_HELP_CONFIG_ALLW
+    tc_txt_help_config_name = <unsigned int> TC_TXT_HELP_CONFIG_NAME
+    tc_txt_help_config_type = <unsigned int> TC_TXT_HELP_CONFIG_TYPE
+    tc_txt_help_env_1 = <unsigned int> TC_TXT_HELP_ENV_1
+    tc_txt_help_env_1_a = <unsigned int> TC_TXT_HELP_ENV_1A
+    tc_txt_help_env_1_b = <unsigned int> TC_TXT_HELP_ENV_1B
+    tc_txt_help_env_1_c = <unsigned int> TC_TXT_HELP_ENV_1C
+    tc_txt_help_lang_1 = <unsigned int> TC_TXT_HELP_LANG_1
+    tc_txt_help_lang_2 = <unsigned int> TC_TXT_HELP_LANG_2
+    tc_txt_help_lang_3 = <unsigned int> TC_TXT_HELP_LANG_3
+    text_access_advice1 = <unsigned int> TEXT_ACCESS_ADVICE1
+    text_access_advice2 = <unsigned int> TEXT_ACCESS_ADVICE2
+    text_bad_form = <unsigned int> TEXT_BAD_FORM
+    text_bad_main = <unsigned int> TEXT_BAD_MAIN
+    text_equivalents_require_updating_applet = <unsigned int> TEXT_EQUIVALENTS_REQUIRE_UPDATING_APPLET
+    text_equivalents_require_updating_object = <unsigned int> TEXT_EQUIVALENTS_REQUIRE_UPDATING_OBJECT
+    text_equivalents_require_updating_script = <unsigned int> TEXT_EQUIVALENTS_REQUIRE_UPDATING_SCRIPT
+    text_general_info = <unsigned int> TEXT_GENERAL_INFO
+    text_general_info_plea = <unsigned int> TEXT_GENERAL_INFO_PLEA
+    text_html_t_algorithm = <unsigned int> TEXT_HTML_T_ALGORITHM
+    text_invalid_uri = <unsigned int> TEXT_INVALID_URI
+    text_invalid_utf16 = <unsigned int> TEXT_INVALID_UTF16
+    text_invalid_utf8 = <unsigned int> TEXT_INVALID_UTF8
+    text_m_image_alt = <unsigned int> TEXT_M_IMAGE_ALT
+    text_m_image_map = <unsigned int> TEXT_M_IMAGE_MAP
+    text_m_link_alt = <unsigned int> TEXT_M_LINK_ALT
+    text_m_summary = <unsigned int> TEXT_M_SUMMARY
+    text_sgml_chars = <unsigned int> TEXT_SGML_CHARS
+    text_using_body = <unsigned int> TEXT_USING_BODY
+    text_using_font = <unsigned int> TEXT_USING_FONT
+    text_using_frames = <unsigned int> TEXT_USING_FRAMES
+    text_using_layer = <unsigned int> TEXT_USING_LAYER
+    text_using_nobr = <unsigned int> TEXT_USING_NOBR
+    text_using_spacer = <unsigned int> TEXT_USING_SPACER
+    text_vendor_chars = <unsigned int> TEXT_VENDOR_CHARS
+    text_windows_chars = <unsigned int> TEXT_WINDOWS_CHARS
+    tidycustomblocklevel_string = <unsigned int> TIDYCUSTOMBLOCKLEVEL_STRING
+    tidycustomempty_string = <unsigned int> TIDYCUSTOMEMPTY_STRING
+    tidycustominline_string = <unsigned int> TIDYCUSTOMINLINE_STRING
+    tidycustomno_string = <unsigned int> TIDYCUSTOMNO_STRING
+    tidycustompre_string = <unsigned int> TIDYCUSTOMPRE_STRING
+    tidystrings_first = <unsigned int> TIDYSTRINGS_FIRST
+    tidystrings_last = <unsigned int> TIDYSTRINGS_LAST
+    too_many_elements = <unsigned int> TOO_MANY_ELEMENTS
+    too_many_elements_in = <unsigned int> TOO_MANY_ELEMENTS_IN
+    trim_empty_element = <unsigned int> TRIM_EMPTY_ELEMENT
+    unescaped_ampersand = <unsigned int> UNESCAPED_AMPERSAND
+    unexpected_endtag = <unsigned int> UNEXPECTED_ENDTAG
+    unexpected_endtag_err = <unsigned int> UNEXPECTED_ENDTAG_ERR
+    unexpected_endtag_in = <unsigned int> UNEXPECTED_ENDTAG_IN
+    unexpected_end_of_file = <unsigned int> UNEXPECTED_END_OF_FILE
+    unexpected_end_of_file_attr = <unsigned int> UNEXPECTED_END_OF_FILE_ATTR
+    unexpected_equalsign = <unsigned int> UNEXPECTED_EQUALSIGN
+    unexpected_gt = <unsigned int> UNEXPECTED_GT
+    unexpected_quotemark = <unsigned int> UNEXPECTED_QUOTEMARK
+    unknown_element = <unsigned int> UNKNOWN_ELEMENT
+    unknown_element_looks_custom = <unsigned int> UNKNOWN_ELEMENT_LOOKS_CUSTOM
+    unknown_entity = <unsigned int> UNKNOWN_ENTITY
+    using_br_inplace_of = <unsigned int> USING_BR_INPLACE_OF
+    vendor_specific_chars = <unsigned int> VENDOR_SPECIFIC_CHARS
+    white_in_uri = <unsigned int> WHITE_IN_URI
+    xml_declaration_detected = <unsigned int> XML_DECLARATION_DETECTED
+    xml_id_syntax = <unsigned int> XML_ID_SYNTAX
 
 
-class _ParseOutcome(IntEnum):
-    __name__ = __qualname__ = 'ParseOutcome'
+class _TagId(IntEnum):
+    __name__ =  __qualname__ = 'TagId'
+    for_name = staticmethod(tag_id_for_name)
 
-    for_name = staticmethod(parse_outcome_for_name)
+    n_tidy_tags = <unsigned int> N_TIDY_TAGS
+    a = <unsigned int> TidyTag_A
+    abbr = <unsigned int> TidyTag_ABBR
+    acronym = <unsigned int> TidyTag_ACRONYM
+    address = <unsigned int> TidyTag_ADDRESS
+    align = <unsigned int> TidyTag_ALIGN
+    applet = <unsigned int> TidyTag_APPLET
+    area = <unsigned int> TidyTag_AREA
+    article = <unsigned int> TidyTag_ARTICLE
+    aside = <unsigned int> TidyTag_ASIDE
+    audio = <unsigned int> TidyTag_AUDIO
+    b = <unsigned int> TidyTag_B
+    base = <unsigned int> TidyTag_BASE
+    basefont = <unsigned int> TidyTag_BASEFONT
+    bdi = <unsigned int> TidyTag_BDI
+    bdo = <unsigned int> TidyTag_BDO
+    bgsound = <unsigned int> TidyTag_BGSOUND
+    big = <unsigned int> TidyTag_BIG
+    blink = <unsigned int> TidyTag_BLINK
+    blockquote = <unsigned int> TidyTag_BLOCKQUOTE
+    body = <unsigned int> TidyTag_BODY
+    br = <unsigned int> TidyTag_BR
+    button = <unsigned int> TidyTag_BUTTON
+    canvas = <unsigned int> TidyTag_CANVAS
+    caption = <unsigned int> TidyTag_CAPTION
+    center = <unsigned int> TidyTag_CENTER
+    cite = <unsigned int> TidyTag_CITE
+    code = <unsigned int> TidyTag_CODE
+    col = <unsigned int> TidyTag_COL
+    colgroup = <unsigned int> TidyTag_COLGROUP
+    command = <unsigned int> TidyTag_COMMAND
+    comment = <unsigned int> TidyTag_COMMENT
+    datalist = <unsigned int> TidyTag_DATALIST
+    dd = <unsigned int> TidyTag_DD
+    del_ = <unsigned int> TidyTag_DEL
+    details = <unsigned int> TidyTag_DETAILS
+    dfn = <unsigned int> TidyTag_DFN
+    dialog = <unsigned int> TidyTag_DIALOG
+    dir = <unsigned int> TidyTag_DIR
+    div = <unsigned int> TidyTag_DIV
+    dl = <unsigned int> TidyTag_DL
+    dt = <unsigned int> TidyTag_DT
+    em = <unsigned int> TidyTag_EM
+    embed = <unsigned int> TidyTag_EMBED
+    fieldset = <unsigned int> TidyTag_FIELDSET
+    figcaption = <unsigned int> TidyTag_FIGCAPTION
+    figure = <unsigned int> TidyTag_FIGURE
+    font = <unsigned int> TidyTag_FONT
+    footer = <unsigned int> TidyTag_FOOTER
+    form = <unsigned int> TidyTag_FORM
+    frame = <unsigned int> TidyTag_FRAME
+    frameset = <unsigned int> TidyTag_FRAMESET
+    h1 = <unsigned int> TidyTag_H1
+    h2 = <unsigned int> TidyTag_H2
+    h3 = <unsigned int> TidyTag_H3
+    h4 = <unsigned int> TidyTag_H4
+    h5 = <unsigned int> TidyTag_H5
+    h6 = <unsigned int> TidyTag_H6
+    head = <unsigned int> TidyTag_HEAD
+    header = <unsigned int> TidyTag_HEADER
+    hgroup = <unsigned int> TidyTag_HGROUP
+    hr = <unsigned int> TidyTag_HR
+    html = <unsigned int> TidyTag_HTML
+    i = <unsigned int> TidyTag_I
+    iframe = <unsigned int> TidyTag_IFRAME
+    ilayer = <unsigned int> TidyTag_ILAYER
+    img = <unsigned int> TidyTag_IMG
+    input = <unsigned int> TidyTag_INPUT
+    ins = <unsigned int> TidyTag_INS
+    isindex = <unsigned int> TidyTag_ISINDEX
+    kbd = <unsigned int> TidyTag_KBD
+    keygen = <unsigned int> TidyTag_KEYGEN
+    label = <unsigned int> TidyTag_LABEL
+    layer = <unsigned int> TidyTag_LAYER
+    legend = <unsigned int> TidyTag_LEGEND
+    li = <unsigned int> TidyTag_LI
+    link = <unsigned int> TidyTag_LINK
+    listing = <unsigned int> TidyTag_LISTING
+    main = <unsigned int> TidyTag_MAIN
+    map = <unsigned int> TidyTag_MAP
+    mark = <unsigned int> TidyTag_MARK
+    marquee = <unsigned int> TidyTag_MARQUEE
+    mathml = <unsigned int> TidyTag_MATHML
+    menu = <unsigned int> TidyTag_MENU
+    menuitem = <unsigned int> TidyTag_MENUITEM
+    meta = <unsigned int> TidyTag_META
+    meter = <unsigned int> TidyTag_METER
+    multicol = <unsigned int> TidyTag_MULTICOL
+    nav = <unsigned int> TidyTag_NAV
+    nextid = <unsigned int> TidyTag_NEXTID
+    nobr = <unsigned int> TidyTag_NOBR
+    noembed = <unsigned int> TidyTag_NOEMBED
+    noframes = <unsigned int> TidyTag_NOFRAMES
+    nolayer = <unsigned int> TidyTag_NOLAYER
+    nosave = <unsigned int> TidyTag_NOSAVE
+    noscript = <unsigned int> TidyTag_NOSCRIPT
+    object = <unsigned int> TidyTag_OBJECT
+    ol = <unsigned int> TidyTag_OL
+    optgroup = <unsigned int> TidyTag_OPTGROUP
+    option = <unsigned int> TidyTag_OPTION
+    output = <unsigned int> TidyTag_OUTPUT
+    p = <unsigned int> TidyTag_P
+    param = <unsigned int> TidyTag_PARAM
+    picture = <unsigned int> TidyTag_PICTURE
+    plaintext = <unsigned int> TidyTag_PLAINTEXT
+    pre = <unsigned int> TidyTag_PRE
+    progress = <unsigned int> TidyTag_PROGRESS
+    q = <unsigned int> TidyTag_Q
+    rb = <unsigned int> TidyTag_RB
+    rbc = <unsigned int> TidyTag_RBC
+    rp = <unsigned int> TidyTag_RP
+    rt = <unsigned int> TidyTag_RT
+    rtc = <unsigned int> TidyTag_RTC
+    ruby = <unsigned int> TidyTag_RUBY
+    s = <unsigned int> TidyTag_S
+    samp = <unsigned int> TidyTag_SAMP
+    script = <unsigned int> TidyTag_SCRIPT
+    section = <unsigned int> TidyTag_SECTION
+    select = <unsigned int> TidyTag_SELECT
+    server = <unsigned int> TidyTag_SERVER
+    servlet = <unsigned int> TidyTag_SERVLET
+    small = <unsigned int> TidyTag_SMALL
+    source = <unsigned int> TidyTag_SOURCE
+    spacer = <unsigned int> TidyTag_SPACER
+    span = <unsigned int> TidyTag_SPAN
+    strike = <unsigned int> TidyTag_STRIKE
+    strong = <unsigned int> TidyTag_STRONG
+    style = <unsigned int> TidyTag_STYLE
+    sub = <unsigned int> TidyTag_SUB
+    summary = <unsigned int> TidyTag_SUMMARY
+    sup = <unsigned int> TidyTag_SUP
+    svg = <unsigned int> TidyTag_SVG
+    table = <unsigned int> TidyTag_TABLE
+    tbody = <unsigned int> TidyTag_TBODY
+    td = <unsigned int> TidyTag_TD
+    template = <unsigned int> TidyTag_TEMPLATE
+    textarea = <unsigned int> TidyTag_TEXTAREA
+    tfoot = <unsigned int> TidyTag_TFOOT
+    th = <unsigned int> TidyTag_TH
+    thead = <unsigned int> TidyTag_THEAD
+    time = <unsigned int> TidyTag_TIME
+    title = <unsigned int> TidyTag_TITLE
+    tr = <unsigned int> TidyTag_TR
+    track = <unsigned int> TidyTag_TRACK
+    tt = <unsigned int> TidyTag_TT
+    u = <unsigned int> TidyTag_U
+    ul = <unsigned int> TidyTag_UL
+    unknown = <unsigned int> TidyTag_UNKNOWN
+    var = <unsigned int> TidyTag_VAR
+    video = <unsigned int> TidyTag_VIDEO
+    wbr = <unsigned int> TidyTag_WBR
+    xmp = <unsigned int> TidyTag_XMP
 
-    Ok = 0
-    Warnings = 1
-    Errors = 2
+
+class _TriState(IntEnum):
+    __name__ =  __qualname__ = 'TriState'
+    for_name = staticmethod(tri_state_for_name)
+
+    auto = <unsigned int> TidyAutoState
+    no = <unsigned int> TidyNoState
+    yes = <unsigned int> TidyYesState
 
 
-OptionId = _OptionId
+class _Uppercase(IntEnum):
+    __name__ =  __qualname__ = 'Uppercase'
+    for_name = staticmethod(uppercase_for_name)
+
+    no = <unsigned int> TidyUppercaseNo
+    preserve = <unsigned int> TidyUppercasePreserve
+    yes = <unsigned int> TidyUppercaseYes
+
+
+class _UseCustomTagsState(IntEnum):
+    __name__ =  __qualname__ = 'UseCustomTagsState'
+    for_name = staticmethod(use_custom_tags_state_for_name)
+
+    blocklevel = <unsigned int> TidyCustomBlocklevel
+    empty = <unsigned int> TidyCustomEmpty
+    inline = <unsigned int> TidyCustomInline
+    no = <unsigned int> TidyCustomNo
+    pre = <unsigned int> TidyCustomPre
+
+
+AttrId = _AttrId
+AttrSortStrategy = _AttrSortStrategy
 ConfigCategory = _ConfigCategory
-OptionType = _OptionType
-TriState = _TriState
-UseCustomTagsState = _UseCustomTagsState
-LineEnding = _LineEnding
-EncodingOptions = _EncodingOptions
 DoctypeModes = _DoctypeModes
 DupAttrModes = _DupAttrModes
-AttrSortStrategy = _AttrSortStrategy
-OptionId = _OptionId
-Uppercase = _Uppercase
-NodeType = _NodeType
-TagId = _TagId
-AttrId = _AttrId
-ReportLevel = _ReportLevel
+EncodingOptions = _EncodingOptions
 FormatParameterType = _FormatParameterType
+LineEnding = _LineEnding
+NodeType = _NodeType
+OptionId = _OptionId
+OptionType = _OptionType
+ReportLevel = _ReportLevel
 Strings = _Strings
-ParseOutcome = _ParseOutcome
+TagId = _TagId
+TriState = _TriState
+Uppercase = _Uppercase
+UseCustomTagsState = _UseCustomTagsState

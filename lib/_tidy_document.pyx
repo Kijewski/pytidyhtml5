@@ -1,3 +1,21 @@
+cdef type _ParseOutcome
+
+
+cdef object parse_outcome_for_name(name):
+    return _generic_id_for_name(_ParseOutcome, name)
+
+
+class _ParseOutcome(IntEnum):
+    for_name = parse_outcome_for_name
+
+    ok = 0
+    warnings = 1
+    errors = 2
+
+
+ParseOutcome = _ParseOutcome
+
+
 @final
 @no_gc
 @auto_pickle(False)
@@ -233,7 +251,7 @@ cdef _result_to_outcome(int result):
     cdef object parse_outcome = result
 
     if 0 <= result <= 2:
-        parse_outcome = ParseOutcome(result)
+        parse_outcome = _ParseOutcome(result)
 
     return parse_outcome
 

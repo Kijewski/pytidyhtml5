@@ -4,16 +4,16 @@ cdef enum CallbackSinkArgEnum:
     CBSA_Latin1
 
 cdef callback_sink_arg_for_name(name):
-    return _titlecase_id_for_name(_CallbackSinkArgFormat, name)
+    return _generic_id_for_name(_CallbackSinkArgFormat, name)
 
 cdef type _CallbackSinkArgFormat
 
 class _CallbackSinkArgFormat(IntEnum):
     for_name = staticmethod(callback_sink_arg_for_name)
 
-    Integer = CallbackSinkArgEnum.CBSA_Integer
-    Bytes = CallbackSinkArgEnum.CBSA_Bytes
-    Latin1 = CallbackSinkArgEnum.CBSA_Latin1
+    integer = CallbackSinkArgEnum.CBSA_Integer
+    bytes = CallbackSinkArgEnum.CBSA_Bytes
+    latin1 = CallbackSinkArgEnum.CBSA_Latin1
 
 CallbackSinkArgFormat = _CallbackSinkArgFormat
 
@@ -41,7 +41,7 @@ cdef class CallbackSink(OutputSink):
     cdef public object callback
     cdef public object exception
 
-    def __cinit__(CallbackSink self, callback=None, arg=_CallbackSinkArgFormat.Integer):
+    def __cinit__(CallbackSink self, callback=None, arg=_CallbackSinkArgFormat.integer):
         cdef long fmt
 
         fmt = PyLong_AsLong(callback_sink_arg_for_name(arg))
