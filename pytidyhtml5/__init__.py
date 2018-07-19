@@ -5,17 +5,17 @@ from ._doc import BUILDING_DOC
 
 
 def tidy_document(text, options=None):
-    messages = _pytidyhtml5.StringBuffer('utf8')
-    result = _pytidyhtml5.StringBuffer('ascii')
+    messages = StringBuffer('utf8')
+    result = StringBuffer('ascii')
 
-    document = _pytidyhtml5.Document()
+    document = Document()
     document.set_error_sink(messages)
 
-    if document.parse_string(text) is _pytidyhtml5.ParseOutcome.Errors:
+    if document.parse_string(text) is ParseOutcome.errors:
         raise Exception('Could not parse text:\n' + messages.release())
 
-    document.set_option_value('OutputBOM', False)
-    document.set_option_value('Wrap', 2**20)
+    document.set_option_value(Option.output_bom, False)
+    document.set_option_value(Option.wrap, 2**20)
     if options:
         for key, value in options.items():
             if not document.set_option_value(key, value):

@@ -204,7 +204,7 @@ cdef class Node:
         :class:`pytidyhtml5.Node`
             The parent node.
         None:
-            If ``self.type == NodeType.Root`` or ``not bool(self)``.
+            If ``self.type == NodeType.root`` or ``not bool(self)``.
         '''
         return self.__get_node(tidyGetParent)
 

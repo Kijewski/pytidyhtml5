@@ -166,7 +166,7 @@ cdef class Option:
         int
             The library returned an unknown value.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return _GetEnum[TidyOption, TidyOptionId]._do(self.tidy_option, tidyOptGetId, _OptionId)
 
@@ -179,7 +179,7 @@ cdef class Option:
         str
             The name of the option.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return _unicode_fn(self.tidy_option, tidyOptGetName)
 
@@ -194,7 +194,7 @@ cdef class Option:
         int
             The library returned an unknown value.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return _GetEnum[TidyOption, TidyOptionType]._do(self.tidy_option, tidyOptGetType, _OptionType)
 
@@ -209,7 +209,7 @@ cdef class Option:
         bool
             Yes or no
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return _bool_fn(self.tidy_option, tidyOptionIsList)
 
@@ -222,7 +222,7 @@ cdef class Option:
         bool
             Yes or no
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return _bool_fn(self.tidy_option, tidyOptIsReadOnly)
 
@@ -237,7 +237,7 @@ cdef class Option:
         int
             The library returned an unknown value.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return _GetEnum[TidyOption, TidyConfigCategory]._do(self.tidy_option, tidyOptGetCategory, _ConfigCategory)
 
@@ -252,7 +252,7 @@ cdef class Option:
         str|int|bool
             The default value of the option.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         cdef TidyOption tidy_option = self.tidy_option
         cdef TidyOptionType option_type
@@ -288,7 +288,7 @@ cdef class Option:
         str|int|bool
             The current value of the option.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         cdef TidyOptionId opt_id
         cdef TidyOptionType option_type
@@ -328,7 +328,7 @@ cdef class Option:
         tuple[str, str|int|bool]
             The name and value of the option.
         tuple[None, None]
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return iter((self.get_name(), self.get_value()))
 
@@ -346,7 +346,7 @@ cdef class Option:
         bool
             True if the value was set.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         cdef TidyOptionId opt_id
         cdef TidyOptionType option_type
@@ -402,7 +402,7 @@ cdef class Option:
         bool
             True if the value was reset.
         None
-            The option was not good anymore, see :func:`~pytidyhtml5.Option.__eq__`.
+            The option was not good anymore, see :func:`~pytidyhtml5.Option.__bool__`.
         '''
         return self.set_value(None)
 
