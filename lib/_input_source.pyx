@@ -7,17 +7,13 @@ cdef class InputSource:
         memset(&self.input_source, 0, sizeof(self.input_source))
         self.input_source.sourceData = <void*> self
 
-    cdef inline boolean _nonzero(InputSource self) nogil:
+    def __nonzero__(InputSource self):
         return (
-            (self is not None) and
             (self.input_source.sourceData is <void*> self) and
             (self.input_source.getByte is not NULL) and
             (self.input_source.ungetByte is not NULL) and
             (self.input_source.eof is not NULL)
         )
-
-    def __nonzero__(InputSource self):
-        return self._nonzero()
 
     def get_byte(InputSource self):
         cdef int result
@@ -70,14 +66,8 @@ cdef class FiledescriptorSource(InputSource):
 
         self.buffer = PyByteArray_FromStringAndSize(NULL, FD_SOURCE_PUSHBACK_UNGET + buffering)
 
-    cdef inline boolean _nonzero_FiledescriptorSource(FiledescriptorSource self) nogil:
-        if self is None:
-            return False
-        else:
-            return self.fd >= 0
-
     def __nonzero__(FiledescriptorSource self):
-        return self._nonzero_FiledescriptorSource()
+        return self.fd >= 0
 
     cpdef int close(FiledescriptorSource self):
         cdef int fd = self.fd

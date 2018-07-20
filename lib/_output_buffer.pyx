@@ -49,14 +49,8 @@ cdef class Buffer:
     def __cinit__(Buffer self, *args):
         memset(&self.tidy_buffer, 0, sizeof(self.tidy_buffer))
 
-    cdef inline boolean _nonzero(Buffer self) nogil:
-        if self is None:
-            return False
-        else:
-            return self.tidy_buffer.allocator is not NULL
-
     def __nonzero__(Buffer self):
-        return self._nonzero()
+        return self.tidy_buffer.allocator is not NULL
 
     def __dealloc__(Buffer self):
         if self.tidy_buffer.bp is not NULL:
@@ -163,6 +157,7 @@ cdef class StringBuffer(Buffer):
                 temp = ObjectRealloc(self.tidy_buffer.bp, self.tidy_buffer.size + 1)
                 if temp is NULL:
                     NoMemoryThrow()
+                self.tidy_buffer.bp = <byte*> temp
             else:
                 # The user supplied type does not match the actual data.
                 if is_ascii:
@@ -174,15 +169,18 @@ cdef class StringBuffer(Buffer):
                     )
 
                     # shrink to fit
+                    self.tidy_buffer.size -= START_LATIN1 - START_ASCII
                     temp = ObjectRealloc(self.tidy_buffer.bp, self.tidy_buffer.size + 1)
                     if temp is NULL:
                         NoMemoryThrow()
+                    self.tidy_buffer.bp = <byte*> temp
                 else:
                     # Shrink or grow to fit
                     self.tidy_buffer.size += START_LATIN1 - START_ASCII
                     temp = ObjectRealloc(self.tidy_buffer.bp, self.tidy_buffer.size + 1)
                     if temp is NULL:
                         NoMemoryThrow()
+                    self.tidy_buffer.bp = <byte*> temp
 
                     # Convert to bigger type
                     memmove(
@@ -194,7 +192,6 @@ cdef class StringBuffer(Buffer):
             # If the data is pure ASCII, then the ASCII flag must be set.
             # If the ASCII flag is set, then the structure must be PyASCIIObject, not PyCompactUnicodeObject.
 
-            self.tidy_buffer.bp = <byte*> temp
             self.tidy_buffer.allocated = self.tidy_buffer.size + 1
             (<char*> self.tidy_buffer.bp)[self.tidy_buffer.size] = 0
 
