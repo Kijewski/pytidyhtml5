@@ -21,6 +21,7 @@ Table of Contents
     node.rst
     attr.rst
     message.rst
+    message_args.rst
     enums.rst
     further.rst
 
