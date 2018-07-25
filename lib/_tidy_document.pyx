@@ -23,11 +23,12 @@ cdef class DocumentIterOptions:
     cdef TidyIterator tidy_iterator
     cdef readonly Document document
 
-    def __cinit__(DocumentIterOptions self, Document document):
+    def __cinit__(DocumentIterOptions self):
+        self.tidy_iterator = NULL
+
+    def __init__(DocumentIterOptions self, Document document):
         cdef TidyDoc tidy_doc
         cdef TidyIterator tidy_iterator
-
-        self.tidy_iterator = NULL
 
         if document is not None:
             tidy_doc = document.tidy_doc
@@ -81,11 +82,11 @@ cdef class DocumentIterOptionIds:
     cdef readonly Document document
 
     def __cinit__(DocumentIterOptionIds self, Document document):
-        cdef TidyDoc tidy_doc
-        cdef TidyIterator tidy_iterator
-
         self.tidy_iterator = NULL
 
+    def __init__(DocumentIterOptionIds self, Document document):
+        cdef TidyDoc tidy_doc
+        cdef TidyIterator tidy_iterator
         if document is not None:
             tidy_doc = document.tidy_doc
             if tidy_doc is not NULL:
@@ -137,14 +138,14 @@ cdef class DocumentIterDeclTags:
     cdef readonly long option_id
 
     def __cinit__(DocumentIterDeclTags self, Document document, object option):
-        cdef TidyDoc tidy_doc
-        cdef TidyIterator tidy_iterator
-        cdef long option_id
-
         self.tidy_iterator = NULL
         self.option_id = -1
 
-        if (document is not None) and isinstance(option, OptionId):
+    def __init__(DocumentIterDeclTags self, Document document, object option):
+        cdef TidyDoc tidy_doc
+        cdef TidyIterator tidy_iterator
+        cdef long option_id
+        if (document is not None) and isinstance(option, _OptionId):
             tidy_doc = document.tidy_doc
             option_id = PyLong_AsLong(option)
             if tidy_doc is not NULL:
@@ -397,6 +398,7 @@ cdef class Document:
     cdef TidyDoc tidy_doc
     cdef readonly object error_sink
     cdef readonly object _message_callback
+    cdef readonly boolean is_parsed
 
     def __cinit__(Document self):
         cdef TidyDoc tidy_doc = tidyCreateWithAllocator(&allocator_raw)
@@ -406,6 +408,7 @@ cdef class Document:
 
         tidySetAppData(tidy_doc, <void*> self)
         self.tidy_doc = tidy_doc
+        self.is_parsed = False
 
     def __dealloc__(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
@@ -734,10 +737,15 @@ cdef class Document:
             return
         elif input_source is NULL:
             raise TypeError
+        elif self.is_parsed:
+            raise Exception('Document was already parsed')
 
-        with nogil:
-            result = tidyParseSource(tidy_doc, input_source)
-        return _result_to_outcome(result)
+        try:
+            with nogil:
+                result = tidyParseSource(tidy_doc, input_source)
+            return _result_to_outcome(result)
+        finally:
+            self.is_parsed = True
 
     def parse_string(Document self, unicode data):
         cdef SourceData source_data = SourceData(
@@ -803,20 +811,24 @@ cdef class Document:
 
         if tidy_doc is NULL:
             return
-
-        Document._maybe_set_encoding(tidy_doc, encoding)
+        elif self.is_parsed:
+            raise Exception('Document was already parsed')
 
         PyObject_GetBuffer(data, &view, PyBUF_CONTIG_RO)
         try:
-            with nogil:
-                tidyBufInitWithAllocator(&tidy_buffer, &allocator_raw)
-                tidyBufAttach(&tidy_buffer, <byte*> view.buf, view.len)
-                result = tidyParseBuffer(tidy_doc, &tidy_buffer)
-                tidyBufDetach(&tidy_buffer);
+            try:
+                Document._maybe_set_encoding(tidy_doc, encoding)
+                with nogil:
+                    tidyBufInitWithAllocator(&tidy_buffer, &allocator_raw)
+                    tidyBufAttach(&tidy_buffer, <byte*> view.buf, view.len)
+                    result = tidyParseBuffer(tidy_doc, &tidy_buffer)
+                    tidyBufDetach(&tidy_buffer)
+                return _result_to_outcome(result)
+            finally:
+                self.is_parsed = True
         finally:
             PyBuffer_Release(&view)
 
-        return _result_to_outcome(result)
 
     def parse_buffer(Document self, Buffer buf, encoding=None):
         cdef int result
@@ -826,12 +838,16 @@ cdef class Document:
             return
         elif buf is None:
             raise TypeError
+        elif self.is_parsed:
+            raise Exception('Document was already parsed')
 
-        Document._maybe_set_encoding(tidy_doc, encoding)
-
-        with nogil:
-            result = tidyParseBuffer(tidy_doc, &buf.tidy_buffer)
-        return _result_to_outcome(result)
+        try:
+            Document._maybe_set_encoding(tidy_doc, encoding)
+            with nogil:
+                result = tidyParseBuffer(tidy_doc, &buf.tidy_buffer)
+            return _result_to_outcome(result)
+        finally:
+            self.is_parsed = True
 
     def parse_file(Document self, path, encoding=None):
         cdef char *string
@@ -841,13 +857,18 @@ cdef class Document:
 
         if tidy_doc is NULL:
             return
-
-        Document._maybe_set_encoding(tidy_doc, encoding)
+        elif self.is_parsed:
+            raise Exception('Document was already parsed')
 
         path = _path_to_string(path, &string, &length)
-        with nogil:
-            result = tidyParseFile(tidy_doc, string)
-        return _result_to_outcome(result)
+
+        try:
+            Document._maybe_set_encoding(tidy_doc, encoding)
+            with nogil:
+                result = tidyParseFile(tidy_doc, string)
+            return _result_to_outcome(result)
+        finally:
+            self.is_parsed = True
 
     @property
     def option(Node self):
