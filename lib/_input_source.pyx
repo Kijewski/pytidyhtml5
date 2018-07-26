@@ -52,18 +52,22 @@ cdef class FiledescriptorSource(InputSource):
     cdef Py_ssize_t pushback_remaining
     cdef bytearray buffer
 
-    def __cinit__(FiledescriptorSource self, int fd=-1, *, boolean closefd=False, Py_ssize_t buffering=8192):
-        self.fd = fd
-        self.closefd = closefd
+    def __cinit__(FiledescriptorSource self):
+        self.fd = -1
+        self.closefd = False
         self.input_source.getByte = FiledescriptorSource._get_byte
         self.input_source.ungetByte = FiledescriptorSource._unget_byte
         self.input_source.eof = FiledescriptorSource._eof
-        self.pushback_length = buffering
+        self.pushback_length = 0
         self.pushback_remaining = 0
 
+    def __init__(FiledescriptorSource self, int fd=-1, *, boolean closefd=False, Py_ssize_t buffering=8192):
         if buffering <= 0:
             raise ValueError
 
+        self.fd = fd
+        self.closefd = closefd
+        self.pushback_length = buffering
         self.buffer = PyByteArray_FromStringAndSize(NULL, FD_SOURCE_PUSHBACK_UNGET + buffering)
 
     def __nonzero__(FiledescriptorSource self):

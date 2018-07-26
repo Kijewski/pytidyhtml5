@@ -21,7 +21,7 @@ Getters
 Methods
 -------
 
-.. autofunction:: pytidyhtml5.Attr.get_next
+.. automethod:: pytidyhtml5.Attr.get_next
 
 
 Iterators

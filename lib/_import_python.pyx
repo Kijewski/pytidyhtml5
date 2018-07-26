@@ -1,11 +1,12 @@
 from cython import final, no_gc, auto_pickle
-from cpython cimport Py_buffer
+from cpython cimport Py_buffer, bool as PythonBool
 from cpython.bool cimport PyBool_Check
 from cpython.buffer cimport (
     PyObject_GetBuffer, PyBUF_CONTIG_RO, PyBuffer_Release,
 )
 from cpython.bytes cimport (
     PyBytes_AsStringAndSize, PyBytes_FromStringAndSize, PyBytes_Check,
+    PyBytes_AsString,
 )
 from cpython.long cimport (
     PyLong_Check, PyLong_FromLong, PyLong_FromSsize_t, PyLong_AsLong,

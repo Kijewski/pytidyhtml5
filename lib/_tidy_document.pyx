@@ -1,9 +1,7 @@
 cdef type _ParseOutcome
 
-
 cdef object parse_outcome_for_name(name):
     return _generic_id_for_name(_ParseOutcome, name)
-
 
 class _ParseOutcome(IntEnum):
     for_name = parse_outcome_for_name
@@ -11,7 +9,6 @@ class _ParseOutcome(IntEnum):
     ok = 0
     warnings = 1
     errors = 2
-
 
 ParseOutcome = _ParseOutcome
 
@@ -495,7 +492,7 @@ cdef class Document:
         if tidy_doc is not NULL:
             return tidyWarningCount(tidy_doc)
 
-    def clean_and_repair(Document self):
+    cpdef clean_and_repair(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
         cdef int result
         if tidy_doc is not NULL:
@@ -519,7 +516,7 @@ cdef class Document:
                 result = tidyReportDoctype(tidy_doc)
             return result
 
-    def save_file(Document self, filename):
+    cpdef save_file(Document self, filename):
         cdef TidyDoc tidy_doc = self.tidy_doc
         cdef char *path
         cdef Py_ssize_t length
@@ -566,6 +563,22 @@ cdef class Document:
             raise TypeError('Argument is neither Buffer nor OutputSink')
 
         return _result_to_outcome(result)
+
+    cpdef save_fd(Document self, fd, encoding=None):
+        # Do not release or overwrite fd.
+        # It could close the file descriptor if fd is a File.
+        cdef object fileno = getattr(fd, 'fileno', None)
+        cdef int handle
+
+        if fileno is not None:
+            if callable(fileno):
+                handle = fileno()
+            else:
+                handle = fileno
+        else:
+            handle = fd
+
+        return self.save_sink(FiledescriptorSink(handle))
 
     def save_bytes(Document self, arg=BufferTypeInSpe.Bytes):
         cdef StringBuffer buf = self.save_buffer(arg)
@@ -620,6 +633,36 @@ cdef class Document:
 
     def iter_options(Document self):
         return DocumentIterOptions(self)
+
+    cdef PythonBool _set_option_ulong(Document self, TidyOptionId opt_id, ulong value):
+        cdef TidyDoc tidy_doc = self.tidy_doc
+        if tidy_doc is not NULL:
+            return tidyOptSetInt(tidy_doc, opt_id, value) is not no
+
+    cdef PythonBool _set_option_bool(Document self, TidyOptionId opt_id, boolean value):
+        cdef TidyDoc tidy_doc = self.tidy_doc
+        if tidy_doc is not NULL:
+            return tidyOptSetBool(tidy_doc, opt_id, yes if value else no) is not no
+
+    cdef PythonBool _set_option_str(Document self, TidyOptionId opt_id, const char *value):
+        cdef TidyDoc tidy_doc = self.tidy_doc
+        if tidy_doc is NULL:
+            return
+
+        return tidyOptSetValue(tidy_doc, opt_id, value) is not no
+
+    cdef PythonBool _set_option_str_object(Document self, TidyOptionId opt_id, object value):
+        cdef char *string
+        cdef Py_ssize_t string_length
+
+        if isinstance(value, unicode):
+            string = PyUnicode_AsUTF8AndSize(value, &string_length)
+        elif isinstance(value, bytes):
+            PyBytes_AsStringAndSize(value, &string, &string_length)
+        else:
+            raise TypeError
+
+        return self._set_option_str(opt_id, string)
 
     cpdef get_option(Document self, name):
         cdef TidyOption tidy_option
@@ -709,7 +752,7 @@ cdef class Document:
     def iter_mutex_messages(Document self):
         return DocumentIterMutedMessages(self)
 
-    def set_error_sink(self, arg):
+    cpdef set_error_sink(self, arg):
         cdef int result
         cdef TidyDoc tidy_doc = self.tidy_doc
         if tidy_doc is not NULL:
@@ -747,7 +790,7 @@ cdef class Document:
         finally:
             self.is_parsed = True
 
-    def parse_string(Document self, unicode data):
+    cpdef parse_string(Document self, unicode data):
         cdef SourceData source_data = SourceData(
             0, NULL,
             <int> EndOfStream, 3, utf8_bom,
@@ -784,7 +827,7 @@ cdef class Document:
         input_source = TidyInputSource(&source_data, get_fun, ungetByteFunc, eofFunc)
         return self._parse_input_source(&input_source)
 
-    def parse_input(Document self, InputSource source):
+    cpdef parse_input(Document self, InputSource source):
         if source is None:
             raise TypeError
 
@@ -803,7 +846,7 @@ cdef class Document:
 
         return True
 
-    def parse_bytes(Document self, data, encoding=None):
+    cpdef parse_bytes(Document self, data, encoding=None):
         cdef Py_buffer view
         cdef int result
         cdef TidyBuffer tidy_buffer
@@ -829,8 +872,7 @@ cdef class Document:
         finally:
             PyBuffer_Release(&view)
 
-
-    def parse_buffer(Document self, Buffer buf, encoding=None):
+    cpdef parse_buffer(Document self, Buffer buf, encoding=None):
         cdef int result
         cdef TidyDoc tidy_doc = self.tidy_doc
 
@@ -849,7 +891,7 @@ cdef class Document:
         finally:
             self.is_parsed = True
 
-    def parse_file(Document self, path, encoding=None):
+    cpdef parse_file(Document self, path, encoding=None):
         cdef char *string
         cdef Py_ssize_t length
         cdef int result
@@ -870,9 +912,36 @@ cdef class Document:
         finally:
             self.is_parsed = True
 
+    cpdef parse_fd(Document self, fd, encoding=None):
+        # Do not release or overwrite fd.
+        # It could close the file descriptor if fd is a File.
+        cdef object fileno = getattr(fd, 'fileno', None)
+        cdef int handle
+
+        if fileno is not None:
+            if callable(fileno):
+                handle = fileno()
+            else:
+                handle = fileno
+        else:
+            handle = fd
+
+        return self.parse_input(FiledescriptorSource(handle))
+
     @property
     def option(Node self):
         return DocumentOptionsProxy(self)
+
+    cdef _set_message_callback(self, value):
+        cdef TidyDoc tidy_doc = self.tidy_doc
+        if value is not None:
+            if tidy_doc is not NULL:
+                tidySetMessageCallback(tidy_doc, Document.message_callback_nogil)
+            self._message_callback = value
+        elif self._message_callback is not None:
+            if tidy_doc is not NULL:
+                tidySetMessageCallback(tidy_doc, _reinterpret_cast[TidyMessageCallback, voidp](NULL))
+            self._message_callback = None
 
     @property
     def message_callback(self):
@@ -880,15 +949,7 @@ cdef class Document:
 
     @message_callback.setter
     def message_callback(self, value):
-        cdef TidyDoc tidy_doc = self.tidy_doc
-
-        if tidy_doc is not NULL:
-            if value:
-                self._message_callback = value
-                tidySetMessageCallback(tidy_doc, Document.message_callback_nogil)
-            else:
-                self._message_callback = None
-                tidySetMessageCallback(tidy_doc, _reinterpret_cast[TidyMessageCallback, voidp](NULL))
+        self._set_message_callback(value)
 
     @staticmethod
     cdef Bool message_callback_nogil(TidyMessage tidy_message) nogil:
@@ -947,7 +1008,7 @@ cdef class Document:
 
         return result == 0
 
-    def set_output_encoding(Document self, encoding):
+    cpdef set_output_encoding(Document self, encoding):
         cdef char *string
         cdef Py_ssize_t length
         cdef TidyDoc tidy_doc = self.tidy_doc

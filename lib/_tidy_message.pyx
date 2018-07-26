@@ -3,7 +3,7 @@
 @auto_pickle(False)
 cdef class Message:
     '''
-    Instances that get passed to :attribute:`pytidyhtml5.Document.message_callback`.
+    Instances that get passed to :attr:`pytidyhtml5.Document.message_callback`.
     '''
 
     cdef readonly Document document

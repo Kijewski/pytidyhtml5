@@ -84,6 +84,10 @@ BufferType Buffer StringBuffer
 CallbackSinkArgFormat OutputSink CallbackSink FiledescriptorSink
 VoidSink
 '''
+# Convenience
+'''
+tidy_document tidy_fragment DocumentEncoding
+'''
 # General
 '''
 lib_info set_language get_language

@@ -63,11 +63,12 @@ cdef class Buffer:
 cdef class StringBuffer(Buffer):
     cdef readonly int type
 
-    def __cinit__(StringBuffer self, type):
+    def __cinit__(StringBuffer self):
+        self.type = 0
+
+    def __init__(StringBuffer self, object type):
         cdef uint start
         cdef long int_type
-
-        self.type = 0
 
         if type is None:
             int_type = BufferTypeInSpe.Void

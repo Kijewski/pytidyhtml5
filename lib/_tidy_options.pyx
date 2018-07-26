@@ -377,14 +377,8 @@ cdef class Option:
         cdef TidyOption tidy_option = self.tidy_option
         cdef Document document = self.document
         cdef TidyDoc tidy_doc
-        cdef Bool result
-        cdef char *string
-        cdef Py_ssize_t string_length
 
-        if self.tidy_option is NULL:
-            return
-
-        if document is None:
+        if (tidy_option is NULL) or (document is None):
             return
 
         tidy_doc = document.tidy_doc
@@ -396,26 +390,15 @@ cdef class Option:
             return
 
         if value is None:
-            result = tidyOptResetToDefault(tidy_doc, opt_id)
-        else:
-            option_type = tidyOptGetType(tidy_option)
-            if option_type is TidyString:
-                if isinstance(value, unicode):
-                    string = PyUnicode_AsUTF8AndSize(value, &string_length)
-                elif isinstance(value, bytes):
-                    PyBytes_AsStringAndSize(value, &string, &string_length)
-                else:
-                    raise TypeError
-                result = tidyOptSetValue(tidy_doc, opt_id, string)
-            elif option_type is TidyInteger:
-                result = tidyOptSetInt(tidy_doc, opt_id, <ulong> value)
-            elif option_type is TidyBoolean:
-                result = yes if bool(value) else no
-                result = tidyOptSetBool(tidy_doc, opt_id, result)
-            else:
-                return
+            return tidyOptResetToDefault(tidy_doc, opt_id) is not no
 
-        return result is not no
+        option_type = tidyOptGetType(tidy_option)
+        if option_type is TidyString:
+            return document._set_option_str_object(opt_id, value)
+        elif option_type is TidyInteger:
+            return document._set_option_ulong(opt_id, <ulong> value)
+        elif option_type is TidyBoolean:
+            return document._set_option_bool(opt_id, <boolean> value)
 
     cpdef reset(Option self):
         '''
