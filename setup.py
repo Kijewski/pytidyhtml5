@@ -11,15 +11,19 @@ def get_text(name):
 
 
 extra_compile_args = [
-    '-std=c++11', '-Wall', '-Wextra', '-Werror', '-Wno-error=ignored-qualifiers',
-    '-Os',  '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
+    '-std=c++11',
+
+    '-Wall', '-Wextra', '-Werror',
+    '-Wno-error=ignored-qualifiers', '-Wno-error=cast-function-type',
+
+    '-Os', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
     '-D_FORTIFY_SOURCE=2', '-fstack-protector-strong', '--param=ssp-buffer-size=8',
     '-isystem', '/home/kijewski/opt/tidy5/include',
 ]
 
 extra_link_args = [
     *extra_compile_args,
-    '-L/home/kijewski/local/tidy-html5/lib',
+    '-L/home/kijewski/opt/tidy5/lib',
     '-ltidy',
     '-fPIC',
     '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',
