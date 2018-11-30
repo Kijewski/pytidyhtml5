@@ -60,31 +60,32 @@ __version__ = PyUnicode_FromKindAndData(PyUnicode_1BYTE_KIND, VERSION, VERSION_L
 __doc__ = PyUnicode_FromKindAndData(PyUnicode_1BYTE_KIND, LONGDESCRIPTION, LONGDESCRIPTION_LENGTH)
 
 __all__ = (
-    # Opaque types
-    '''\
-        Document Node Attr Option Message \
-    '''
-    # Enums
-    '''\
-        OptionId ConfigCategory OptionType TriState UseCustomTagsState LineEnding \
-        EncodingOptions DoctypeModes DupAttrModes AttrSortStrategy Uppercase \
-        NodeType TagId AttrId ReportLevel FormatParameterType Strings ParseOutcome \
-    '''
-    # Input
-    '''\
-        InputSource FiledescriptorSource \
-    '''
-    # Output buffer
-    '''\
-        BufferType Buffer StringBuffer \
-    '''
-    # Output sink
-    '''\
-        CallbackSinkArgFormat OutputSink CallbackSink FiledescriptorSink \
-        VoidSink \
-    '''
-    # General
-    '''\
-        lib_info set_language get_language \
-    '''
+# Opaque types
+'''
+Document Node Attr Option
+Message MessageArg
+'''
+# Enums
+'''
+OptionId ConfigCategory OptionType TriState UseCustomTagsState LineEnding
+EncodingOptions DoctypeModes DupAttrModes AttrSortStrategy Uppercase
+NodeType TagId AttrId ReportLevel FormatParameterType Strings ParseOutcome
+'''
+# Input
+'''
+InputSource FiledescriptorSource
+'''
+# Output buffer
+'''
+BufferType Buffer StringBuffer
+'''
+# Output sink
+'''
+CallbackSinkArgFormat OutputSink CallbackSink FiledescriptorSink
+VoidSink
+'''
+# General
+'''
+lib_info set_language get_language
+'''
 ).split()
