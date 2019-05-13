@@ -43,7 +43,7 @@ cdef extern from 'Python.h':
     int PyDict_SetItemString(object p, const char *key, object val) except -1
 
     object PyUnicode_FromKindAndData(int kind, const void *buf, Py_ssize_t size)
-    char *PyUnicode_AsUTF8AndSize(object o, Py_ssize_t *size) except NULL
+    const char *PyUnicode_AsUTF8AndSize(object o, Py_ssize_t *size) except NULL
     object PyUnicode_New(Py_ssize_t size, Py_UCS4 maxchar)
     object PyUnicode_FromEncodedObject(object, const char *encoding, const char *errors)
 

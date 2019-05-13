@@ -20,7 +20,7 @@ extra_compile_args = [
 
 extra_link_args = [
     *extra_compile_args,
-    '-L/home/kijewski/opt/tidy5/lib',
+    '-L/home/kijewski/local/tidy-html5/lib',
     '-ltidy',
     '-fPIC',
     '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',

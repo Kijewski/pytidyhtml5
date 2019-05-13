@@ -1,5 +1,5 @@
 # distutils: language = c++
-# cython: embedsignature = True
+# cython: embedsignature = True, language_level = 3
 
 
 include 'lib/_import_tidy_platform.pyx'

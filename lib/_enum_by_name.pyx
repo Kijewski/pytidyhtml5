@@ -23,7 +23,7 @@ cdef cppclass _EnsureId [V]:
         Py_ssize_t min_excl,
         Py_ssize_t max_excl,
     ) except -2:
-        cdef char *string
+        cdef const char *string
         cdef Py_ssize_t length
         cdef Py_ssize_t int_value
 

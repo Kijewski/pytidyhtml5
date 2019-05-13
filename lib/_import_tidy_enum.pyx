@@ -512,7 +512,6 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyOptionId TidyQuoteNbsp
     const TidyOptionId TidyReplaceColor
     const TidyOptionId TidyShowErrors
-    const TidyOptionId TidyShowFilename
     const TidyOptionId TidyShowInfo
     const TidyOptionId TidyShowMarkup
     const TidyOptionId TidyShowMetaChange
@@ -728,7 +727,6 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyUseCustomTagsState TidyCustomPre
 
     const tidyStrings ADDED_MISSING_CHARSET
-    const tidyStrings ANCHOR_DUPLICATED
     const tidyStrings ANCHOR_NOT_UNIQUE
     const tidyStrings APOS_UNDEFINED
     const tidyStrings APPLET_MISSING_ALT
@@ -784,7 +782,6 @@ cdef extern from 'tidyenum.h' nogil:
     const tidyStrings FILE_CANT_OPEN_CFG
     const tidyStrings FILE_NOT_FILE
     const tidyStrings FIXED_BACKSLASH
-    const tidyStrings FN_LINE_COLUMN_STRING
     const tidyStrings FOOTNOTE_TRIM_EMPTY_ELEMENT
     const tidyStrings FOUND_STYLE_IN_BODY
     const tidyStrings FRAME_MISSING_LONGDESC

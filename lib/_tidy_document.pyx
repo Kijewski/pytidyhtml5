@@ -381,7 +381,7 @@ cdef object _path_to_string(object path, char **string, Py_ssize_t *length):
         PyBytes_AsStringAndSize(path, string, length)
     elif isinstance(path, WindowsPath):
         path = unicode(path)
-        string[0] = PyUnicode_AsUTF8AndSize(path, length)
+        string[0] = <char*> PyUnicode_AsUTF8AndSize(path, length)
     else:
         raise RuntimeError('Argument is neither PosixPath nor WindowsPath')
 
@@ -656,7 +656,7 @@ cdef class Document:
         cdef Py_ssize_t string_length
 
         if isinstance(value, unicode):
-            string = PyUnicode_AsUTF8AndSize(value, &string_length)
+            string = <char*> PyUnicode_AsUTF8AndSize(value, &string_length)
         elif isinstance(value, bytes):
             PyBytes_AsStringAndSize(value, &string, &string_length)
         else:
@@ -839,7 +839,7 @@ cdef class Document:
         cdef Py_ssize_t encoding_size
 
         if encoding is not None:
-            encoding_string = PyUnicode_AsUTF8AndSize(encoding, &encoding_size)
+            encoding_string = <char*> PyUnicode_AsUTF8AndSize(encoding, &encoding_size)
             result = tidySetInCharEncoding(tidy_doc, encoding_string)
             if result != 0:
                 raise ValueError('Encoding not understood')
@@ -996,7 +996,7 @@ cdef class Document:
         configfile = _path_to_string(configfile, &configfile_string, &configfile_size)
 
         if encoding is not None:
-            encoding_string = PyUnicode_AsUTF8AndSize(encoding, &encoding_size)
+            encoding_string = <char*> PyUnicode_AsUTF8AndSize(encoding, &encoding_size)
         else:
             encoding_string = NULL
 
@@ -1017,7 +1017,7 @@ cdef class Document:
         if tidy_doc is NULL:
             return
 
-        string = PyUnicode_AsUTF8AndSize(encoding, &length)
+        string = <char*> PyUnicode_AsUTF8AndSize(encoding, &length)
         result = tidySetOutCharEncoding(tidy_doc, string)
 
         return result == 0

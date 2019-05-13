@@ -29,7 +29,7 @@ def set_language(code):
     cdef Py_ssize_t length
     cdef Bool result
 
-    string = PyUnicode_AsUTF8AndSize(code, &length)
+    string = <char*> PyUnicode_AsUTF8AndSize(code, &length)
     result = tidySetLanguage(string)
 
     if result is no:
