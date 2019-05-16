@@ -1,0 +1,4 @@
+[submodule "tidy-html5"]
+	path = tidy-html5
+	url = https://github.com/htacg/tidy-html5.git
+	branch = 3a30f6a4300417674026f6dddea5973debc6b808

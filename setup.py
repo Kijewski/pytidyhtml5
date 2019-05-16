@@ -10,18 +10,17 @@ def get_text(name):
         return eval(f.read().strip())
 
 
+
 extra_compile_args = [
     '-std=c++11',
-
     '-Os', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
     '-D_FORTIFY_SOURCE=2', '-fstack-protector-strong', '--param=ssp-buffer-size=8',
-    '-isystem', '/home/kijewski/opt/tidy5/include',
+    '-isystem', 'tidy-html5/include/',
 ]
 
 extra_link_args = [
     *extra_compile_args,
-    '-L/home/kijewski/local/tidy-html5/lib',
-    '-ltidy',
+    'tidy-html5/build/cmake/libtidys.a',
     '-fPIC',
     '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',
 ]
