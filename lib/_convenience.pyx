@@ -94,7 +94,7 @@ cdef _document_save_buffer(Document document, object encoding, StringBuffer mess
 
     output = StringBuffer(
         BufferTypeInSpe.Ascii   if encoding_enum is DocumentEncodingEnum.DE_Ascii else
-        BufferTypeInSpe.Ascii   if encoding_enum is DocumentEncodingEnum.DE_AsciiBytes else
+        BufferTypeInSpe.Bytes   if encoding_enum is DocumentEncodingEnum.DE_AsciiBytes else
         BufferTypeInSpe.Utf8    if encoding_enum is DocumentEncodingEnum.DE_Unicode else
         BufferTypeInSpe.Bytes # if encoding_enum is DocumentEncodingEnum.DE_Utf8 else
     )
