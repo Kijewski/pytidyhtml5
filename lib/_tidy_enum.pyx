@@ -607,6 +607,7 @@ class _OptionId(IntEnum):
     quote_nbsp = <unsigned int> TidyQuoteNbsp
     replace_color = <unsigned int> TidyReplaceColor
     show_errors = <unsigned int> TidyShowErrors
+    show_filename = <unsigned int> TidyShowFilename
     show_info = <unsigned int> TidyShowInfo
     show_markup = <unsigned int> TidyShowMarkup
     show_meta_change = <unsigned int> TidyShowMetaChange
@@ -670,6 +671,7 @@ class _Strings(IntEnum):
     for_name = staticmethod(strings_for_name)
 
     added_missing_charset = <unsigned int> ADDED_MISSING_CHARSET
+    anchor_duplicated = <unsigned int> ANCHOR_DUPLICATED
     anchor_not_unique = <unsigned int> ANCHOR_NOT_UNIQUE
     apos_undefined = <unsigned int> APOS_UNDEFINED
     applet_missing_alt = <unsigned int> APPLET_MISSING_ALT
@@ -725,6 +727,7 @@ class _Strings(IntEnum):
     file_cant_open_cfg = <unsigned int> FILE_CANT_OPEN_CFG
     file_not_file = <unsigned int> FILE_NOT_FILE
     fixed_backslash = <unsigned int> FIXED_BACKSLASH
+    fn_line_column_string = <unsigned int> FN_LINE_COLUMN_STRING
     footnote_trim_empty_element = <unsigned int> FOOTNOTE_TRIM_EMPTY_ELEMENT
     found_style_in_body = <unsigned int> FOUND_STYLE_IN_BODY
     frame_missing_longdesc = <unsigned int> FRAME_MISSING_LONGDESC
@@ -1073,6 +1076,7 @@ class _TagId(IntEnum):
     colgroup = <unsigned int> TidyTag_COLGROUP
     command = <unsigned int> TidyTag_COMMAND
     comment = <unsigned int> TidyTag_COMMENT
+    data = <unsigned int> TidyTag_DATA
     datalist = <unsigned int> TidyTag_DATALIST
     dd = <unsigned int> TidyTag_DD
     del_ = <unsigned int> TidyTag_DEL

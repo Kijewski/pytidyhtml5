@@ -7,7 +7,7 @@ from clang.cindex import Index, Config, CursorKind
 from inflection import underscore
 
 
-Config.set_library_path('/usr/lib/llvm-6.0/lib')
+Config.set_library_file('/usr/lib/llvm-10/lib/libclang.so.1')
 index = Index.create()
 tu = index.parse(join(dirname(__file__), 'generate_imports_transclusion.h'))
 
