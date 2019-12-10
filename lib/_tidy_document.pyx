@@ -467,29 +467,32 @@ cdef class Document:
 
     cpdef get_status(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
-        cdef int result
-        if tidy_doc is not NULL:
+        if tidy_doc is not NULL and tidyGetHtml(tidy_doc) is not NULL:
             return tidyStatus(tidy_doc)
 
     cpdef get_detected_html_version(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
-        if tidy_doc is not NULL:
+        if tidy_doc is not NULL and tidyGetHtml(tidy_doc) is not NULL:
             return tidyDetectedHtmlVersion(tidy_doc)
 
     cpdef get_detected_xhtml(Document self):
-        return _bool_fn(self.tidy_doc, tidyDetectedXhtml)
+        cdef TidyDoc tidy_doc = self.tidy_doc
+        if tidy_doc is not NULL and tidyGetHtml(tidy_doc) is not NULL:
+            return tidyDetectedXhtml(tidy_doc) != 0
 
     cpdef get_detected_generic_xml(Document self):
-        return _bool_fn(self.tidy_doc, tidyDetectedGenericXml)
+        cdef TidyDoc tidy_doc = self.tidy_doc
+        if tidy_doc is not NULL and tidyGetHtml(tidy_doc) is not NULL:
+            return tidyDetectedGenericXml(tidy_doc) != 0
 
     cpdef get_error_count(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
-        if tidy_doc is not NULL:
-            return tidyErrorCount(tidy_doc)
+        if tidy_doc is not NULL and tidyGetHtml(tidy_doc) is not NULL:
+            return tidyWarningCount(tidy_doc)
 
     cpdef get_warning_count(Document self):
         cdef TidyDoc tidy_doc = self.tidy_doc
-        if tidy_doc is not NULL:
+        if tidy_doc is not NULL and tidyGetHtml(tidy_doc) is not NULL:
             return tidyWarningCount(tidy_doc)
 
     cpdef clean_and_repair(Document self):
