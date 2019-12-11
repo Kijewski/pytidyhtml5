@@ -12,8 +12,8 @@ def get_text(name):
 
 
 extra_compile_args = [
-    '-std=c++11',
-    '-Os', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
+    '-std=c++11', '-flto',
+    '-O2', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
     '-D_FORTIFY_SOURCE=2', '-fstack-protector-strong', '--param=ssp-buffer-size=8',
     '-isystem', 'tidy-html5/include/',
 ]
