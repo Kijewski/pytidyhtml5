@@ -1,5 +1,7 @@
 all: sdist bdist_wheel docs
 
+.DELETE_ON_ERROR:
+
 NAME := pytidyhtml5
 
 .PHONY: all sdist bdist_wheel clean docs
@@ -16,9 +18,16 @@ TIDY_CFLAGS += -std=c11 -D_ISOC11_SOURCE -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE
 
 export CC
 export CXX
+export RANLIB ?= ranlib
 
 
-tidy-html5/build/cmake/libtidys.a:
+tidy-html5/.git:
+	git submodule init
+	git submodule update
+
+tidy-html5/build/cmake/libtidys.a: | tidy-html5/.git
+	mkdir -p tidy-html5/build/
+
 	cd tidy-html5/build/cmake && \
 		cmake ../.. \
 			-DCMAKE_BUILD_TYPE=Release \
@@ -26,8 +35,11 @@ tidy-html5/build/cmake/libtidys.a:
 			-DCMAKE_C_FLAGS="${TIDY_CFLAGS}" \
 			-DCMAKE_C_COMPILER="${CC}"
 			-DCMAKE_CXX_COMPILER="${CXX}"
-	cd tidy-html5/build/cmake && \
+
+	cd tidy-html5/build/cmake/ && \
 		$(MAKE) VERBOSE=1 -B
+
+	$(RANLIB) $@
 
 lib/_import_tidy_enum.pyx: tidy-html5/build/cmake/libtidys.a
 	./generate_imports.py
@@ -35,7 +47,7 @@ lib/_import_tidy_enum.pyx: tidy-html5/build/cmake/libtidys.a
 _${NAME}.cpp: _${NAME}.pyx $(wildcard lib/*.pyx) lib/_import_tidy_enum.pyx
 	rm -f -- dist/*.so _${NAME}.cpp
 	rm -f ./_${NAME}.cpp
-	cythonize $<
+	cythonize -f $<
 
 sdist: _${NAME}.cpp ${FILES}
 	rm -f -- dist/${NAME}-*.tar.gz
@@ -52,10 +64,10 @@ docs: bdist_wheel $(wildcard docs/* docs/*/*)
 	python -m sphinx -M html docs/ dist/
 
 clean:
-	[ ! -f build/ ] || rm -- lib/_import_tidy_enum.pyx
-	[ ! -f build/ ] || rm -- lib/_tidy_enum.pyx
-	[ ! -d build/ ] || rm -r -- build/
-	[ ! -d dist/ ] || rm -r -- dist/
-	[ ! -d ${NAME}.egg-info/ ] || rm -r -- ${NAME}.egg-info/
-	rm -f -- dist/.*.so _${NAME}.cpp
+	-rm -- ./lib/_import_tidy_enum.pyx
+	-rm -- ./lib/_tidy_enum.pyx
+	-rm -r -- ./build/
+	-rm -r -- ./dist/
+	-rm -r -- ./"${NAME}.egg-info/"
+	-cd ./tidy-html5/ && git clean -xdf -- build/cmake/
 	-pip uninstall pytidyhtml5 -y

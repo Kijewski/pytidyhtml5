@@ -25,8 +25,8 @@ def set_language(code):
     code : str
         Language code, e.g. ``"en"``.
     '''
-    cdef char *string
-    cdef Py_ssize_t length
+    cdef char *string = NULL
+    cdef Py_ssize_t length = 0
     cdef Bool result
 
     string = <char*> PyUnicode_AsUTF8AndSize(code, &length)
@@ -45,8 +45,8 @@ def get_language():
     str
         Current language used in messages, e.g. ``"en"``.
     '''
-    cdef const char *string
-    cdef Py_ssize_t length
+    cdef const char *string = NULL
+    cdef Py_ssize_t length = 0
 
     string = <const char*> tidyGetLanguage()
     if string is NULL:

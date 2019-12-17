@@ -521,8 +521,8 @@ cdef class Document:
 
     cpdef save_file(Document self, filename):
         cdef TidyDoc tidy_doc = self.tidy_doc
-        cdef char *path
-        cdef Py_ssize_t length
+        cdef char *path = NULL
+        cdef Py_ssize_t length = 0
         cdef int result
 
         if tidy_doc is NULL:
@@ -597,8 +597,8 @@ cdef class Document:
 
     def save_options_file(Document self, path):
         cdef TidyDoc tidy_doc = self.tidy_doc
-        cdef char *string
-        cdef Py_ssize_t length
+        cdef char *string = NULL
+        cdef Py_ssize_t length = 0
         cdef int result
 
         if tidy_doc is NULL:
@@ -655,13 +655,13 @@ cdef class Document:
         return tidyOptSetValue(tidy_doc, opt_id, value) is not no
 
     cdef PythonBool _set_option_str_object(Document self, TidyOptionId opt_id, object value):
-        cdef char *string
-        cdef Py_ssize_t string_length
+        cdef char *string = NULL
+        cdef Py_ssize_t length = 0
 
         if isinstance(value, unicode):
-            string = <char*> PyUnicode_AsUTF8AndSize(value, &string_length)
+            string = <char*> PyUnicode_AsUTF8AndSize(value, &length)
         elif isinstance(value, bytes):
-            PyBytes_AsStringAndSize(value, &string, &string_length)
+            PyBytes_AsStringAndSize(value, &string, &length)
         else:
             raise TypeError
 
@@ -838,8 +838,8 @@ cdef class Document:
 
     @staticmethod
     cdef boolean _maybe_set_encoding(TidyDoc tidy_doc, encoding) except False:
-        cdef char *encoding_string
-        cdef Py_ssize_t encoding_size
+        cdef char *encoding_string = NULL
+        cdef Py_ssize_t encoding_size = 0
 
         if encoding is not None:
             encoding_string = <char*> PyUnicode_AsUTF8AndSize(encoding, &encoding_size)
@@ -895,8 +895,8 @@ cdef class Document:
             self.is_parsed = True
 
     cpdef parse_file(Document self, path, encoding=None):
-        cdef char *string
-        cdef Py_ssize_t length
+        cdef char *string = NULL
+        cdef Py_ssize_t length = 0
         cdef int result
         cdef TidyDoc tidy_doc = self.tidy_doc
 
@@ -986,10 +986,10 @@ cdef class Document:
             return yes
 
     def load_config_file(Document self, configfile, encoding=None):
-        cdef char *configfile_string
-        cdef Py_ssize_t configfile_size
-        cdef char *encoding_string
-        cdef Py_ssize_t encoding_size
+        cdef char *configfile_string = NULL
+        cdef Py_ssize_t configfile_size = 0
+        cdef char *encoding_string = NULL
+        cdef Py_ssize_t encoding_size = 0
         cdef int result
         cdef TidyDoc tidy_doc = self.tidy_doc
 
@@ -1012,8 +1012,8 @@ cdef class Document:
         return result == 0
 
     cpdef set_output_encoding(Document self, encoding):
-        cdef char *string
-        cdef Py_ssize_t length
+        cdef char *string = NULL
+        cdef Py_ssize_t length = 0
         cdef TidyDoc tidy_doc = self.tidy_doc
         cdef int result
 

@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 
+from glob import glob
 from keyword import iskeyword
 from os.path import join, abspath, dirname
+from re import match
 
 from clang.cindex import Index, Config, CursorKind
 from inflection import underscore
 
 
-Config.set_library_file('/usr/lib/llvm-10/lib/libclang.so.1')
+root = abspath(dirname(__file__))
+
+Config.set_library_file(sorted(
+    glob('/usr/lib/llvm-*/lib/libclang.so.1'),
+    key=lambda p: float(match(r'/usr/lib/llvm-(\d+(?:[.]\d+)?)/', p).group(1)),
+    reverse=True,
+)[0])
+
 index = Index.create()
-tu = index.parse(join(dirname(__file__), 'generate_imports_transclusion.h'))
+tu = index.parse(join(root, 'generate_imports_transclusion.h'))
 
 enums = {}
 
@@ -31,7 +40,7 @@ for cursor in tu.cursor.get_children():
             },
         }
 
-with open('lib/_import_tidy_enum.pyx', 'wt') as f:
+with open(join(root, 'lib', '_import_tidy_enum.pyx'), 'wt') as f:
     print("# GENERATED FILE: all modifications will be overwritten.", file=f)
     print(file=f)
     print("cdef extern from 'tidyenum.h' nogil:", file=f)
@@ -77,7 +86,7 @@ clsnames = {
     'UseCustomTagsState':  ('TidyCustom',      '',      'TidyUseCustomTagsState'),
 }
 
-with open('lib/_tidy_enum.pyx', 'wt') as f:
+with open(join(root, 'lib', '_tidy_enum.pyx'), 'wt') as f:
     print("# GENERATED FILE: all modifications will be overwritten.", file=f)
     print(file=f)
     for clsname in sorted(clsnames):
