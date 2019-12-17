@@ -52,18 +52,18 @@ with open(join(root, 'lib', '_import_tidy_enum.pyx'), 'wt') as f:
     print(file=f)
     for enumname in sorted(enums):
         if enumname.lower().startswith('tidy'):
-            print(f"    ctypedef struct __Enum__{enumname}", file=f)
+            print("    ctypedef struct __Enum__", enumname, file=f, sep='')
 
     print(file=f)
     for enumname in sorted(enums):
         if enumname.lower().startswith('tidy'):
-            print(f"    ctypedef __Enum__{enumname} *{enumname} {enumname!r}", file=f)
+            print("    ctypedef __Enum__", enumname, " *", enumname, " ", repr(enumname), file=f, sep='')
 
     for enumname, definition in sorted(enums.items()):
         if enumname.lower().startswith('tidy'):
             print(file=f)
             for valuename in sorted(definition['values']):
-                print(f"    const {enumname} {valuename}", file=f)
+                print("    const ", enumname, " ", valuename, file=f, sep='')
 
 
 clsnames = {
@@ -88,24 +88,27 @@ clsnames = {
 
 with open(join(root, 'lib', '_tidy_enum.pyx'), 'wt') as f:
     print("# GENERATED FILE: all modifications will be overwritten.", file=f)
+
+    print(file=f)
+    for clsname, (prefix, suffix, enumname) in sorted(clsnames.items()):
+        print("cdef object _", clsname, file=f, sep='')
+
+    print(file=f)
+    for clsname, (prefix, suffix, enumname) in sorted(clsnames.items()):
+        print("global ", clsname, file=f, sep='')
+
     print(file=f)
     for clsname in sorted(clsnames):
-        print(f'cdef type _{clsname}', file=f)
-
-    for clsname in sorted(clsnames):
         print(file=f)
-        print(file=f)
-        print(f"cdef object {underscore(clsname)}_for_name(name):", file=f)
-        print(f"    return _generic_id_for_name(_{clsname}, name)", file=f)
+        print("cdef object ", underscore(clsname), "_for_name(name):", file=f, sep='')
+        print("    return _generic_id_for_name(_", clsname, ", name)", file=f, sep='')
 
     for clsname, (prefix, suffix, enumname) in sorted(clsnames.items()):
-        print(file=f)
-        print(file=f)
-        print(f"class _{clsname}(IntEnum):", file=f)
-        print(f"    __name__ =  __qualname__ = {clsname!r}", file=f)
-        print(f"    for_name = staticmethod({underscore(clsname)}_for_name)", file=f)
-        print(file=f)
         definition = enums[enumname]
+
+        print(file=f)
+        print(file=f)
+        print("_", clsname, " = IntEnum(", repr(clsname), ", {", file=f, sep='')
         for valuename in sorted(definition['values']):
             pretty_name = valuename
             if prefix and pretty_name.startswith(prefix):
@@ -113,12 +116,17 @@ with open(join(root, 'lib', '_tidy_enum.pyx'), 'wt') as f:
             if suffix and pretty_name.endswith(suffix):
                 pretty_name = pretty_name[:-len(suffix)]
             pretty_name = underscore(pretty_name)
+
+            if pretty_name.startswith('n_tidy_'):
+                continue
+
             if iskeyword(pretty_name):
                 pretty_name = f'{pretty_name}_'
 
-            print(f"    {pretty_name} = <{definition['type']}> {valuename}", file=f)
+            print("    ", repr(pretty_name), ": <", definition['type'], "> ", valuename, ",", file=f, sep='')
 
-    print(file=f)
-    print(file=f)
-    for clsname in sorted(clsnames):
-        print(f"{clsname} = _{clsname}", file=f)
+        print("})", file=f)
+        print(file=f)
+        print("_", clsname, ".for_name = ", underscore(clsname), "_for_name", file=f, sep='')
+        print(file=f)
+        print(clsname, " = _", clsname, file=f, sep='')

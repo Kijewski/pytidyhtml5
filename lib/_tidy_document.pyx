@@ -1,14 +1,17 @@
-cdef type _ParseOutcome
+cdef object _ParseOutcome
+
+global ParseOutcome
 
 cdef object parse_outcome_for_name(name):
     return _generic_id_for_name(_ParseOutcome, name)
 
-class _ParseOutcome(IntEnum):
-    for_name = parse_outcome_for_name
+_ParseOutcome = IntEnum('ParseOutcome', {
+    'ok': 0,
+    'warnings': 1,
+    'errors': 2,
+})
 
-    ok = 0
-    warnings = 1
-    errors = 2
+_ParseOutcome.for_name = parse_outcome_for_name
 
 ParseOutcome = _ParseOutcome
 

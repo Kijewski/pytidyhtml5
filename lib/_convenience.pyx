@@ -2,7 +2,9 @@ cdef tuple tuple_OutputSink_Buffer = (OutputSink, Buffer)
 cdef tuple tuple_str_Path = (str, Path)
 
 
-cdef type _DocumentEncoding
+cdef object _DocumentEncoding
+
+global DocumentEncoding
 
 cdef object document_encoding_for_name(name):
     return _generic_id_for_name(_DocumentEncoding, name)
@@ -13,13 +15,14 @@ cdef enum DocumentEncodingEnum:
     DE_Unicode
     DE_Utf8
     
-class _DocumentEncoding(IntEnum):
-    for_name = document_encoding_for_name
+_DocumentEncoding = IntEnum('DocumentEncoding', {
+    'ascii': <unsigned int> DocumentEncodingEnum.DE_Ascii,
+    'ascii_bytes': <unsigned int> DocumentEncodingEnum.DE_AsciiBytes,
+    'unicode': <unsigned int> DocumentEncodingEnum.DE_Unicode,
+    'utf8': <unsigned int> DocumentEncodingEnum.DE_Utf8,
+})
 
-    ascii = DocumentEncodingEnum.DE_Ascii
-    ascii_bytes = DocumentEncodingEnum.DE_AsciiBytes
-    unicode = DocumentEncodingEnum.DE_Unicode
-    utf8 = DocumentEncodingEnum.DE_Utf8
+_DocumentEncoding.for_name = document_encoding_for_name
 
 DocumentEncoding = _DocumentEncoding
 
