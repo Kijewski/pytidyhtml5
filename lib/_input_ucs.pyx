@@ -25,7 +25,7 @@ cdef inline int encode_utf8(SourceData *source_data, Codepoint v) nogil:
         return (codepoint>>12) | 0xE0
 
     elif (Codepoint is uint32_t) or (codepoint < 0x110000):
-        source_data.sub_remaining = 2
+        source_data.sub_remaining = 3
         source_data.sub_string[0] = (codepoint & 0x3F) | 0x80
         source_data.sub_string[1] = ((codepoint >> 6) & 0x3F) | 0x80
         source_data.sub_string[2] = ((codepoint >> 12) & 0x3F) | 0x80
