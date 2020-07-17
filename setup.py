@@ -35,7 +35,7 @@ setup(
     author_email='pypi.org@k6i.de',
     maintainer='René Kijewski',
     maintainer_email='pypi.org@k6i.de',
-    url='https://github.com/Kijewski/pyjson5',
+    url='https://github.com/Kijewski/pytidyhtml5',
     python_requires='~= 3.6',
     zip_safe=False,
     ext_modules=[Extension(
