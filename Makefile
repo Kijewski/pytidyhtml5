@@ -18,7 +18,9 @@ TIDY_CFLAGS += -std=c11 -D_ISOC11_SOURCE -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE
 
 export CC
 export CXX
-export RANLIB ?= ranlib
+
+export AR = gcc-ar
+export RANLIB = gcc-ranlib
 
 
 tidy-html5/.git:
@@ -33,8 +35,10 @@ tidy-html5/build/cmake/libtidys.a: | tidy-html5/.git
 			-DCMAKE_BUILD_TYPE=Release \
 			-DBUILD_SHARED_LIBS=OFF \
 			-DCMAKE_C_FLAGS="${TIDY_CFLAGS}" \
-			-DCMAKE_C_COMPILER="${CC}"
-			-DCMAKE_CXX_COMPILER="${CXX}"
+			-DCMAKE_C_COMPILER="`/usr/bin/which "${CC}"`" \
+			-DCMAKE_CXX_COMPILER="`/usr/bin/which "${CXX}"`" \
+			-DCMAKE_AR="`/usr/bin/which "$${AR}"`" \
+			-DCMAKE_RANLIB="`/usr/bin/which "$${RANLIB}"`"
 
 	cd tidy-html5/build/cmake/ && \
 		$(MAKE) VERBOSE=1 -B

@@ -10,7 +10,6 @@ def get_text(name):
         return eval(f.read().strip())
 
 
-
 extra_compile_args = [
     '-std=c++11', '-flto',
     '-O2', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
@@ -31,13 +30,13 @@ setup(
     name=name,
     version=get_text('VERSION'),
     long_description=get_text('DESCRIPTION'),
-    description='TODO',
+    description='HTML clean-up and repair: Statically linked Python interface for tidy-html5.',
     author='René Kijewski',
     author_email='pypi.org@k6i.de',
     maintainer='René Kijewski',
     maintainer_email='pypi.org@k6i.de',
     url='https://github.com/Kijewski/pyjson5',
-    python_requires='~= 3.4',
+    python_requires='~= 3.6',
     zip_safe=False,
     ext_modules=[Extension(
         '_' + name,
@@ -49,7 +48,21 @@ setup(
     )],
     packages=[name],
     platforms=['any'],
-    license='Apache 2.0',
+    license='ISC',
     classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: ISC License (ISCL)',
+        'Operating System :: OS Independent',
+        'Programming Language :: Cython',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: Implementation :: CPython',
+        'Topic :: Text Processing :: Markup :: HTML ',
     ],
 )

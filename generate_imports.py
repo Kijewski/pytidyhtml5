@@ -11,11 +11,11 @@ from inflection import underscore
 
 root = abspath(dirname(__file__))
 
-Config.set_library_file(sorted(
+Config.set_library_file((sorted(
     glob('/usr/lib/llvm-*/lib/libclang.so.1'),
     key=lambda p: float(match(r'/usr/lib/llvm-(\d+(?:[.]\d+)?)/', p).group(1)),
     reverse=True,
-)[0])
+) or ('/usr/lib64/llvm/libclang.so',))[0])
 
 index = Index.create()
 tu = index.parse(join(root, 'generate_imports_transclusion.h'))
@@ -121,7 +121,7 @@ with open(join(root, 'lib', '_tidy_enum.pyx'), 'wt') as f:
                 continue
 
             if iskeyword(pretty_name):
-                pretty_name = f'{pretty_name}_'
+                pretty_name = pretty_name + '_'
 
             print("    ", repr(pretty_name), ": <", definition['type'], "> ", valuename, ",", file=f, sep='')
 
