@@ -71,6 +71,7 @@ cdef extern from 'native.hpp' namespace 'PyTidyHtml5' nogil:
     PyObject **ref_document[Cls](PyObject *self)
     Out _reinterpret_cast[Out, In](In ptr)
     int call_bool_fn_1(object fn, object arg1)
+    void reset_hash[T](T *obj)
 
     ctypedef boolean AlwaysTrue
 

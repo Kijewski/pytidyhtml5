@@ -132,5 +132,49 @@ int call_bool_fn_1(PyObject *fn, PyObject *arg1) {
     return truthy;
 }
 
+
+template <typename T>
+struct has_ob_shash {
+    template <typename C> static std::uint8_t test(decltype(&C::ob_shash)) ;
+    template <typename C> static std::uint64_t test(...);
+    enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
+};
+
+template <typename T>
+struct has_hash {
+    template <typename C> static std::uint8_t test(decltype(&C::hash)) ;
+    template <typename C> static std::uint64_t test(...);
+    enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
+};
+
+template<class T, bool ob_shash = has_ob_shash<T>::value, bool hash = has_hash<T>::value>
+struct ResetHash_;
+
+template<class T>
+struct ResetHash_ <T, true, false> {
+    static inline void reset(T *obj) {
+        obj->ob_shash = -1;  // CPython: str
+    }
+};
+
+template<class T>
+struct ResetHash_ <T, false, true> {
+    static inline void reset(T *obj) {
+        obj->hash = -1;  // CPython: bytes
+    }
+};
+
+template<class T>
+struct ResetHash_ <T, false, false> {
+    static inline void reset(T *obj) {
+        (void) 0;  // PyPy
+    }
+};
+
+template <class T>
+static inline void reset_hash(T *obj) {
+    ResetHash_<T>::reset(obj);
+}
+
 }
 }

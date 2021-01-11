@@ -141,7 +141,7 @@ cdef class StringBuffer(Buffer):
             result = <object> <PyObject*> ObjectInitVar(
                 (<PyVarObject*> self.tidy_buffer.bp), bytes, length,
             )
-            (<PyBytesObject*> result).ob_shash = -1
+            reset_hash(<PyBytesObject*> result)
 
         else:
             s = &(<signed char*> self.tidy_buffer.bp)[start]
@@ -199,7 +199,7 @@ cdef class StringBuffer(Buffer):
             result = ObjectInit(<PyObject*> self.tidy_buffer.bp, unicode)
 
             (<PyASCIIObject*> result).length = length
-            (<PyASCIIObject*> result).hash = -1
+            reset_hash(<PyASCIIObject*> result)
             (<PyASCIIObject*> result).wstr = NULL
             (<PyASCIIObject*> result).state.interned = SSTATE_NOT_INTERNED
             (<PyASCIIObject*> result).state.kind = PyUnicode_1BYTE_KIND

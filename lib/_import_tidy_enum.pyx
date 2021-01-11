@@ -117,6 +117,8 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_CODEBASE
     const TidyAttrId TidyAttr_CODETYPE
     const TidyAttrId TidyAttr_COLOR
+    const TidyAttrId TidyAttr_COLORINTERPOLATION
+    const TidyAttrId TidyAttr_COLORRENDERING
     const TidyAttrId TidyAttr_COLS
     const TidyAttrId TidyAttr_COLSPAN
     const TidyAttrId TidyAttr_COMPACT
@@ -149,6 +151,9 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_ENCTYPE
     const TidyAttrId TidyAttr_EVENT
     const TidyAttrId TidyAttr_FACE
+    const TidyAttrId TidyAttr_FILL
+    const TidyAttrId TidyAttr_FILLOPACITY
+    const TidyAttrId TidyAttr_FILLRULE
     const TidyAttrId TidyAttr_FOR
     const TidyAttrId TidyAttr_FORM
     const TidyAttrId TidyAttr_FORMACTION
@@ -190,6 +195,7 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_LEFTMARGIN
     const TidyAttrId TidyAttr_LINK
     const TidyAttrId TidyAttr_LIST
+    const TidyAttrId TidyAttr_LOADING
     const TidyAttrId TidyAttr_LONGDESC
     const TidyAttrId TidyAttr_LOOP
     const TidyAttrId TidyAttr_LOW
@@ -213,6 +219,7 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_NOVALIDATE
     const TidyAttrId TidyAttr_NOWRAP
     const TidyAttrId TidyAttr_OBJECT
+    const TidyAttrId TidyAttr_OPACITY
     const TidyAttrId TidyAttr_OPEN
     const TidyAttrId TidyAttr_OPTIMUM
     const TidyAttrId TidyAttr_OnABORT
@@ -331,6 +338,7 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_SHOWGRIDY
     const TidyAttrId TidyAttr_SIZE
     const TidyAttrId TidyAttr_SIZES
+    const TidyAttrId TidyAttr_SLOT
     const TidyAttrId TidyAttr_SPAN
     const TidyAttrId TidyAttr_SPELLCHECK
     const TidyAttrId TidyAttr_SRC
@@ -340,6 +348,14 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_STANDBY
     const TidyAttrId TidyAttr_START
     const TidyAttrId TidyAttr_STEP
+    const TidyAttrId TidyAttr_STROKE
+    const TidyAttrId TidyAttr_STROKEDASHARRAY
+    const TidyAttrId TidyAttr_STROKEDASHOFFSET
+    const TidyAttrId TidyAttr_STROKELINECAP
+    const TidyAttrId TidyAttr_STROKELINEJOIN
+    const TidyAttrId TidyAttr_STROKEMITERLIMIT
+    const TidyAttrId TidyAttr_STROKEOPACITY
+    const TidyAttrId TidyAttr_STROKEWIDTH
     const TidyAttrId TidyAttr_STYLE
     const TidyAttrId TidyAttr_SUMMARY
     const TidyAttrId TidyAttr_TABINDEX
@@ -682,6 +698,7 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyTagId TidyTag_SELECT
     const TidyTagId TidyTag_SERVER
     const TidyTagId TidyTag_SERVLET
+    const TidyTagId TidyTag_SLOT
     const TidyTagId TidyTag_SMALL
     const TidyTagId TidyTag_SOURCE
     const TidyTagId TidyTag_SPACER

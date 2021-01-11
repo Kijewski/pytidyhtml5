@@ -4,10 +4,10 @@ all: sdist bdist_wheel docs
 
 NAME := pytidyhtml5
 
-.PHONY: all sdist bdist_wheel clean docs
+.PHONY: all sdist bdist_wheel clean docs prepare
 
 FILES := Makefile MANIFEST.in _${NAME}.pyx README.rst setup.py \
-         lib/native.hpp lib/VERSION
+         lib/native.hpp lib/VERSION tidy-html5/build/cmake/libtidys.a
 
 
 TIDY_CFLAGS := -O2 -fomit-frame-pointer -flto
@@ -45,13 +45,15 @@ tidy-html5/build/cmake/libtidys.a: | tidy-html5/.git
 
 	$(RANLIB) $@
 
-lib/_import_tidy_enum.pyx: tidy-html5/build/cmake/libtidys.a
+lib/_import_tidy_enum.pyx:
 	./generate_imports.py
 
-_${NAME}.cpp: _${NAME}.pyx $(wildcard lib/*.pyx) lib/_import_tidy_enum.pyx
-	rm -f -- dist/*.so _${NAME}.cpp
-	rm -f ./_${NAME}.cpp
-	cythonize -f $<
+_${NAME}.cpp: _${NAME}.pyx $(wildcard lib/*.pyx) | lib/_import_tidy_enum.pyx
+	-rm -- dist/*.so
+	-rm ./_${NAME}.cpp
+	python -m Cython.Build.Cythonize -f $<
+
+prepare: _${NAME}.cpp ${FILES}
 
 sdist: _${NAME}.cpp ${FILES}
 	rm -f -- dist/${NAME}-*.tar.gz
@@ -68,6 +70,7 @@ docs: bdist_wheel $(wildcard docs/* docs/*/*)
 	python -m sphinx -M html docs/ dist/
 
 clean:
+	-rm -- _${NAME}.cpp
 	-rm -- ./lib/_import_tidy_enum.pyx
 	-rm -- ./lib/_tidy_enum.pyx
 	-rm -r -- ./build/
