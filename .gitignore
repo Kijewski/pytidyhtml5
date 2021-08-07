@@ -2,6 +2,7 @@
 
 /env*/
 /build/
+/built_wheel/
 /cython_debug/
 /dist/
 /*.egg-info/
@@ -22,8 +23,7 @@ run.cgi
 *.old
 *.bak
 *.pid
+*.orig
 
 .*
 !.git*
-
-*.orig

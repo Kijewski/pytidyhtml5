@@ -79,12 +79,9 @@ _${NAME}.cpp: _${NAME}.pyx $(wildcard lib/*.pyx) | lib/_import_tidy_enum.pyx
 
 	python3 -m Cython.Build.Cythonize -f $<
 
-	sed -i -e '1s;^;#ifdef _WIN64\
-static void hypot() {}\
-namespace std { static void _hypot() {} }\
-#include <cmath>\
-#endif\
-;' -e 's/%z/%" PY_FORMAT_SIZE_T "/g' $@
+	sed -i.bak '1s;^;#include "./lib/_fix-mingw32-w64s-cmath.h"\
+;' $@
+	sed -i.bak 's/%z/%" PY_FORMAT_SIZE_T "/g' $@
 
 prepare: _${NAME}.cpp ${FILES}
 

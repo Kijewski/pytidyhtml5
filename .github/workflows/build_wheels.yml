@@ -3,36 +3,25 @@ name: Build Manylinux Wheels
 on:
   workflow_dispatch:
     inputs:
-      os:
-        description: OS
-        required: true
-        default: ubuntu-20.04
-      python:
-        description: Python
-        required: true
-        default: "3.9"
-      manylinux:
-        description: Manylinux
-        required: true
-        default: manylinux2014
-      archs:
-        description: CIBW_ARCHS
-        required: true
-        default: auto
 
 jobs:
   build_wheels:
-    name: Build compat:${{ github.event.inputs.manylinux }}, python:${{ github.event.inputs.python }}, os:${{ github.event.inputs.os }}
-    runs-on: ${{ github.event.inputs.os }}
+    strategy:
+      matrix:
+        os: ['windows-2019', 'macos-10.15']
+        manylinux: ['notlinux']
+        include:
+          - os: ubuntu-20.04
+            manylinux: manylinux2010
+          - os: ubuntu-20.04
+            manylinux: manylinux2014
+          - os: ubuntu-20.04
+            manylinux: manylinux_2_24
+
+    name: Build ${{ matrix.os }} / ${{ matrix.manylinux }}
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Print setup
-        run: |
-          echo os=${{ github.event.inputs.os }}
-          echo python=${{ github.event.inputs.python }}
-          echo manylinux=${{ github.event.inputs.manylinux }}
-          echo archs=${{ github.event.inputs.archs }}
-
       - uses: actions/checkout@v2
         with:
           submodules: true
@@ -40,7 +29,7 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ github.event.inputs.python }}
+          python-version: "3.9"
 
       - name: Update pip
         run: python3 -m pip install -U pip wheel setuptools
@@ -52,12 +41,12 @@ jobs:
         run: make _pytidyhtml5.cpp
 
       - name: Build wheels
-        run: python3 -m cibuildwheel --output-dir wheelhouse-${{ github.event.inputs.manylinux }}-${{ github.event.inputs.os }}
+        run: python3 -m cibuildwheel --output-dir wheelhouse-${{ matrix.os }}-${{ matrix.manylinux }}
         env:
-          CIBW_SKIP: "cp27-* cp34-* cp35-* pp27-*"
-          CIBW_MANYLINUX_X86_64_IMAGE: ${{ github.event.inputs.manylinux }}
-          CIBW_MANYLINUX_I686_IMAGE: ${{ github.event.inputs.manylinux }}
-          CIBW_ARCHS: ${{ github.event.inputs.archs }}
+          CIBW_SKIP: "cp27-* cp34-* cp35-* pp*"  # FIXME: Unicode strings are broken in Pypy
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_I686_IMAGE: ${{ matrix.manylinux }}
+          CIBW_ARCHS: auto
           CIBW_ARCHS_WINDOWS: auto64
           CIBW_BEFORE_BUILD: make clean-artifacts && make tidy-html5/build/cmake/libtidy.a
           CIBW_BUILD_FRONTEND: pip
@@ -66,5 +55,5 @@ jobs:
       - name: Store artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Wheelhouse-${{ github.event.inputs.manylinux }}-${{ github.event.inputs.os }}
-          path: ./wheelhouse-${{ github.event.inputs.manylinux }}-${{ github.event.inputs.os }}/*.whl
+          name: Wheelhouse-${{ matrix.os }}-${{ matrix.manylinux }}
+          path: ./wheelhouse-${{ matrix.os }}-${{ matrix.manylinux }}/*.whl
