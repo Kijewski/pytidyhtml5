@@ -57,14 +57,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PyTidyHTML5'
-copyright = u'2018, René Kijewski'
+copyright = u'2018-2021, René Kijewski'
 author = u'René Kijewski'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-with open(os.path.join(os.path.abspath('..'), 'lib', 'VERSION'), 'rt') as f:
+with open(os.path.join(os.path.abspath('..'), 'lib', 'VERSION.txt'), 'rt') as f:
     # The full version, including alpha/beta/rc tags.
     release = eval(f.read())
     # The short X.Y version.

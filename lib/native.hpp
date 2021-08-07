@@ -9,11 +9,11 @@ namespace PyTidyHtml5 {
 inline namespace {
 
 const char VERSION[] =
-#   include "./VERSION"
+#   include "./VERSION.txt"
 ;
 
 const char LONGDESCRIPTION[] =
-#   include "./DESCRIPTION"
+#   include "./DESCRIPTION.txt"
 ;
 
 const std::size_t VERSION_LENGTH = sizeof(VERSION) - 1;

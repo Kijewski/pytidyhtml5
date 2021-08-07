@@ -28,8 +28,8 @@ name = 'pytidyhtml5'
 
 setup(
     name=name,
-    version=get_text('VERSION'),
-    long_description=get_text('DESCRIPTION'),
+    version=get_text('VERSION.txt'),
+    long_description=get_text('DESCRIPTION.txt'),
     description='HTML clean-up and repair: Statically linked Python interface for tidy-html5.',
     author='René Kijewski',
     author_email='pypi.org@k6i.de',

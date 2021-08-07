@@ -7,7 +7,8 @@ NAME := pytidyhtml5
 .PHONY: all sdist bdist_wheel clean docs prepare
 
 FILES := Makefile MANIFEST.in _${NAME}.pyx README.rst setup.py \
-         lib/native.hpp lib/VERSION tidy-html5/build/cmake/libtidy.a
+         lib/native.hpp lib/VERSION.txt lib/DESCRIPTION.txt \
+         tidy-html5/build/cmake/libtidy.a
 
 
 TIDY_CFLAGS := -O2 -fomit-frame-pointer -flto
