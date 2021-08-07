@@ -7,7 +7,7 @@ NAME := pytidyhtml5
 .PHONY: all sdist bdist_wheel clean docs prepare
 
 FILES := Makefile MANIFEST.in _${NAME}.pyx README.rst setup.py \
-         lib/native.hpp lib/VERSION tidy-html5/build/cmake/libtidys.a
+         lib/native.hpp lib/VERSION tidy-html5/build/cmake/libtidy.a
 
 
 TIDY_CFLAGS := -O2 -fomit-frame-pointer -flto
@@ -27,7 +27,7 @@ tidy-html5/.git:
 	git submodule init
 	git submodule update
 
-tidy-html5/build/cmake/libtidys.a: | tidy-html5/.git
+tidy-html5/build/cmake/libtidy.a: | tidy-html5/.git
 	mkdir -p tidy-html5/build/
 
 	cd tidy-html5/build/cmake && \
@@ -44,6 +44,8 @@ tidy-html5/build/cmake/libtidys.a: | tidy-html5/.git
 		$(MAKE) VERBOSE=1 -B
 
 	$(RANLIB) $@
+
+	-rm tidy-html5/build/cmake/libtidy.so
 
 lib/_import_tidy_enum.pyx:
 	./generate_imports.py

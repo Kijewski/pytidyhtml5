@@ -19,7 +19,7 @@ extra_compile_args = [
 
 extra_link_args = [
     *extra_compile_args,
-    'tidy-html5/build/cmake/libtidys.a',
+    'tidy-html5/build/cmake/libtidy.a',
     '-fPIC',
     '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',
 ]

@@ -211,6 +211,7 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_METHODS
     const TidyAttrId TidyAttr_MIN
     const TidyAttrId TidyAttr_MULTIPLE
+    const TidyAttrId TidyAttr_MUTED
     const TidyAttrId TidyAttr_N
     const TidyAttrId TidyAttr_NAME
     const TidyAttrId TidyAttr_NOHREF
@@ -301,6 +302,7 @@ cdef extern from 'tidyenum.h' nogil:
     const TidyAttrId TidyAttr_OnWAITING
     const TidyAttrId TidyAttr_PATTERN
     const TidyAttrId TidyAttr_PLACEHOLDER
+    const TidyAttrId TidyAttr_PLAYSINLINE
     const TidyAttrId TidyAttr_POSTER
     const TidyAttrId TidyAttr_PREFIX
     const TidyAttrId TidyAttr_PRELOAD
@@ -772,6 +774,7 @@ cdef extern from 'tidyenum.h' nogil:
     const tidyStrings BAD_SURROGATE_LEAD
     const tidyStrings BAD_SURROGATE_PAIR
     const tidyStrings BAD_SURROGATE_TAIL
+    const tidyStrings BLANK_TITLE_ELEMENT
     const tidyStrings CANT_BE_NESTED
     const tidyStrings COERCE_TO_ENDTAG
     const tidyStrings COLOR_CONTRAST_ACTIVE_LINK
