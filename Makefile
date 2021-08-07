@@ -4,7 +4,7 @@ all: sdist bdist_wheel docs
 
 NAME := pytidyhtml5
 
-.PHONY: all sdist bdist_wheel clean docs prepare
+.PHONY: all sdist bdist_wheel clean docs prepare clean-generated clean-artifacts
 
 FILES := Makefile MANIFEST.in _${NAME}.pyx README.rst setup.py \
          lib/native.hpp lib/VERSION.txt lib/DESCRIPTION.txt \
@@ -59,25 +59,29 @@ _${NAME}.cpp: _${NAME}.pyx $(wildcard lib/*.pyx) | lib/_import_tidy_enum.pyx
 prepare: _${NAME}.cpp ${FILES}
 
 sdist: _${NAME}.cpp ${FILES}
-	rm -f -- dist/${NAME}-*.tar.gz
+	-rm -- dist/${NAME}-*.tar.gz
 	python setup.py sdist --format=gztar
 	python setup.py sdist --format=xztar
 
 bdist_wheel: _${NAME}.cpp ${FILES} | sdist
-	rm -f -- dist/${NAME}-*.whl
+	-rm -- dist/${NAME}-*.whl
 	python setup.py bdist_wheel
 
 docs: bdist_wheel $(wildcard docs/* docs/*/*)
-	[ ! -d dist/docs/ ] || rm -r -- dist/html/
+	-rm -r -- dist/html/
 	pip install --force dist/${NAME}-*.whl
 	python -m sphinx -M html docs/ dist/
 
-clean:
+clean: clean-generated clean-artifacts
+
+clean-generated:
 	-rm -- _${NAME}.cpp
 	-rm -- ./lib/_import_tidy_enum.pyx
 	-rm -- ./lib/_tidy_enum.pyx
+
+clean-artifacts:
+	-cd ./tidy-html5/ && git clean -xdf -- build/cmake/
 	-rm -r -- ./build/
 	-rm -r -- ./dist/
 	-rm -r -- ./"${NAME}.egg-info/"
-	-cd ./tidy-html5/ && git clean -xdf -- build/cmake/
 	-pip uninstall pytidyhtml5 -y

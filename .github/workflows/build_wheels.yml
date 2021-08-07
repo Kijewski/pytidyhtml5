@@ -54,8 +54,8 @@ jobs:
       - name: Install requirements
         run: python -m pip install -Ur requirements.txt
 
-      - name: Prepare for compilation
-        run: make prepare
+      - name: Cythonize
+        run: make _pytidyhtml5.cpp
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
@@ -64,6 +64,7 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ github.event.inputs.manylinux }}
           CIBW_MANYLINUX_I686_IMAGE: ${{ github.event.inputs.manylinux }}
           CIBW_ARCHS: ${{ github.event.inputs.archs }}
+          CIBW_BEFORE_BUILD: make clean-artifacts && make tidy-html5/build/cmake/libtidy.a
 
       - name: Store artifacts
         uses: actions/upload-artifact@v2
