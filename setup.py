@@ -1,8 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from os.path import dirname, join, abspath
+from os import environ
 from platform import system
 from setuptools import setup, Extension
+from subprocess import check_output
+from sys import argv
+from traceback import print_last
 
 
 def get_text(name):
@@ -25,6 +29,7 @@ if system() == 'Linux':
         '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',
     ]
 else:
+    # OSX or Windows
     extra_compile_args = [
         '-std=c++11', '-flto',
         '-O2', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
@@ -37,8 +42,49 @@ else:
         '-fPIC',
     ]
 
-name = 'pytidyhtml5'
+if system() == 'Windows':
+    # I cannot get cibuildwheel to accept my CC + CXX overrides. :(
+    # So monkey patching it is ...
 
+    for line in check_output(['make', 'export-environ']).decode('UTF-8').splitlines():
+        (key, value) = line.split('=', 1)
+        environ[key] = value
+
+    import distutils.command.build_ext
+
+    def customize_compiler(compiler):
+        compiler_settings = [
+            environ['CXX'], '-m64',
+            '-Wall', '-Wno-unused-result', '-Wformat', '-Werror=format-security', '-Wdate-time',
+            '-O2', '-g', '-fwrapv', '-fstack-protector-strong',
+            '-DNDEBUG', '-D_FORTIFY_SOURCE=2',
+
+            '-DMS_WIN64', # https://github.com/cython/cython/issues/3405#issuecomment-596975159
+        ]
+
+        compiler.preprocessor = [environ['CXX'], '-m64', '-E', '-Wdate-time', '-D_FORTIFY_SOURCE=2']
+        compiler.compiler = [*compiler_settings]
+        compiler.compiler_cxx = [*compiler_settings]
+        compiler.compiler_so = [*compiler_settings, '-fPIC']
+        compiler.linker_so = [*compiler_settings, '-shared']
+        compiler.linker_exe = [*compiler_settings, '-fPIC']
+        compiler.archiver = [environ['AR'], environ['ARFLAGS']]
+        compiler.ranlib = [environ['RANLIB']]
+
+    class build_ext(distutils.command.build_ext.build_ext):
+        def run(self):
+            self.compiler = 'unix'
+            return super().run()
+
+        def build_extensions(self):
+            print('self.compiler', repr(vars(self.compiler)))
+            return super().build_extensions()
+
+    distutils.command.build_ext.customize_compiler = customize_compiler
+    distutils.command.build_ext.build_ext = build_ext
+
+
+name = 'pytidyhtml5'
 setup(
     name=name,
     version=get_text('VERSION.txt'),
@@ -63,11 +109,13 @@ setup(
     platforms=['any'],
     license='ISC',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: ISC License (ISCL)',
-        'Operating System :: OS Independent',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
         'Programming Language :: Cython',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
