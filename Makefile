@@ -17,12 +17,15 @@ TIDY_CFLAGS += -fstack-protector-strong --param=ssp-buffer-size=8
 TIDY_CFLAGS += -fvisibility=internal -fmerge-all-constants
 TIDY_CFLAGS += -std=c11 -D_ISOC11_SOURCE -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE
 
-export CC
-export CXX
+export CC = $(shell which gcc clang g++ clang++ | head -n1)
+export CXX = $(shell which g++ clang++ gcc clang | head -n1)
+export AR = $(shell which gcc-ar llvm-ar ar | head -n1)
+export RANLIB = $(shell which gcc-ranlib llvm-ranlib ranlib | head -n1)
 
-export AR = gcc-ar
-export RANLIB = gcc-ranlib
-
+$(info CC=${CC})
+$(info CXX=${CXX})
+$(info AR=${AR})
+$(info RANLIB=${RANLIB})
 
 tidy-html5/.git:
 	git submodule init
@@ -36,10 +39,10 @@ tidy-html5/build/cmake/libtidy.a: | tidy-html5/.git
 			-DCMAKE_BUILD_TYPE=Release \
 			-DBUILD_SHARED_LIBS=OFF \
 			-DCMAKE_C_FLAGS="${TIDY_CFLAGS}" \
-			-DCMAKE_C_COMPILER="`/usr/bin/which "${CC}"`" \
-			-DCMAKE_CXX_COMPILER="`/usr/bin/which "${CXX}"`" \
-			-DCMAKE_AR="`/usr/bin/which "$${AR}"`" \
-			-DCMAKE_RANLIB="`/usr/bin/which "$${RANLIB}"`"
+			-DCMAKE_C_COMPILER="${CC}" \
+			-DCMAKE_CXX_COMPILER="${CXX}" \
+			-DCMAKE_AR="${AR}" \
+			-DCMAKE_RANLIB="${RANLIB}"
 
 	cd tidy-html5/build/cmake/ && \
 		$(MAKE) VERBOSE=1 -B

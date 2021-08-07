@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-from setuptools import setup, Extension
 from os.path import dirname, join, abspath
+from platform import system
+from setuptools import setup, Extension
 
 
 def get_text(name):
@@ -10,19 +11,31 @@ def get_text(name):
         return eval(f.read().strip())
 
 
-extra_compile_args = [
-    '-std=c++11', '-flto',
-    '-O2', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
-    '-D_FORTIFY_SOURCE=2', '-fstack-protector-strong', '--param=ssp-buffer-size=8',
-    '-isystem', 'tidy-html5/include/',
-]
-
-extra_link_args = [
-    *extra_compile_args,
-    'tidy-html5/build/cmake/libtidy.a',
-    '-fPIC',
-    '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',
-]
+if system() == 'Linux':
+    extra_compile_args = [
+        '-std=c++11', '-flto',
+        '-O2', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
+        '-D_FORTIFY_SOURCE=2', '-fstack-protector-strong', '--param=ssp-buffer-size=8',
+        '-isystem', 'tidy-html5/include/',
+    ]
+    extra_link_args = [
+        *extra_compile_args,
+        'tidy-html5/build/cmake/libtidy.a',
+        '-fPIC',
+        '-Wl,-zrelro,-znow,-zcombreloc,-znocommon,-znoexecstack',
+    ]
+else:
+    extra_compile_args = [
+        '-std=c++11', '-flto',
+        '-O2', '-fomit-frame-pointer', '-fPIC', '-ggdb1', '-pipe',
+        '-D_FORTIFY_SOURCE=2', '-fstack-protector-strong', '--param=ssp-buffer-size=8',
+        '-isystem', 'tidy-html5/include/',
+    ]
+    extra_link_args = [
+        *extra_compile_args,
+        'tidy-html5/build/cmake/libtidy.a',
+        '-fPIC',
+    ]
 
 name = 'pytidyhtml5'
 
