@@ -34,6 +34,8 @@ jobs:
         with:
           submodules: true
 
+      - run: git config --global --add safe.directory '*' || true
+
       - name: Setup python
         uses: actions/setup-python@v2
         with:
