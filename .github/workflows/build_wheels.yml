@@ -62,7 +62,7 @@ jobs:
           CIBW_TEST_COMMAND: "{project}/basic-sanity-test.py"
 
       - name: Store artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Wheelhouse-${{ matrix.name }}
-          path: ./wheelhouse-*/*.whl
+          path: ./wheelhouse*/*.whl
