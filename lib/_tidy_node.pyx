@@ -8,7 +8,7 @@ cdef class NodeIterChildren:
         if parent is not None:
             self.node = parent.get_child()
 
-    cdef inline boolean _nonzero(NodeIterChildren self) nogil:
+    cdef inline boolean _nonzero(NodeIterChildren self) noexcept nogil:
         if self is None:
             return False
         else:
@@ -38,7 +38,7 @@ cdef class NodeIterAttributes:
         if parent is not None:
             self.attr = parent.get_attr_first()
 
-    cdef inline boolean _nonzero(NodeIterAttributes self) nogil:
+    cdef inline boolean _nonzero(NodeIterAttributes self) noexcept nogil:
         if self is None:
             return False
         else:
@@ -68,7 +68,7 @@ cdef class NodeIterAttributeIds:
         if parent is not None:
             self.attr = parent.get_attr_first()
 
-    cdef inline boolean _nonzero(NodeIterAttributeIds self) nogil:
+    cdef inline boolean _nonzero(NodeIterAttributeIds self) noexcept nogil:
         if self is None:
             return False
         else:
@@ -105,7 +105,7 @@ cdef class NodeAttrProxy:
     def __cinit__(NodeAttrProxy self, Node node):
         self.node = node
 
-    cdef inline boolean _nonzero(NodeAttrProxy self) nogil:
+    cdef inline boolean _nonzero(NodeAttrProxy self) noexcept nogil:
         if self is None:
             return False
         else:
@@ -176,7 +176,7 @@ cdef class Node:
         'and the document has was not been released in the meantime.'
     )
 
-    cdef inline boolean _nonzero(Node self) nogil:
+    cdef inline boolean _nonzero(Node self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_node is NULL:
@@ -216,7 +216,7 @@ cdef class Node:
         else:
             return (self.tidy_node is NULL) or (self.tidy_node is not (<Node> other).tidy_node)
 
-    cdef object __get_node(Node self, TidyNode fn(TidyNode) nogil):
+    cdef object __get_node(Node self, TidyNode fn(TidyNode) noexcept nogil):
         cdef Node result
         cdef TidyNode tidy_node = self.tidy_node
 

@@ -90,25 +90,25 @@ cdef class FiledescriptorSource(InputSource):
         self.close()
 
     @staticmethod
-    cdef int _get_byte(void *sourceData) nogil:
+    cdef int _get_byte(void *sourceData) noexcept nogil:
         return (<FiledescriptorSource> sourceData).get_byte()
 
     @staticmethod
-    cdef void _unget_byte(void *sourceData, byte bt) nogil:
+    cdef void _unget_byte(void *sourceData, byte bt) noexcept nogil:
         (<FiledescriptorSource> sourceData).unget_byte(bt)
 
     @staticmethod
-    cdef Bool _eof(void *sourceData) nogil:
+    cdef Bool _eof(void *sourceData) noexcept nogil:
         return (<FiledescriptorSource> sourceData).eof()
 
-    cdef void unget_byte(FiledescriptorSource self, byte bt) nogil:
+    cdef void unget_byte(FiledescriptorSource self, byte bt) noexcept nogil:
         cdef Py_ssize_t index
 
         self.pushback_remaining += 1
         index = self.pushback_length - self.pushback_remaining
         PyByteArray_AS_STRING(self.buffer)[index] = bt
 
-    cdef int get_byte(FiledescriptorSource self) nogil:
+    cdef int get_byte(FiledescriptorSource self) noexcept nogil:
         cdef uint8_t result
         cdef Py_ssize_t index
         cdef Py_ssize_t pushback_remaining = self.pushback_remaining
@@ -124,7 +124,7 @@ cdef class FiledescriptorSource(InputSource):
 
         return result
 
-    cdef Bool eof(FiledescriptorSource self) nogil:
+    cdef Bool eof(FiledescriptorSource self) noexcept nogil:
         cdef ssize_t count
 
         if self.pushback_remaining > 0:

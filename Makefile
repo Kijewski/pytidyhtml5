@@ -4,18 +4,16 @@ all: sdist bdist_wheel docs
 
 NAME := pytidyhtml5
 
-.PHONY: all sdist bdist_wheel clean docs prepare clean-generated clean-artifacts export-environ
+.PHONY: all sdist bdist_wheel clean docs prepare clean-generated clean-artifacts export-environ install
 
 FILES := Makefile MANIFEST.in _${NAME}.pyx README.rst setup.py \
          lib/native.hpp lib/VERSION.txt lib/DESCRIPTION.txt \
          tidy-html5/build/cmake/libtidy.a
 
 
-TIDY_CFLAGS := -O2 -fomit-frame-pointer -flto
-TIDY_CFLAGS += -fPIC -ggdb1 -pipe
-TIDY_CFLAGS += -fstack-protector-strong --param=ssp-buffer-size=8
+TIDY_CFLAGS := -O3 -flto -fPIC -g0 -pipe
 TIDY_CFLAGS += -fvisibility=internal -fmerge-all-constants
-TIDY_CFLAGS += -std=c11 -D_ISOC11_SOURCE -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE
+TIDY_CFLAGS += -std=c11 -D_ISOC11_SOURCE -D_GNU_SOURCE
 
 
 CC:=$(shell which gcc clang g++ clang++ | head -n1 2> /dev/null)
@@ -87,14 +85,16 @@ prepare: _${NAME}.cpp ${FILES}
 
 sdist: _${NAME}.cpp ${FILES}
 	-rm -- dist/${NAME}-*.tar.gz
-	python3 setup.py sdist --format=gztar
-	python3 setup.py sdist --format=xztar
+	python3 -m build --sdist
 
 bdist_wheel: _${NAME}.cpp ${FILES} | sdist
 	-rm -- dist/${NAME}-*.whl
-	python3 setup.py bdist_wheel
+	python3 -m build --wheel
 
-docs: bdist_wheel $(wildcard docs/* docs/*/*)
+install: bdist_wheel
+	python3 -m pip install --force dist/pytidyhtml5-*.whl
+
+docs: install $(wildcard docs/* docs/*/*)
 	-rm -r -- dist/html/
 	pip install --force dist/${NAME}-*.whl
 	python3 -m sphinx -M html docs/ dist/

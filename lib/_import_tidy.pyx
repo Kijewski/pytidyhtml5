@@ -1,10 +1,10 @@
 cdef extern from 'tidy.h' nogil:
     ctypedef struct TidyAllocator
 
-    ctypedef void *__allocator_alloc(TidyAllocator *self, size_t nBytes)
-    ctypedef void *__allocator_realloc(TidyAllocator *self, void *block, size_t nBytes)
-    ctypedef void __allocator_free(TidyAllocator *self, void *block)
-    ctypedef void __allocator_panic(TidyAllocator *self, ctmbstr msg)
+    ctypedef void *__allocator_alloc(TidyAllocator *self, size_t nBytes) noexcept
+    ctypedef void *__allocator_realloc(TidyAllocator *self, void *block, size_t nBytes) noexcept
+    ctypedef void __allocator_free(TidyAllocator *self, void *block) noexcept
+    ctypedef void __allocator_panic(TidyAllocator *self, ctmbstr msg) noexcept
 
     ctypedef struct TidyAllocatorVtbl:
         __allocator_alloc alloc
@@ -15,11 +15,11 @@ cdef extern from 'tidy.h' nogil:
     ctypedef struct TidyAllocator:
         const TidyAllocatorVtbl *vtbl
 
-    ctypedef int TidyGetByteFunc(void *sourceData)
-    ctypedef void TidyUngetByteFunc(void *sourceData, byte bt)
-    ctypedef Bool TidyEOFFunc(void *sourceData)
+    ctypedef int TidyGetByteFunc(void *sourceData) noexcept
+    ctypedef void TidyUngetByteFunc(void *sourceData, byte bt) noexcept
+    ctypedef Bool TidyEOFFunc(void *sourceData) noexcept
 
-    ctypedef void TidyPutByteFunc(void *sinkData, byte bt)
+    ctypedef void TidyPutByteFunc(void *sinkData, byte bt) noexcept
 
     ctypedef struct TidyInputSource:
         void *sourceData
@@ -48,14 +48,14 @@ cdef extern from 'tidy.h' nogil:
     ctypedef __TidyMessage *TidyMessage
     ctypedef __TidyMessageArgument *TidyMessageArgument
 
-    ctmbstr tidyReleaseDate()
-    ctmbstr tidyLibraryVersion()
-    ctmbstr tidyPlatform()
+    ctmbstr tidyReleaseDate() noexcept
+    ctmbstr tidyLibraryVersion() noexcept
+    ctmbstr tidyPlatform() noexcept
 
-    Bool tidySetLanguage(ctmbstr languageCode)
-    ctmbstr tidyGetLanguage()
+    Bool tidySetLanguage(ctmbstr languageCode) noexcept
+    ctmbstr tidyGetLanguage() noexcept
 
-    ctypedef Bool TidyMessageCallback(TidyMessage tmessage)
+    ctypedef Bool TidyMessageCallback(TidyMessage tmessage) noexcept
 
     # Document
 

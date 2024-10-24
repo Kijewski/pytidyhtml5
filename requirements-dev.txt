@@ -1,0 +1,12 @@
+black
+build
+clang == 17.*
+cython == 3.*
+inflection == 0.5.*
+pytest == 8.*
+wheel
+
+# keep synchronous to requirements-readthedocs.txt
+sphinx == 8.*
+sphinx_autodoc_typehints == 2.*
+sphinx_rtd_theme == 3.*

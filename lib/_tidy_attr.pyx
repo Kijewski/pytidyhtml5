@@ -28,7 +28,7 @@ cdef class Attr:
         'An Attr is truthy if the attribute exists and the Node did not expire.'
     )
 
-    cdef inline boolean _nonzero(Attr self) nogil:
+    cdef inline boolean _nonzero(Attr self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_attr is NULL:

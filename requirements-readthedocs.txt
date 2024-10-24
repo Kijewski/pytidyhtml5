@@ -1,0 +1,7 @@
+# keep synchronous to src/VERSION.inc
+pytidyhtml5 == 2024.10.24
+
+# keep synchronous to requirements.txt
+sphinx == 8.*
+sphinx_autodoc_typehints == 2.*
+sphinx_rtd_theme == 3.*

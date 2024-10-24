@@ -1,6 +1,6 @@
 cdef cppclass _GetEnum [T, V]:
     @staticmethod
-    inline object _do(T elem, V fn(T) nogil, EnumCls):
+    inline object _do(T elem, V fn(T) noexcept nogil, EnumCls):
         cdef V value
         cdef object result = None
 
@@ -19,7 +19,7 @@ cdef cppclass _EnsureId [V]:
     @staticmethod
     inline Py_ssize_t _do(
         object name,
-        V fn(ctmbstr) nogil,
+        V fn(ctmbstr) noexcept nogil,
         Py_ssize_t min_excl,
         Py_ssize_t max_excl,
     ) except -2:

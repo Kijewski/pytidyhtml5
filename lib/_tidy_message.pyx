@@ -29,7 +29,7 @@ cdef class Message:
         '''
         return self.document
 
-    cdef inline boolean _nonzero(Message self) nogil:
+    cdef inline boolean _nonzero(Message self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_message is NULL:
@@ -322,7 +322,7 @@ cdef class MessageArg:
     def __init__(MessageArg self, Message message):
         self.message = message
 
-    cdef inline boolean _nonzero(MessageArg self) nogil:
+    cdef inline boolean _nonzero(MessageArg self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_arg is NULL:
@@ -462,7 +462,7 @@ cdef class MessageIterArgs:
                     self.tidy_iterator = tidy_iterator
                     self.message = message
 
-    cdef inline boolean _nonzero(self) nogil:
+    cdef inline boolean _nonzero(self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -519,7 +519,7 @@ cdef class MessageIterValues:
                     self.tidy_iterator = tidy_iterator
                     self.message = message
 
-    cdef inline boolean _nonzero(self) nogil:
+    cdef inline boolean _nonzero(self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:

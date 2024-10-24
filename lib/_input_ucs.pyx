@@ -7,7 +7,7 @@ ctypedef fused Codepoint:
     uint32_t
 
 
-cdef inline int encode_utf8(SourceData *source_data, Codepoint v) nogil:
+cdef inline int encode_utf8(SourceData *source_data, Codepoint v) noexcept nogil:
     cdef int32_t codepoint = v
 
     if (Codepoint is ascii_char) or (codepoint < 0x80):
@@ -36,7 +36,7 @@ cdef inline int encode_utf8(SourceData *source_data, Codepoint v) nogil:
         return <int> b' '
 
 
-cdef inline int ucsGetByteFunc(SourceData *source_data, Codepoint *data) nogil:
+cdef inline int ucsGetByteFunc(SourceData *source_data, Codepoint *data) noexcept nogil:
     cdef int result
 
     result = source_data.pushback
@@ -55,22 +55,22 @@ cdef inline int ucsGetByteFunc(SourceData *source_data, Codepoint *data) nogil:
     return result
 
 
-cdef int asciiGetByteFunc(void *sourceData_) nogil:
+cdef int asciiGetByteFunc(void *sourceData_) noexcept nogil:
     cdef SourceData *source_data = <SourceData*> sourceData_
     return ucsGetByteFunc(source_data, <ascii_char*> source_data.string)
 
 
-cdef int ucs1GetByteFunc(void *sourceData_) nogil:
+cdef int ucs1GetByteFunc(void *sourceData_) noexcept nogil:
     cdef SourceData *source_data = <SourceData*> sourceData_
     return ucsGetByteFunc(source_data, <uint8_t*> source_data.string)
 
 
-cdef int ucs2GetByteFunc(void *sourceData_) nogil:
+cdef int ucs2GetByteFunc(void *sourceData_) noexcept nogil:
     cdef SourceData *source_data = <SourceData*> sourceData_
     return ucsGetByteFunc(source_data, <uint16_t*> source_data.string)
 
 
-cdef int ucs4GetByteFunc(void *sourceData_) nogil:
+cdef int ucs4GetByteFunc(void *sourceData_) noexcept nogil:
     cdef SourceData *source_data = <SourceData*> sourceData_
     return ucsGetByteFunc(source_data, <uint32_t*> source_data.string)
 
@@ -84,12 +84,12 @@ ctypedef struct SourceData:
     UChar3 sub_string
 
 
-cdef void ungetByteFunc(void *sourceData_, byte bt) nogil:
+cdef void ungetByteFunc(void *sourceData_, byte bt) noexcept nogil:
     cdef SourceData *source_data = <SourceData*> sourceData_
     source_data.pushback = <int> <unsigned int> bt
 
 
-cdef Bool eofFunc(void *sourceData_) nogil:
+cdef Bool eofFunc(void *sourceData_) noexcept nogil:
     cdef SourceData *source_data = <SourceData*> sourceData_
     if source_data.remaining != 0:
         return no

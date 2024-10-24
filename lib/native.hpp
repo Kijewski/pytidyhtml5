@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 #include <utility>
 #include <cstring>
 #include "Python.h"
@@ -19,9 +18,9 @@ const char LONGDESCRIPTION[] =
 const std::size_t VERSION_LENGTH = sizeof(VERSION) - 1;
 const std::size_t LONGDESCRIPTION_LENGTH = sizeof(LONGDESCRIPTION) - 1;
 
-using UChar3 = std::array<unsigned char, 3>;
+using UChar3 = unsigned char[3];
 
-constexpr const UChar3 utf8_bom{{0xBFu, 0xBBu, 0xEFu}};
+constexpr const UChar3 utf8_bom{0xBFu, 0xBBu, 0xEFu};
 
 template <class Type, class ...ArgsFn, class ...ArgsIn>
 ctmbstr _text_fn(Type elem, ctmbstr fn(Type, ArgsFn...), ArgsIn &&...args) {
@@ -133,16 +132,23 @@ int call_bool_fn_1(PyObject *fn, PyObject *arg1) {
 }
 
 
+template <class T>
+struct VoidT_ {
+    using Value = void*;
+};
+
+// hash | ob_shash
+
 template <typename T>
 struct has_ob_shash {
-    template <typename C> static std::uint8_t test(decltype(&C::ob_shash)) ;
+    template <typename C> static std::uint8_t test(typename VoidT_<decltype((std::declval<C>().ob_shash, true))>::Value);
     template <typename C> static std::uint64_t test(...);
     enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
 };
 
 template <typename T>
 struct has_hash {
-    template <typename C> static std::uint8_t test(decltype(&C::hash)) ;
+    template <typename C> static std::uint8_t test(typename VoidT_<decltype((std::declval<C>().hash, true))>::Value);
     template <typename C> static std::uint64_t test(...);
     enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
 };
@@ -174,6 +180,99 @@ struct ResetHash_ <T, false, false> {
 template <class T>
 static inline void reset_hash(T *obj) {
     ResetHash_<T>::reset(obj);
+}
+
+// wstr
+
+template <typename T>
+struct has_wstr {
+    template <typename C> static std::uint8_t test(typename VoidT_<decltype((std::declval<C>().wstr, true))>::Value);
+    template <typename C> static std::uint64_t test(...);
+    enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
+};
+
+template<class T, bool hash = has_wstr<T>::value>
+struct ResetWstr_;
+
+template<class T>
+struct ResetWstr_ <T, true> {
+    static inline void reset(T *obj) {
+        obj->wstr = nullptr;  // CPython >= 3.12: absent
+    }
+};
+
+template<class T>
+struct ResetWstr_ <T, false> {
+    static inline void reset(T *) {
+        (void) 0;
+    }
+};
+
+template <class T>
+static inline void reset_wstr(T *obj) {
+    ResetWstr_<T>::reset(obj);
+}
+
+// ready
+
+template <typename T>
+struct has_ready {
+    template <typename C> static std::uint8_t test(typename VoidT_<decltype((std::declval<C>().state.ready, true))>::Value);
+    template <typename C> static std::uint64_t test(...);
+    enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
+};
+
+template<class T, bool hash = has_ready<T>::value>
+struct SetReady_;
+
+template<class T>
+struct SetReady_ <T, true> {
+    static inline void set(T *obj) {
+        obj->state.ready = true;  // CPython >= 3.12: absent
+    }
+};
+
+template<class T>
+struct SetReady_ <T, false> {
+    static inline void set(T *) {
+        (void) 0;
+    }
+};
+
+template <class T>
+static inline void set_ready(T *obj) {
+    SetReady_<T>::set(obj);
+}
+
+// wstr_length
+
+template <typename T>
+struct has_wstr_length {
+    template <typename C> static std::uint8_t test(typename VoidT_<decltype((std::declval<C>().wstr_length, true))>::Value);
+    template <typename C> static std::uint64_t test(...);
+    enum { value = sizeof(test<T>(0)) == sizeof(std::uint8_t) };
+};
+
+template<class T, bool hash = has_wstr_length<T>::value>
+struct ResetWstrLength_;
+
+template<class T>
+struct ResetWstrLength_ <T, true> {
+    static inline void reset(T *obj) {
+        obj->wstr_length = nullptr;  // CPython >= 3.12: absent
+    }
+};
+
+template<class T>
+struct ResetWstrLength_ <T, false> {
+    static inline void reset(T *) {
+        (void) 0;
+    }
+};
+
+template <class T>
+static inline void reset_wstr_length(T *obj) {
+    ResetWstrLength_<T>::reset(obj);
 }
 
 }

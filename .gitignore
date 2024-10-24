@@ -1,11 +1,11 @@
 *.py[cdo]
 
-/env*/
-/build/
-/built_wheel/
-/cython_debug/
-/dist/
-/*.egg-info/
+env*/
+build/
+built_wheel/
+cython_debug/
+dist/
+*.egg-info/
 
 *.c
 *.cpp
