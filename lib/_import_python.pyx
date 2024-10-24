@@ -32,13 +32,13 @@ cdef extern from 'Python.h':
         PyUnicode_4BYTE_KIND
 
     int PyUnicode_READY(object o) except -1
-    Py_ssize_t PyUnicode_GET_LENGTH(object o) nogil
-    int PyUnicode_KIND(object o) nogil
-    boolean PyUnicode_IS_ASCII(object) nogil
-    Py_UCS1 *PyUnicode_1BYTE_DATA(object o) nogil
-    Py_UCS2 *PyUnicode_2BYTE_DATA(object o) nogil
-    Py_UCS4 *PyUnicode_4BYTE_DATA(object o) nogil
-    void *PyUnicode_DATA(object o) nogil
+    Py_ssize_t PyUnicode_GET_LENGTH(object o) noexcept nogil
+    int PyUnicode_KIND(object o) noexcept nogil
+    boolean PyUnicode_IS_ASCII(object) noexcept nogil
+    Py_UCS1 *PyUnicode_1BYTE_DATA(object o) noexcept nogil
+    Py_UCS2 *PyUnicode_2BYTE_DATA(object o) noexcept nogil
+    Py_UCS4 *PyUnicode_4BYTE_DATA(object o) noexcept nogil
+    void *PyUnicode_DATA(object o) noexcept nogil
 
     int PyDict_SetItemString(object p, const char *key, object val) except -1
 
@@ -50,8 +50,8 @@ cdef extern from 'Python.h':
     object PyMemoryView_FromObject(object)
 
     object PyByteArray_FromStringAndSize(const char*, Py_ssize_t)
-    char *PyByteArray_AS_STRING(object) nogil
-    Py_ssize_t PyByteArray_GET_SIZE(object) nogil
+    char *PyByteArray_AS_STRING(object) noexcept nogil
+    Py_ssize_t PyByteArray_GET_SIZE(object) noexcept nogil
 
     ctypedef signed long Py_hash
     ctypedef signed short wchar_t
@@ -71,14 +71,12 @@ cdef extern from 'Python.h':
     ctypedef struct PyASCIIObject:
         Py_ssize_t length
         Py_hash hash
-        wchar_t *wstr
         __ascii_object_state state
 
     ctypedef struct PyCompactUnicodeObject:
         # PyASCIIObject
         Py_ssize_t utf8_length
         char *utf8
-        Py_ssize_t wstr_length
 
     ctypedef struct PyVarObject:
         pass
@@ -99,7 +97,7 @@ cdef extern from 'Python.h':
     boolean RaiseIfErrOccurred 'PyErr_Occurred'() except True
     AlwaysTrue RaiseErrOccurred 'PyErr_Occurred'() except True
 
-    void *PyMem_RawRealloc(void *p, size_t n) nogil
+    void *PyMem_RawRealloc(void *p, size_t n) noexcept nogil
 
     PyObject *Py_None
 

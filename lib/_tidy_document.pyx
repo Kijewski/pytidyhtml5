@@ -38,7 +38,7 @@ cdef class DocumentIterOptions:
                     self.tidy_iterator = tidy_iterator
                     self.document = document
 
-    cdef boolean _nonzero__(DocumentIterOptions self) nogil:
+    cdef boolean _nonzero__(DocumentIterOptions self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -95,7 +95,7 @@ cdef class DocumentIterOptionIds:
                     self.tidy_iterator = tidy_iterator
                     self.document = document
 
-    cdef inline boolean _nonzero(DocumentIterOptionIds self) nogil:
+    cdef inline boolean _nonzero(DocumentIterOptionIds self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -155,7 +155,7 @@ cdef class DocumentIterDeclTags:
                     self.document = document
                     self.option_id = option_id
 
-    cdef inline boolean _nonzero(DocumentIterDeclTags self) nogil:
+    cdef inline boolean _nonzero(DocumentIterDeclTags self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -201,7 +201,7 @@ cdef class DocumentOptionsProxy:
     def __cinit__(DocumentOptionsProxy self, Document document):
         self.document = document
 
-    cdef inline boolean _nonzero(DocumentOptionsProxy self) nogil:
+    cdef inline boolean _nonzero(DocumentOptionsProxy self) noexcept nogil:
         if self is None:
             return False
         else:
@@ -263,7 +263,7 @@ cdef class DocumentOptionsProxy:
             raise KeyError
 
 
-cdef document_iter_ctmbstr_init(Document document, TidyIterator *out_tidy_iterator, TidyIterator fn(TidyDoc) nogil):
+cdef document_iter_ctmbstr_init(Document document, TidyIterator *out_tidy_iterator, TidyIterator fn(TidyDoc) noexcept nogil):
     cdef TidyDoc tidy_doc
     cdef TidyIterator tidy_iterator
 
@@ -287,7 +287,7 @@ cdef _result_to_outcome(int result):
     return parse_outcome
 
 
-cdef document_iter_ctmbstr_next(PyObject **document, TidyIterator *tidy_iterator, ctmbstr fn(TidyDoc, TidyIterator*) nogil):
+cdef document_iter_ctmbstr_next(PyObject **document, TidyIterator *tidy_iterator, ctmbstr fn(TidyDoc, TidyIterator*) noexcept nogil):
     cdef TidyDoc tidy_doc
     cdef TidyOption tidy_option
     cdef ctmbstr text
@@ -321,7 +321,7 @@ cdef class DocumentIterPriorityAttrs:
     def __cinit__(DocumentIterPriorityAttrs self, Document document):
         self.document = document_iter_ctmbstr_init(document, &self.tidy_iterator, tidyOptGetPriorityAttrList)
 
-    cdef inline boolean _nonzero(DocumentIterPriorityAttrs self) nogil:
+    cdef inline boolean _nonzero(DocumentIterPriorityAttrs self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is not NULL:
@@ -353,7 +353,7 @@ cdef class DocumentIterMutedMessages:
     def __cinit__(DocumentIterMutedMessages self, Document document):
         self.document = document_iter_ctmbstr_init(document, &self.tidy_iterator, tidyOptGetMutedMessageList)
 
-    cdef inline boolean _nonzero(DocumentIterMutedMessages self) nogil:
+    cdef inline boolean _nonzero(DocumentIterMutedMessages self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -416,7 +416,7 @@ cdef class Document:
         if tidy_doc is not NULL:
             tidyRelease(tidy_doc)
 
-    cdef inline boolean _nonzero(Document self) nogil:
+    cdef inline boolean _nonzero(Document self) noexcept nogil:
         if self is None:
             return False
         else:
@@ -444,7 +444,7 @@ cdef class Document:
         else:
             return (self.tidy_doc is NULL) or (self.tidy_doc is not (<Document> other).tidy_doc)
 
-    cdef object __get(Document self, TidyNode fn(TidyDoc) nogil):
+    cdef object __get(Document self, TidyNode fn(TidyDoc) noexcept nogil):
         cdef Node result
         cdef TidyDoc tidy_doc = self.tidy_doc
         cdef TidyNode tidy_node = NULL
@@ -803,7 +803,7 @@ cdef class Document:
         )
         cdef TidyInputSource input_source
         cdef int input_kind
-        cdef int (*get_fun)(void *sourceData_) nogil
+        cdef int (*get_fun)(void *sourceData_) noexcept nogil
         cdef TidyDoc tidy_doc = self.tidy_doc
 
         if tidy_doc is NULL:
@@ -958,7 +958,7 @@ cdef class Document:
         self._set_message_callback(value)
 
     @staticmethod
-    cdef Bool message_callback_nogil(TidyMessage tidy_message) nogil:
+    cdef Bool message_callback_nogil(TidyMessage tidy_message) noexcept nogil:
         cdef TidyDoc tidy_doc = tidyGetMessageDoc(tidy_message)
         cdef void *app_data
 

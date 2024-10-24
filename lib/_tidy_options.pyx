@@ -19,7 +19,7 @@ cdef class OptionPicklist:
                     self.tidy_iterator = tidy_iterator
                     self.option = option
 
-    cdef inline boolean _nonzero(OptionPicklist self) nogil:
+    cdef inline boolean _nonzero(OptionPicklist self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -80,7 +80,7 @@ cdef class OptionIterLinkedOptions:
                         self.tidy_iterator = tidy_iterator
                         self.document = document
 
-    cdef inline boolean _nonzero(OptionIterLinkedOptions self) nogil:
+    cdef inline boolean _nonzero(OptionIterLinkedOptions self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_iterator is NULL:
@@ -139,7 +139,7 @@ cdef class Option:
         'and the document has was not been released in the meantime.'
     )
 
-    cdef inline boolean _nonzero(Option self) nogil:
+    cdef inline boolean _nonzero(Option self) noexcept nogil:
         if self is None:
             return False
         elif self.tidy_option is NULL:

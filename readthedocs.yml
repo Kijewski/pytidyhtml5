@@ -5,10 +5,11 @@ version: 2
 sphinx:
    configuration: docs/conf.py
 
-formats:
-   - pdf
+build:
+   os: ubuntu-24.04
+   tools:
+      python: "3.12"
 
 python:
-   version: "3.8"
    install:
-     - requirements: requirements.readthedocs.txt
+     - requirements: requirements-readthedocs.txt

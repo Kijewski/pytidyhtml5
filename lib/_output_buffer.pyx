@@ -200,17 +200,17 @@ cdef class StringBuffer(Buffer):
 
             (<PyASCIIObject*> result).length = length
             reset_hash(<PyASCIIObject*> result)
-            (<PyASCIIObject*> result).wstr = NULL
+            reset_wstr(<PyASCIIObject*> result)
             (<PyASCIIObject*> result).state.interned = SSTATE_NOT_INTERNED
             (<PyASCIIObject*> result).state.kind = PyUnicode_1BYTE_KIND
             (<PyASCIIObject*> result).state.compact = True
-            (<PyASCIIObject*> result).state.ready = True
+            set_ready(<PyASCIIObject*> result)
             (<PyASCIIObject*> result).state.ascii = is_ascii
 
             if not is_ascii:
                 (<PyCompactUnicodeObject*> result).utf8_length = 0
                 (<PyCompactUnicodeObject*> result).utf8 = NULL
-                (<PyCompactUnicodeObject*> result).wstr_length = 0
+                reset_wstr_length(<PyASCIIObject*> result)
 
         self.tidy_buffer.allocator = NULL
         self.tidy_buffer.bp = NULL

@@ -89,17 +89,17 @@ cdef class CallbackSink(OutputSink):
                 raise
 
     @staticmethod
-    cdef void put_byte_integer(void *sinkData, byte bt) nogil:
+    cdef void put_byte_integer(void *sinkData, byte bt) noexcept nogil:
         with gil:
             (<CallbackSink> sinkData)._put_byte_integer(bt)
 
     @staticmethod
-    cdef void put_byte_bytes(void *sinkData, byte bt) nogil:
+    cdef void put_byte_bytes(void *sinkData, byte bt) noexcept nogil:
         with gil:
             (<CallbackSink> sinkData)._put_byte_bytes(bt)
 
     @staticmethod
-    cdef void put_byte_latin1(void *sinkData, byte bt) nogil:
+    cdef void put_byte_latin1(void *sinkData, byte bt) noexcept nogil:
         with gil:
             (<CallbackSink> sinkData)._put_byte_latin(bt)
 
@@ -168,7 +168,7 @@ cdef class FiledescriptorSink(OutputSink):
         if result < 0:
             RaiseErrOccurred()
 
-    cdef ssize_t _flush(FiledescriptorSink self) nogil:
+    cdef ssize_t _flush(FiledescriptorSink self) noexcept nogil:
         cdef ssize_t result
         cdef Py_ssize_t filled = self.filled
         cdef int fd = self.fd
@@ -193,7 +193,7 @@ cdef class FiledescriptorSink(OutputSink):
         return 0
 
     @staticmethod
-    cdef void put_byte(void *sinkData, byte bt) nogil:
+    cdef void put_byte(void *sinkData, byte bt) noexcept nogil:
         cdef Py_ssize_t *empty = &(<FiledescriptorSink> sinkData).empty
         cdef Py_ssize_t *filled = &(<FiledescriptorSink> sinkData).filled
         cdef char *buf = PyByteArray_AS_STRING((<FiledescriptorSink> sinkData).buffer)
@@ -234,5 +234,5 @@ cdef class VoidSink(OutputSink):
         pass
 
     @staticmethod
-    cdef void put_byte(void *sinkData, byte bt) nogil:
+    cdef void put_byte(void *sinkData, byte bt) noexcept nogil:
         pass

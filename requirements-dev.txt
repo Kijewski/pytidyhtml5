@@ -1,0 +1,7 @@
+black
+build
+clang == 17.*
+cython == 3.*
+inflection == 0.5.*
+setuptools
+wheel
