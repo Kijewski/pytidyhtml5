@@ -1,6 +1,6 @@
 black
 build
-clang == 17.*
+clang == 19.*
 cython == 3.*
 inflection == 0.5.*
 setuptools
